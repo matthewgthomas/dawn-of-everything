@@ -1,0 +1,157 @@
+{
+  "summary": {
+    "settlements": 174,
+    "mentions": 668,
+    "references": 295,
+    "checks": 20,
+    "passed": 20,
+    "failed": 0,
+    "unlocated_settlements": [
+      "Aztlán",
+      "Hor-mer",
+      "Onondaga town"
+    ]
+  },
+  "checks": [
+    {
+      "check": "Settlement IDs are unique",
+      "status": "PASS",
+      "observed": 174,
+      "expected": 174,
+      "detail": ""
+    },
+    {
+      "check": "Canonical settlement names are unique",
+      "status": "PASS",
+      "observed": 174,
+      "expected": 174,
+      "detail": ""
+    },
+    {
+      "check": "Mention IDs are unique",
+      "status": "PASS",
+      "observed": 668,
+      "expected": 668,
+      "detail": ""
+    },
+    {
+      "check": "Settlement-paragraph grain is unique",
+      "status": "PASS",
+      "observed": 668,
+      "expected": 668,
+      "detail": ""
+    },
+    {
+      "check": "All mentions link to a settlement",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Mention names match canonical settlement names",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Every mention links to an extracted source paragraph",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Paragraph text is an exact source-extraction match",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Mention source line ranges match extraction",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Coordinates are paired, numeric, and in bounds",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Only intentionally unlocated settlements lack coordinates",
+      "status": "PASS",
+      "observed": "Aztlán | Hor-mer | Onondaga town",
+      "expected": "Aztlán | Hor-mer | Onondaga town",
+      "detail": ""
+    },
+    {
+      "check": "Occupation intervals are chronologically ordered",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Stored mention counts match mention rows",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Every settlement has at least one paragraph",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Every cited bibliography key links to the references table",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Every cited key has a full bibliography entry",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Known river/culture/fiction false positives are excluded",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Dataset contains substantive settlement coverage",
+      "status": "PASS",
+      "observed": 174,
+      "expected": ">= 170",
+      "detail": ""
+    },
+    {
+      "check": "Dataset contains source-context coverage",
+      "status": "PASS",
+      "observed": 668,
+      "expected": ">= 650",
+      "detail": ""
+    },
+    {
+      "check": "Dataset contains linked bibliography coverage",
+      "status": "PASS",
+      "observed": 295,
+      "expected": ">= 250",
+      "detail": ""
+    }
+  ]
+}
