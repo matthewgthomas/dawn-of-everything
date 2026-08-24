@@ -5,6 +5,7 @@ import { feature } from 'topojson-client'
 import world from 'world-atlas/countries-110m.json'
 import type { GeometryCollection, Topology } from 'topojson-specification'
 import type { NormalizedSettlement } from './data'
+import { clusterMapPoints, MAX_MAP_ZOOM, MIN_MAP_ZOOM } from './mapClustering'
 
 interface WorldMapProps {
   settlements: NormalizedSettlement[]
@@ -14,16 +15,10 @@ interface WorldMapProps {
 }
 
 interface ProjectedPoint {
+  id: string
   settlement: NormalizedSettlement
   x: number
   y: number
-}
-
-interface Cluster {
-  key: string
-  x: number
-  y: number
-  points: ProjectedPoint[]
 }
 
 const width = 960
@@ -33,6 +28,7 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
   const svgRef = useRef<SVGSVGElement>(null)
   const zoomRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null)
   const [transform, setTransform] = useState<ZoomTransform>(zoomIdentity)
+  const [clusterScale, setClusterScale] = useState(MIN_MAP_ZOOM)
   const projection = useMemo(() => geoEqualEarth().fitExtent([[18, 18], [width - 18, height - 18]], { type: 'Sphere' }), [])
   const path = useMemo(() => geoPath(projection), [projection])
   const countries = useMemo(
@@ -43,34 +39,18 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
   const points = useMemo(() => settlements.flatMap((settlement): ProjectedPoint[] => {
     if (settlement.longitudeNumber === null || settlement.latitudeNumber === null) return []
     const point = projection([settlement.longitudeNumber, settlement.latitudeNumber])
-    return point ? [{ settlement, x: point[0], y: point[1] }] : []
+    return point ? [{ id: settlement.settlement_id, settlement, x: point[0], y: point[1] }] : []
   }), [projection, settlements])
 
-  const clusters = useMemo(() => {
-    const cells = new Map<string, ProjectedPoint[]>()
-    const cellSize = transform.k > 6 ? 20 : 42
-    points.forEach((point) => {
-      const screenX = transform.applyX(point.x)
-      const screenY = transform.applyY(point.y)
-      const key = `${Math.floor(screenX / cellSize)}:${Math.floor(screenY / cellSize)}`
-      const entries = cells.get(key) ?? []
-      entries.push(point)
-      cells.set(key, entries)
-    })
-    return [...cells.entries()].map(([key, entries]): Cluster => ({
-      key,
-      x: entries.reduce((sum, entry) => sum + entry.x, 0) / entries.length,
-      y: entries.reduce((sum, entry) => sum + entry.y, 0) / entries.length,
-      points: entries,
-    }))
-  }, [points, transform])
+  const clusters = useMemo(() => clusterMapPoints(points, clusterScale), [clusterScale, points])
 
   useEffect(() => {
     if (!svgRef.current) return
     const behavior = zoom<SVGSVGElement, unknown>()
-      .scaleExtent([1, 14])
+      .scaleExtent([MIN_MAP_ZOOM, MAX_MAP_ZOOM])
       .translateExtent([[-width * 0.55, -height * 0.55], [width * 1.55, height * 1.55]])
       .on('zoom', (event) => setTransform(event.transform))
+      .on('end', (event) => setClusterScale(event.transform.k))
     zoomRef.current = behavior
     const selection = select(svgRef.current)
     selection.call(behavior).on('dblclick.zoom', null)
@@ -103,7 +83,14 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
         <button className="icon-button" onClick={() => scaleBy(0.59)} aria-label="Zoom map out"><Minus /></button>
         <button className="icon-button" onClick={reset} aria-label="Reset world map"><LocateFixed /></button>
       </div>
-      <svg ref={svgRef} className="world-map" viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby="map-title map-desc">
+      <svg
+        ref={svgRef}
+        className="world-map"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-labelledby="map-title map-desc"
+      >
         <title id="map-title">Settlements in The Dawn of Everything</title>
         <desc id="map-desc">Pan and zoom the map. Select a marker or numbered cluster to inspect settlements.</desc>
         <defs><clipPath id="world-map-clip"><rect width={width} height={height} /></clipPath></defs>
