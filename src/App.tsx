@@ -95,12 +95,11 @@ export default function App() {
   return (
     <main className="site-shell">
       <header className="site-header">
-        <div className="brand-mark" aria-hidden="true"><span>DA</span></div>
+        <div className="brand-mark" aria-hidden="true"><span /></div>
         <div className="brand-copy">
-          <p className="eyebrow">An atlas of human possibility</p>
-          <h1>The Dawn Atlas</h1>
+          <h1 aria-label="The Dawn Atlas"><span aria-hidden="true">The Dawn</span><span aria-hidden="true">Atlas</span></h1>
         </div>
-        <p className="header-subtitle">Settlements in <em>The Dawn of Everything</em></p>
+        <p className="header-subtitle"><span>Settlements mentioned in</span><em>The Dawn of Everything</em></p>
         <nav className="header-actions" aria-label="Atlas information and comparison">
           <button className="text-button" onClick={() => setAboutOpen(true)}>About the data <ArrowUpRight size={15} /></button>
           <button className="header-compare-button" onClick={() => setCompareOpen(true)}><Star size={16} /> Compare <b>{compareIds.length}/4</b></button>
