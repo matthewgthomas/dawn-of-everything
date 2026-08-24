@@ -2,3 +2,9 @@
 book/
 outputs/
 .DS_Store
+node_modules/
+dist/
+coverage/
+output/playwright/
+.playwright/
+.playwright-cli/
