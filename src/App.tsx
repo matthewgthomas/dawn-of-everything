@@ -178,10 +178,7 @@ export default function App() {
 
         <div className="visual-workspace">
           <section className={`map-panel view-pane${mobileView === 'map' ? ' mobile-active' : ''}`}>
-            <div className="panel-heading">
-              <div><p className="eyebrow">Geography</p><h2>A world of settlements</h2></div>
-              <p>Every point is a place where people lived together. Select a cluster to move closer.</p>
-            </div>
+            <p className="map-description">Every point is a place where people lived together. Select a cluster to move closer.</p>
             <WorldMap settlements={results} selectedId={selectedId} pinnedIds={compareIds} onSelect={selectSettlement} />
           </section>
 
