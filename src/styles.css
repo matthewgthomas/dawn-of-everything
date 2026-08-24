@@ -248,7 +248,7 @@ mark { padding: 0 2px; background: #ffc875; color: inherit; }
 .compare-launcher { position: fixed; left: 0; right: 0; bottom: 0; z-index: 35; min-height: 66px; padding: 0 24px; display: flex; align-items: center; background: var(--ink); color: #fff9ec; border-top: 4px solid var(--orange); box-shadow: 0 -5px 22px rgba(36,27,23,0.18); }
 .compare-launcher.is-empty { width: 100%; border-left: 0; border-right: 0; border-bottom: 0; cursor: pointer; text-align: left; }
 .compare-launcher-main, .compare-launcher.is-empty { min-height: 62px; padding: 8px 0; flex: 1; display: flex; align-items: center; gap: 12px; background: transparent; color: inherit; border: 0; cursor: pointer; }
-.compare-launcher.is-empty { background: var(--ink); color: #fff9ec; }
+.compare-launcher.is-empty { padding: 8px 24px; background: var(--ink); color: #fff9ec; }
 .compare-launcher span { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .compare-launcher strong { font-family: 'Newsreader', Georgia, serif; font-size: 1.05rem; }
 .compare-launcher small { max-width: 70vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #d6c5b6; font-size: 0.62rem; }
@@ -331,6 +331,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [role='button']
   .map-description { display: none; }
   .map-shell { flex: 1; min-height: 0; }.world-map { height: 100%; min-height: 0; max-height: 100%; }
   .compare-launcher { padding: 0 13px; }
+  .compare-launcher.is-empty { padding: 8px 13px; }
 }
 
 @media (max-width: 600px) {
