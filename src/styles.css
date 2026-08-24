@@ -199,6 +199,13 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); color: var(--muted); font
 .pin-button.is-pinned svg { fill: currentColor; }
 .detail-content { padding: 24px 25px 80px; }
 .detail-description, .about-lede { margin: 0 0 22px; color: var(--ink); font-family: 'Newsreader', Georgia, serif; font-size: 1.28rem; line-height: 1.42; }
+.detail-location-map { margin: 0 0 20px; overflow: hidden; border: 1px solid #9f8067; background: #c9b795; box-shadow: 3px 3px 0 rgba(97,28,26,0.11); }
+.detail-location-map svg { display: block; width: 100%; height: clamp(180px, 32vw, 200px); }
+.detail-location-marker .detail-location-halo { fill: var(--orange-bright); opacity: 0.32; }
+.detail-location-marker .detail-location-dot { fill: var(--oxblood); stroke: #fff4de; stroke-width: 2.5; }
+.detail-location-map figcaption { min-height: 31px; padding: 7px 9px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid #9f8067; background: rgba(255,249,237,0.9); color: var(--muted); font-size: 0.61rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.detail-location-map figcaption strong { overflow: hidden; color: var(--ink); text-overflow: ellipsis; white-space: nowrap; }
+.detail-location-map figcaption span { flex-shrink: 0; }
 .location-warning, .validation-callout { padding: 12px; margin-bottom: 18px; display: flex; gap: 11px; align-items: flex-start; border: 1px solid var(--red); background: rgba(170,52,37,0.07); color: var(--red); }
 .location-warning svg, .validation-callout svg { width: 21px; }
 .location-warning span, .validation-callout span { display: flex; flex-direction: column; gap: 2px; font-size: 0.72rem; }
@@ -340,6 +347,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [role='button']
   .drawer-header { padding: 15px; }.filter-section { padding: 16px; }.drawer-footer { padding: 11px 15px; }
   .date-input-grid { grid-template-columns: 1fr; }
   .detail-hero { padding: 15px 18px 22px; }.detail-content { padding: 20px 18px 85px; }.detail-hero h2 { font-size: 3rem; }
+  .detail-location-map svg { height: 180px; }
   .metadata-grid { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: 1fr; }.about-stats div { border-right: 0; border-bottom: 1px solid var(--line); }.about-stats div:last-child { border-bottom: 0; }
   .compare-tray { height: 100vh; }.compare-content { padding: 12px 14px 45px; }.compare-header-actions .text-button { font-size: 0; }.compare-header-actions .text-button svg { width: 18px; }

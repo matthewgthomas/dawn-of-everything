@@ -1,6 +1,7 @@
 import { Fragment, useMemo } from 'react'
 import { ArrowUpRight, MapPinOff, Star, X } from 'lucide-react'
 import type { Mention, NormalizedSettlement } from './data'
+import SettlementLocationMap from './SettlementLocationMap'
 
 interface DetailDrawerProps {
   settlement: NormalizedSettlement
@@ -56,6 +57,7 @@ export default function DetailDrawer({ settlement, query, pinned, canPin, onPin,
       <div className="detail-content">
         <p className="detail-description">{settlement.wikidata_description || `A ${settlement.settlement_type} mentioned in The Dawn of Everything.`}</p>
 
+        {located && <SettlementLocationMap settlement={settlement} />}
         {!located && <div className="location-warning"><MapPinOff /><span><strong>Location unresolved</strong>This settlement remains browseable but is not plotted on the map.</span></div>}
 
         <dl className="metadata-grid">
