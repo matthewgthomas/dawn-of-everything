@@ -48,7 +48,7 @@ h1 { font-size: clamp(2rem, 3.2vw, 3.15rem); line-height: 0.88; }
 .search-box input { flex: 1; border: 0; outline: 0; background: transparent; min-width: 0; }
 .search-box > button { width: 28px; height: 28px; display: grid; place-items: center; border: 0; background: transparent; cursor: pointer; }
 .search-box > button svg { width: 16px; }
-kbd { padding: 3px 7px; border: 1px solid var(--line); color: var(--muted); font-size: 0.7rem; }
+kbd { padding: 3px 7px; border: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
 .filter-button, .primary-button, .secondary-button { min-height: 44px; border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; font-weight: 600; }
 .filter-button { padding: 0 18px; background: var(--ink); color: #fff9ec; }
 .filter-button span { background: #6c5d54; padding: 2px 7px; border-radius: 10px; font-size: 0.72rem; }
@@ -57,7 +57,7 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); color: var(--muted); font
 .secondary-button { padding: 0 18px; border: 1px solid var(--ink); background: transparent; }
 .result-total { margin: 0 0 0 auto; color: var(--muted); font-size: 1rem; white-space: nowrap; }
 .result-total strong { color: var(--red); }
-.active-filter-strip { min-height: 43px; padding: 7px 28px; display: flex; align-items: center; gap: 7px; overflow-x: auto; border-bottom: 1px solid var(--line); background: #eddfc4; color: var(--muted); font-size: 0.69rem; white-space: nowrap; }
+.active-filter-strip { min-height: 43px; padding: 7px 28px; display: flex; align-items: center; gap: 7px; overflow-x: auto; border-bottom: 1px solid var(--line); background: #eddfc4; color: var(--muted); font-size: 1rem; white-space: nowrap; }
 .active-filter-strip > button { min-height: 27px; padding: 3px 8px; border: 1px solid #b89b7d; background: var(--paper-light); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
 .active-filter-strip > button svg { width: 12px; }
 .active-filter-strip .reset-link { margin-left: auto; border: 0; background: transparent; color: var(--red); text-decoration: underline; }
