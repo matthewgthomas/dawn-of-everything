@@ -19,21 +19,16 @@ const chapterCoverage = (settlement: NormalizedSettlement, chapter: number | nul
 
 export default function CompareTray({ settlements, open, onOpenChange, onRemove, onMove, onClear }: CompareTrayProps) {
   if (settlements.length === 0) {
+    if (!open) return null
+
     return (
-      <>
-        <button className="compare-launcher is-empty" onClick={() => onOpenChange(true)} aria-label="Comparison tray, no settlements pinned">
-          <Star /> <span><strong>Compare settlements</strong><small>Pin up to four from the atlas</small></span><b>0 / 4</b>
-        </button>
-        {open && (
-          <aside className="compare-tray empty-compare-tray" role="dialog" aria-modal="true" aria-labelledby="empty-compare-title">
-            <div className="drawer-header compare-header">
-              <div><p className="eyebrow">Side by side</p><h2 id="empty-compare-title">Compare settlements</h2></div>
-              <button className="icon-button" onClick={() => onOpenChange(false)} aria-label="Close comparison"><X /></button>
-            </div>
-            <div className="empty-state"><Star /><h2>Nothing pinned yet</h2><p>Close this tray, then use the star beside any settlement to add up to four places.</p><button className="primary-button" onClick={() => onOpenChange(false)}>Browse settlements</button></div>
-          </aside>
-        )}
-      </>
+      <aside className="compare-tray empty-compare-tray" role="dialog" aria-modal="true" aria-labelledby="empty-compare-title">
+        <div className="drawer-header compare-header">
+          <div><p className="eyebrow">Side by side</p><h2 id="empty-compare-title">Compare settlements</h2></div>
+          <button className="icon-button" onClick={() => onOpenChange(false)} aria-label="Close comparison"><X /></button>
+        </div>
+        <div className="empty-state"><Star /><h2>Nothing pinned yet</h2><p>Close this tray, then use the star beside any settlement to add up to four places.</p><button className="primary-button" onClick={() => onOpenChange(false)}>Browse settlements</button></div>
+      </aside>
     )
   }
 

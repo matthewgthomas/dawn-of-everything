@@ -408,7 +408,8 @@ h1, h2, h3, h4 {
   font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   font-weight: 600;
 }
-.site-shell { background: var(--paper); padding-bottom: var(--compare-height); }
+.site-shell { --compare-height: 0px; background: var(--paper); padding-bottom: var(--compare-height); }
+.site-shell.has-compare-launcher { --compare-height: 66px; }
 
 .site-header {
   height: var(--header-height);

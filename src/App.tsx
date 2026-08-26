@@ -93,7 +93,7 @@ export default function App() {
   const removeSection = (section: string) => setFilters((current) => ({ ...current, sections: current.sections.filter((entry) => entry !== section) }))
 
   return (
-    <main className="site-shell">
+    <main className={`site-shell${compared.length > 0 ? ' has-compare-launcher' : ''}`}>
       <header className="site-header">
         <div className="brand-mark" aria-hidden="true"><span /></div>
         <div className="brand-copy">

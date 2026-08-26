@@ -1,12 +1,36 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import CompareTray from './CompareTray'
 import DetailDrawer from './DetailDrawer'
 import FilterPanel from './FilterPanel'
 import { EMPTY_FILTERS } from './filtering'
 import { settlementById } from './data'
 
 afterEach(cleanup)
+
+describe('CompareTray', () => {
+  const props = {
+    onOpenChange: vi.fn(),
+    onRemove: vi.fn(),
+    onMove: vi.fn(),
+    onClear: vi.fn(),
+  }
+
+  it('hides the bottom launcher until a settlement is pinned', () => {
+    const { rerender } = render(<CompareTray settlements={[]} open={false} {...props} />)
+    expect(document.querySelector('.compare-launcher')).not.toBeInTheDocument()
+
+    rerender(<CompareTray settlements={[settlementById.get('S106')!]} open={false} {...props} />)
+    expect(document.querySelector('.compare-launcher')).toBeInTheDocument()
+  })
+
+  it('still shows the empty tray when opened from elsewhere', () => {
+    render(<CompareTray settlements={[]} open {...props} />)
+    expect(screen.getByRole('dialog', { name: 'Compare settlements' })).toBeInTheDocument()
+    expect(document.querySelector('.compare-launcher')).not.toBeInTheDocument()
+  })
+})
 
 describe('FilterPanel', () => {
   it('selects an exact settlement type and resets it', async () => {
