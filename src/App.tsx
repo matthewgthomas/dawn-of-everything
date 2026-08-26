@@ -146,7 +146,7 @@ export default function App() {
 
       <section className="explorer-grid">
         <aside className={`results-panel view-pane${mobileView === 'results' ? ' mobile-active' : ''}`}>
-          <div className="panel-label"><span>Browse settlements</span><span>Ranked by relevance</span></div>
+          <div className="panel-label"><span>Browse settlements</span><span>Ranked by mentions</span></div>
           <div className="result-list">
             {results.length === 0 && (
               <div className="empty-state"><Search /><h2>No settlements found</h2><p>Try a broader search or remove some filters.</p><button className="secondary-button" onClick={resetAll}>Reset all</button></div>

@@ -70,7 +70,7 @@ export default function Timeline({ settlements, selectedId, pinnedIds, onSelect,
   return (
     <section className="timeline-card" aria-labelledby="timeline-title">
       <div className="timeline-header">
-        <div><p className="eyebrow">Chronology</p><h2 id="timeline-title">Occupation through time</h2></div>
+        <div><h2 id="timeline-title">Occupation through time</h2></div>
         <div className="timeline-controls" aria-label="Timeline zoom controls">
           <button className="icon-button" onClick={() => zoom(0.55)} aria-label="Zoom timeline in"><Plus /></button>
           <button className="icon-button" onClick={() => zoom(1.8)} aria-label="Zoom timeline out"><Minus /></button>
