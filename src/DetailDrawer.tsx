@@ -89,7 +89,7 @@ export default function DetailDrawer({ settlement, query, pinned, canPin, onPin,
               {mentions.map((mention) => (
                 <article className="mention-card" key={mention.mention_id}>
                   <p>{highlightText(mention.complete_paragraph_text, query)}</p>
-                  <div className="mention-meta"><span>{mention.paragraph_id}</span><span>Lines {mention.source_line_start}–{mention.source_line_end}</span></div>
+                  {/* <div className="mention-meta"><span>{mention.paragraph_id}</span><span>Lines {mention.source_line_start}–{mention.source_line_end}</span></div> */}
                   {(mention.book_note_texts || mention.full_bibliography_entries) && (
                     <details>
                       <summary>Notes & bibliography</summary>
