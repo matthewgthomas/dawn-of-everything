@@ -272,10 +272,10 @@ mark { padding: 0 2px; background: #ffc875; color: inherit; }
 .reorder-controls svg { width: 12px; }.reorder-controls button:first-child svg, .reorder-controls button:nth-child(2) svg { transform: rotate(-90deg); }
 .compare-row { display: contents; }
 .compare-row > * { min-height: 52px; padding: 10px; border-bottom: 1px solid var(--line); }
-.compare-row-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
-.compare-row > span { border-left: 1px solid var(--line); font-size: 0.73rem; line-height: 1.4; }
+.compare-row-label { text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.compare-row > span { border-left: 1px solid var(--line); line-height: 1.4; }
 .coverage-matrix { margin-top: 28px; max-width: 780px; }
-.coverage-matrix table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+.coverage-matrix table { width: 100%; border-collapse: collapse; }
 .coverage-matrix th, .coverage-matrix td { padding: 7px 10px; border: 1px solid var(--line); text-align: center; }
 .coverage-matrix th:first-child { text-align: left; }
 .coverage-matrix td { color: var(--red); }
