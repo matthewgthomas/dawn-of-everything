@@ -42,10 +42,9 @@ export default function DetailDrawer({ settlement, query, pinned, canPin, onPin,
     <aside className="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="detail-title">
       <div className="detail-hero">
         <div className="drawer-header detail-header">
-          {/* <p className="eyebrow">Settlement record · {settlement.settlement_id}</p> */}
+          <h2 id="detail-title">{settlement.canonical_name}</h2>
           <button className="icon-button on-dark" onClick={onClose} aria-label="Close settlement details"><X /></button>
         </div>
-        <h2 id="detail-title">{settlement.canonical_name}</h2>
         <p className="detail-era">{settlement.occupation_interval_display}</p>
         <div className="detail-actions">
           <button className={pinned ? 'pin-button is-pinned' : 'pin-button'} disabled={!pinned && !canPin} onClick={onPin}>
