@@ -1,5 +1,5 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUpRight, Filter, List, Map as MapIcon, Search, SlidersHorizontal, Star, X } from 'lucide-react'
+import { Filter, Info, List, Map as MapIcon, Search, SlidersHorizontal, Star, X } from 'lucide-react'
 import AboutPanel from './AboutPanel'
 import CompareTray from './CompareTray'
 import DetailDrawer from './DetailDrawer'
@@ -100,9 +100,8 @@ export default function App() {
           <h1 aria-label="The Dawn Atlas"><span aria-hidden="true">The Dawn</span><span aria-hidden="true">Atlas</span></h1>
         </div>
         <p className="header-subtitle"><span>Settlements mentioned in</span><em>The Dawn of Everything</em></p>
-        <nav className="header-actions" aria-label="Atlas information and comparison">
-          <button className="text-button" onClick={() => setAboutOpen(true)}>About the data <ArrowUpRight size={15} /></button>
-          <button className="header-compare-button" onClick={() => setCompareOpen(true)}><Star size={16} /> Compare <b>{compareIds.length}/4</b></button>
+        <nav className="header-actions" aria-label="Atlas information">
+          <button className="header-compare-button" onClick={() => setAboutOpen(true)}><Info size={16} aria-hidden="true" /> About this data</button>
         </nav>
       </header>
 

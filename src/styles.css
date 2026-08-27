@@ -40,8 +40,7 @@ h1 { font-size: clamp(2rem, 3.2vw, 3.15rem); line-height: 0.88; }
 .header-subtitle { margin: 0 auto; font-family: 'Newsreader', Georgia, serif; font-size: 1.08rem; opacity: 0.9; }
 .header-actions { display: flex; gap: 12px; align-items: center; }
 .text-button { border: 0; padding: 7px 0; background: transparent; color: inherit; display: inline-flex; gap: 6px; align-items: center; cursor: pointer; font-size: 0.8rem; }
-.header-compare-button { min-height: 39px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.5); background: rgba(97,28,26,0.35); color: #fff9ec; display: flex; gap: 8px; align-items: center; cursor: pointer; font-size: 0.78rem; }
-.header-compare-button b { padding: 2px 5px; background: var(--orange); }
+.header-compare-button { min-height: 39px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.5); background: rgba(97,28,26,0.35); color: #fff9ec; display: flex; gap: 8px; align-items: center; cursor: pointer; font-size: 0.78rem; white-space: nowrap; }
 
 .search-band { min-height: 72px; padding: 12px 28px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); background: #f8eedc; position: relative; z-index: 15; }
 .search-box { flex: 1; max-width: 720px; height: 46px; padding: 0 13px; display: flex; align-items: center; gap: 10px; background: #fffaf1; border: 1px solid #b99b80; box-shadow: 3px 3px 0 rgba(102, 28, 26, 0.08); }
@@ -335,7 +334,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [role='button']
 }
 
 @media (max-width: 600px) {
-  .site-header { gap: 11px; }.site-header h1 { font-size: 2rem; }.header-compare-button { padding: 0 8px; font-size: 0; gap: 5px; }.header-compare-button b { font-size: 0.65rem; }
+  .site-header { gap: 11px; }.site-header h1 { font-size: 2rem; }.header-compare-button { padding: 0 8px; font-size: 0.7rem; gap: 5px; }
   .filter-button { width: 45px; padding: 0; font-size: 0; }.filter-button span { position: absolute; margin: -27px 0 0 30px; font-size: 0.55rem; }
   .search-box { height: 44px; }.search-box kbd { display: none; }
   .map-shell, .world-map { min-height: 0; }
@@ -505,7 +504,6 @@ h1, h2, h3, h4 {
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-.header-compare-button b { background: var(--red); color: var(--paper-light); }
 
 .search-band {
   height: var(--search-height);
