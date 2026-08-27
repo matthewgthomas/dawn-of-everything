@@ -36,14 +36,14 @@ export default function CompareTray({ settlements, open, onOpenChange, onRemove,
     <>
       <div className="compare-launcher">
         <button className="compare-launcher-main" onClick={() => onOpenChange(!open)} aria-expanded={open}>
-          <Star /> <span><strong>Comparison tray</strong><small>{settlements.map((settlement) => settlement.canonical_name).join(' · ')}</small></span><b>{settlements.length} / 4</b>
+          <Star /> <span>Compare {settlements.map((settlement) => settlement.canonical_name).join(' · ')}</span><b>{settlements.length} / 4</b>
           {open ? <ChevronDown /> : <ChevronUp />}
         </button>
       </div>
       {open && (
         <aside className="compare-tray" role="dialog" aria-modal="true" aria-labelledby="compare-title">
           <div className="drawer-header compare-header">
-            <div><p className="eyebrow">Side by side</p><h2 id="compare-title">Compare settlements</h2></div>
+            <div><h2 id="compare-title">Compare settlements</h2></div>
             <div className="compare-header-actions"><button className="text-button" onClick={onClear}><Trash2 /> Clear all</button><button className="icon-button" onClick={() => onOpenChange(false)} aria-label="Close comparison"><X /></button></div>
           </div>
           <div className="compare-content">
