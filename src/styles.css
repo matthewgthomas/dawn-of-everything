@@ -191,8 +191,9 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); color: var(--muted); font
 .detail-header .eyebrow { margin: 0; }
 .icon-button.on-dark { color: #fff; background: rgba(97,28,26,0.4); border-color: rgba(255,255,255,0.35); }
 .detail-hero h2 { min-width: 0; max-width: 500px; flex: 1; font-size: clamp(2.7rem, 5vw, 4.4rem); line-height: 0.88; }
-.detail-era { margin: 6px 0 10px; font-family: 'Newsreader', Georgia, serif; font-size: 1.13rem; opacity: 0.92; }
-.detail-actions { display: flex; gap: 8px; }
+.detail-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.detail-era { min-width: 0; margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: 1.13rem; line-height: 1.05; opacity: 0.92; }
+.detail-actions { flex-shrink: 0; display: flex; gap: 8px; }
 .pin-button { min-height: 38px; padding: 0 13px; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(255,255,255,0.55); background: transparent; color: #fff; cursor: pointer; }
 .pin-button.is-pinned { background: var(--orange); border-color: #fff; }
 .pin-button.is-pinned svg { fill: currentColor; }

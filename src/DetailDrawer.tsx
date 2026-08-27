@@ -45,11 +45,13 @@ export default function DetailDrawer({ settlement, query, pinned, canPin, onPin,
           <h2 id="detail-title">{settlement.canonical_name}</h2>
           <button className="icon-button on-dark" onClick={onClose} aria-label="Close settlement details"><X /></button>
         </div>
-        <p className="detail-era">{settlement.occupation_interval_display}</p>
-        <div className="detail-actions">
-          <button className={pinned ? 'pin-button is-pinned' : 'pin-button'} disabled={!pinned && !canPin} onClick={onPin}>
-            <Star size={16} /> {pinned ? 'Pinned for comparison' : canPin ? 'Pin for comparison' : 'Comparison full'}
-          </button>
+        <div className="detail-meta">
+          <p className="detail-era">{settlement.occupation_interval_display}</p>
+          <div className="detail-actions">
+            <button className={pinned ? 'pin-button is-pinned' : 'pin-button'} disabled={!pinned && !canPin} onClick={onPin}>
+              <Star size={16} /> {pinned ? 'Pinned for comparison' : canPin ? 'Pin for comparison' : 'Comparison full'}
+            </button>
+          </div>
         </div>
       </div>
 
