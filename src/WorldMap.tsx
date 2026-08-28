@@ -23,6 +23,7 @@ interface ProjectedPoint {
 
 const width = 960
 const height = 470
+const motionDuration = (duration: number) => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : duration
 
 export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect }: WorldMapProps) {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -63,17 +64,17 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
     if (!point) return
     const scale = Math.max(transform.k, 3)
     const target = zoomIdentity.translate(width / 2, height / 2).scale(scale).translate(-point.x, -point.y)
-    select(svgRef.current).transition().duration(420).call(zoomRef.current.transform, target)
+    select(svgRef.current).transition().duration(motionDuration(420)).call(zoomRef.current.transform, target)
   }, [selectedId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const scaleBy = (factor: number, center: [number, number] = [width / 2, height / 2]) => {
     if (!svgRef.current || !zoomRef.current) return
-    select(svgRef.current).transition().duration(260).call(zoomRef.current.scaleBy, factor, center)
+    select(svgRef.current).transition().duration(motionDuration(260)).call(zoomRef.current.scaleBy, factor, center)
   }
 
   const reset = () => {
     if (!svgRef.current || !zoomRef.current) return
-    select(svgRef.current).transition().duration(320).call(zoomRef.current.transform, zoomIdentity)
+    select(svgRef.current).transition().duration(motionDuration(320)).call(zoomRef.current.transform, zoomIdentity)
   }
 
   return (

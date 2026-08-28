@@ -1,6 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { formatDuration, formatYear, settlementById, settlements } from './data'
-import { EMPTY_FILTERS, filterAndSortSettlements, matchesFilters, rankSettlement, readUrlState, writeUrlState } from './filtering'
+import {
+  categoriesForType,
+  createPassageExcerpt,
+  deriveSearchResult,
+  deriveSearchResults,
+  EMPTY_FILTERS,
+  filterAndSortSettlements,
+  matchesFilters,
+  overlapsEra,
+  rankSettlement,
+  readUrlState,
+  writeUrlState,
+} from './filtering'
 
 describe('dataset normalization and dates', () => {
   it('normalizes signed years and missing coordinates', () => {
@@ -39,6 +51,34 @@ describe('search ranking and filters', () => {
     expect(matchesFilters(aztlan, { ...EMPTY_FILTERS, startFrom: -10000 })).toBe(true)
     expect(matchesFilters(aztlan, { ...EMPTY_FILTERS, startFrom: -10000, includeUnknownStart: false })).toBe(false)
   })
+
+  it('classifies passage-only searches and exposes a centered excerpt', () => {
+    const results = deriveSearchResults(settlements, { ...EMPTY_FILTERS, query: 'women' })
+    const passageResult = results.find((result) => result.matchSource === 'passage')
+    expect(passageResult?.bestMention).not.toBeNull()
+    expect(passageResult?.excerpt?.toLocaleLowerCase()).toContain('women')
+    expect(passageResult?.matchingMentions.length).toBeGreaterThan(0)
+  })
+
+  it('classifies aliases and preserves Unicode-safe excerpts', () => {
+    const krakow = settlementById.get('S031')!
+    expect(deriveSearchResult(krakow, 'Krakow')?.matchSource).toBe('alias')
+    const excerpt = createPassageExcerpt(`Beginning 😀 ${'long text '.repeat(30)}women gathered here ${'after '.repeat(30)}`, ['women'], 90)
+    expect(excerpt).toContain('women')
+    expect(excerpt).not.toContain('�')
+  })
+
+  it('uses occupation overlap for era presets, including partial unknown intervals', () => {
+    expect(overlapsEra(teotihuacan, 'ancient-classical')).toBe(true)
+    expect(overlapsEra(teotihuacan, 'earliest')).toBe(false)
+    expect(overlapsEra(settlementById.get('S117')!, 'later')).toBe(true)
+  })
+
+  it('maps every detailed settlement type to a broad category', () => {
+    const unmapped = [...new Set(settlements.map((settlement) => settlement.settlement_type))]
+      .filter((type) => categoriesForType(type).length === 0)
+    expect(unmapped).toEqual([])
+  })
 })
 
 describe('shareable URL state', () => {
@@ -48,6 +88,8 @@ describe('shareable URL state', () => {
       query: 'ice age',
       types: ['ancient city'],
       sections: ['Chapter 8: Imaginary Cities'],
+      eras: ['ancient-classical' as const],
+      categories: ['cities' as const],
       startFrom: -5000,
       includeUnknownEnd: false,
     }
@@ -61,6 +103,8 @@ describe('shareable URL state', () => {
     expect(parsed.filters.query).toBe('ice age')
     expect(parsed.filters.startFrom).toBe(-5000)
     expect(parsed.filters.includeUnknownEnd).toBe(false)
+    expect(parsed.filters.eras).toEqual(['ancient-classical'])
+    expect(parsed.filters.categories).toEqual(['cities'])
     expect(parsed.compareIds).toEqual(['S106', 'S117'])
     expect(parsed.selectedId).toBeNull()
   })
