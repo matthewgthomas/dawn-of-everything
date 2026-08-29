@@ -52,7 +52,7 @@ interface ProjectedLabel {
 
 const initialViewport: MapViewportSize = { width: 960, height: 470 }
 const projectionPadding = 18
-const mapLabelSizes = { landform: 9, mountains: 9.5, water: 8.5, elevation: 8.5 }
+const mapLabelSizes = { landform: 10, mountains: 10, water: 10, elevation: 10 }
 const motionDuration = (duration: number) => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : duration
 
 export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect }: WorldMapProps) {

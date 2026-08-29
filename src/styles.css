@@ -974,7 +974,7 @@ a:focus-visible { outline: 3px solid var(--oxblood); outline-offset: 3px; }
 .brand-mark::before { top: 9px; }
 .brand-mark::after { bottom: 9px; }
 .brand-mark span { top: 34px; width: 48px; }
-.site-header h1 { font-size: clamp(2.8rem, 4.2vw, 3.8rem); }
+.site-header h1 { font-size: clamp(2.8rem, 4.2vw, 3.3rem); }
 .header-subtitle {
   max-width: 500px;
   display: block;
