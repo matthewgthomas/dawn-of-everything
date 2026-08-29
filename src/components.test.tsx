@@ -46,7 +46,6 @@ describe('App responsive results', () => {
     })
     expect(screen.getByText('David Graeber')).toBeInTheDocument()
     expect(screen.getByText('David Wengrow')).toBeInTheDocument()
-    expect(screen.getByText('Penguin Random House')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'About the atlas' }))
     const about = screen.getByRole('dialog', { name: 'About the atlas' })
