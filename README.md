@@ -31,7 +31,7 @@ The application keeps the current search, filters, selected settlement, and comp
 
 On desktop, the map and timeline form the main workspace. The complete settlement list is available in a contextual results drawer, which opens automatically once per focused search session when a query reaches two characters. New visitors also see a dismissible **Start exploring** card with shortcuts to a featured settlement, Chapter 8, and the earliest sites. A compact discovery panel beneath the map changes with the current selection and filters.
 
-The world map uses D3's Equal Earth projection and country geometry from `world-atlas`. Nearby points are clustered according to zoom level; selecting a cluster zooms in, while selecting a place opens its record. The timeline plots known occupation intervals across BCE and CE dates, with a density overview, adjustable range, zoom controls, and presets from the earliest sites to later settlements.
+The world map uses D3's Equal Earth projection and country geometry from `world-atlas`. It automatically fits the currently visible, located settlements into the available viewport, using responsive padding on smaller screens. Nearby points are clustered according to zoom level; selecting a cluster zooms in, while selecting a place opens its record and recentres the map. The timeline plots known occupation intervals across BCE and CE dates, with a density overview, adjustable range, zoom controls, and presets from the earliest sites to later settlements.
 
 Settlement details are split into **Overview**, **Passages**, and **References** views. The overview leads with a representative book passage before location and curation metadata; the Passages view groups paragraphs by book section and prioritises search matches. Settlements can be pinned from the results, timeline, or detail view. The first pin prompts the reader to add another, and two to four places unlock a side-by-side comparison with chapter coverage, shared and unique chapters, linked-reference counts, and optional additional metadata.
 
@@ -79,16 +79,17 @@ npm test
 | Component | Description |
 | --- | --- |
 | [`App`](src/App.tsx) | Owns shared state and composes the search band, active-filter chips, onboarding and discovery cards, map/timeline workspace, responsive tabs, drawers, browser history, URL synchronisation, and comparison workflow. |
-| [`WorldMap`](src/WorldMap.tsx) | Projects located settlements onto an interactive Equal Earth map, clusters nearby markers, and handles pan, zoom, reset, selection, and pinned-place labels. |
+| [`WorldMap`](src/WorldMap.tsx) | Projects located settlements onto an interactive Equal Earth map, automatically fits visible markers, clusters nearby points, and handles pan, zoom, reset, selection, and pinned-place labels. |
 | [`Timeline`](src/Timeline.tsx) | Sorts and plots occupation intervals, provides timeline presets, a density overview, an adjustable time window and zoom controls, and supports selecting or pinning a place. |
-| [`ResultsPanel`](src/ResultsPanel.tsx) | Renders the desktop results drawer and mobile results view, including relevance explanations, highlighted passage excerpts, empty states, selection, and comparison pinning. |
+| [`ResultsDrawer` and `ResultsContent`](src/ResultsPanel.tsx) | Render the focus-trapped desktop results drawer and the inline mobile results view, including relevance explanations, highlighted passage excerpts, empty states, selection, and comparison pinning. |
 | [`FilterPanel`](src/FilterPanel.tsx) | Provides chapter/section, occupation-era, broad place-category, specific type, and advanced BCE/CE date filters with a live result count. |
 | [`DetailDrawer`](src/DetailDrawer.tsx) | Presents tabbed overview, passage, and reference views; groups paragraphs by book section; focuses search matches; and includes location, curation, and external-reference metadata. |
 | [`SettlementLocationMap`](src/SettlementLocationMap.tsx) | Renders the small world locator map used inside the settlement detail drawer. |
 | [`CompareTray`](src/CompareTray.tsx) | Prompts for a second pin, then compares up to four settlements across core metadata, references, chapter coverage, and shared or unique chapters, with controls for reordering, removing, and clearing places. |
 | [`AboutPanel`](src/AboutPanel.tsx) | Introduces the atlas, offers exploration shortcuts, and summarises the dataset's scope, caveats, methodology links, and project attribution. |
+| [`BookTitleLink`](src/BookTitleLink.tsx) | Provides the consistently styled, reusable external link to the book's website used across the app shell and informational views. |
 
-Supporting modules in [`src/data.ts`](src/data.ts), [`src/filtering.ts`](src/filtering.ts), [`src/mapClustering.ts`](src/mapClustering.ts), [`src/HighlightedText.tsx`](src/HighlightedText.tsx), and [`src/useDialogFocus.ts`](src/useDialogFocus.ts) handle data normalisation, relevance ranking and URL serialisation, zoom-aware map clustering, accessible query highlighting, and dialog focus management respectively. [`src/main.tsx`](src/main.tsx) loads the fonts and global styles and mounts the app.
+Supporting modules in [`src/data.ts`](src/data.ts), [`src/filtering.ts`](src/filtering.ts), [`src/mapClustering.ts`](src/mapClustering.ts), [`src/mapViewport.ts`](src/mapViewport.ts), [`src/HighlightedText.tsx`](src/HighlightedText.tsx), and [`src/useDialogFocus.ts`](src/useDialogFocus.ts) handle data normalisation, relevance ranking and URL serialisation, zoom-aware map clustering, responsive map fitting, accessible query highlighting, and dialog focus management respectively. [`src/main.tsx`](src/main.tsx) loads the fonts and global styles and mounts the app.
 
 ## License, rights and independence
 
