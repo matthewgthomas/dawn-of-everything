@@ -36,6 +36,7 @@ export default function SettlementLocationMap({ settlement }: SettlementLocation
         <desc id={descriptionId}>Representative point at {latitude.toFixed(3)} latitude and {longitude.toFixed(3)} longitude.</desc>
         <path className="map-sphere" d={path({ type: 'Sphere' }) ?? ''} />
         <path className="map-land" d={path(countries) ?? ''} />
+        <path className="map-country-borders" d={path(countries) ?? ''} aria-hidden="true" />
         <g className="detail-location-marker" transform={`translate(${point[0]} ${point[1]})`} aria-hidden="true">
           <circle className="detail-location-halo" r="14" />
           <circle className="detail-location-dot" r="6" />

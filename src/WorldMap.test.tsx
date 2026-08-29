@@ -1,4 +1,5 @@
 import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { settlements } from './data'
 import WorldMap from './WorldMap'
@@ -63,5 +64,25 @@ describe('WorldMap', () => {
     rerender(<WorldMap settlements={settlements} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     await waitFor(() => expect(viewportGroup.getAttribute('transform')).not.toBe(singlePointTransform))
     expect(screen.getByRole('button', { name: 'Fit visible settlements' })).toBeInTheDocument()
+  })
+
+  it('lets readers control the physical map layers', async () => {
+    const user = userEvent.setup()
+    render(<WorldMap settlements={settlements.slice(0, 2)} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+
+    const layerButton = screen.getByRole('button', { name: 'Map layers' })
+    expect(layerButton).toHaveAttribute('aria-expanded', 'false')
+    await user.click(layerButton)
+
+    expect(layerButton).toHaveAttribute('aria-expanded', 'true')
+    const waterLayer = screen.getByRole('checkbox', { name: /Water Rivers and lakes/i })
+    expect(waterLayer).toBeChecked()
+    await waitFor(() => expect(document.querySelector('.map-river')).toBeInTheDocument())
+    expect(document.querySelector('.map-lake')).toBeInTheDocument()
+
+    await user.click(waterLayer)
+    expect(waterLayer).not.toBeChecked()
+    expect(document.querySelector('.map-river')).not.toBeInTheDocument()
+    expect(document.querySelector('.map-lake')).not.toBeInTheDocument()
   })
 })

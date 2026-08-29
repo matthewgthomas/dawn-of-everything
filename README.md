@@ -31,7 +31,7 @@ The application keeps the current search, filters, selected settlement, and comp
 
 On desktop, the map and timeline form the main workspace. The complete settlement list is available in a contextual results drawer, which opens automatically once per focused search session when a query reaches two characters. New visitors also see a dismissible **Start exploring** card with shortcuts to a featured settlement, Chapter 8, and the earliest sites. A compact discovery panel beneath the map changes with the current selection and filters.
 
-The world map uses D3's Equal Earth projection and country geometry from `world-atlas`. It automatically fits the currently visible, located settlements into the available viewport, using responsive padding on smaller screens. Nearby points are clustered according to zoom level; selecting a cluster zooms in, while selecting a place opens its record and recentres the map. The timeline plots known occupation intervals across BCE and CE dates, with a density overview, adjustable range, zoom controls, and presets from the earliest sites to later settlements.
+The world map uses D3's Equal Earth projection and Natural Earth-derived vector geometry. Its physical basemap includes major rivers and lakes, shaded mountain ranges, deserts, plateaus, basins, plains, tundra, and closer-zoom elevation features. Labels and river detail appear progressively as the reader zooms, and a layer menu independently controls water, landforms, and names. The map automatically fits the currently visible, located settlements into the available viewport, using responsive padding on smaller screens. Nearby points are clustered according to zoom level; selecting a cluster zooms in, while selecting a place opens its record and recentres the map. The timeline plots known occupation intervals across BCE and CE dates, with a density overview, adjustable range, zoom controls, and presets from the earliest sites to later settlements.
 
 Settlement details are split into **Overview**, **Passages**, and **References** views. The overview leads with a representative book passage before location and curation metadata; the Passages view groups paragraphs by book section and prioritises search matches. Settlements can be pinned from the results, timeline, or detail view. The first pin prompts the reader to add another, and two to four places unlock a side-by-side comparison with chapter coverage, shared and unique chapters, linked-reference counts, and optional additional metadata.
 
@@ -42,7 +42,7 @@ On screens 900px wide and below, results, map, and timeline become separate tabb
 - React 19 and TypeScript for the UI and application logic
 - Vite 6 for local development and production builds
 - D3 for map projection, paths, zooming, and panning
-- TopoJSON, `world-atlas`, and Natural Earth-derived country geometry for basemaps
+- TopoJSON, `world-atlas`, and bundled public-domain Natural Earth physical geography for basemaps
 - Lucide React for interface icons and Fontsource for bundled web fonts
 - Plain CSS for the responsive layout and visual design
 - Vitest, jsdom, and Testing Library for unit and component tests

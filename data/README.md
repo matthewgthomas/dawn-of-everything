@@ -18,6 +18,7 @@ The practical meaning of “every” is therefore every **named, real human sett
 - `qa_summary.csv`: compact build-level metrics.
 - `validation_checks.csv` and `validation_report.json`: the independent relational, range, citation-link, and source-fidelity audit.
 - `dataset.json`: the three main tables and build QA in a single machine-readable file.
+- `map_geography.json`: compact Natural Earth geometry used by the physical basemap; this is presentation data rather than part of the settlement catalogue.
 
 Primary keys are `settlement_id`, `mention_id`, and `reference_id`. Join mentions to settlements with `settlement_id`; bibliography material is also denormalized into each mention so a row remains useful by itself.
 
@@ -43,6 +44,10 @@ The `book_note_ids` and `book_note_texts` fields link a mention paragraph to the
 
 The validator compares every stored paragraph byte-for-byte (after the source parser's whitespace normalization) with the indexed source paragraph and checks the original line range. The current release passes all 20 validation checks.
 
+## Physical basemap
+
+`map_geography.json` is generated from Natural Earth's public-domain 1:50m and 1:110m physical datasets. It retains a zoom-filtered network of major rivers, principal lakes, broad landform regions, and named elevation features. Properties are reduced to the fields used by the interface and coordinates are rounded to four decimal places to keep the static client bundle compact. This geography provides reading context only; it is not part of the book-derived settlement scope or its QA totals.
+
 ## Rebuild
 
 The core build is reproducible from the checked-in curation and source text:
@@ -51,6 +56,9 @@ The core build is reproducible from the checked-in curation and source text:
 python3 scripts/extract_settlement_candidates.py book/The_Dawn_of_Everything.txt .tmp/extraction
 python3 scripts/build_settlement_dataset.py data/settlement_curation.csv .tmp/extraction/paragraphs.json book/The_Dawn_of_Everything.txt data/derived .tmp/wikidata_all_matches.csv .tmp/wikidata_curation_matches.csv
 python3 scripts/validate_settlement_dataset.py data/derived .tmp/extraction/paragraphs.json data/derived/validation_report.json data/derived/validation_checks.csv
+npm run build:map-geography
 ```
 
 The Wikidata match caches are query-time discovery aids. Manual coordinate overrides and their source URLs are versioned in `scripts/build_settlement_dataset.py`, so the finalized tables remain reproducible from the included caches.
+
+The physical-map rebuild downloads the source GeoJSON from Natural Earth's official GitHub repository and writes the curated result to `data/derived/map_geography.json`.

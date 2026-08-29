@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:map-geography": "node scripts/build_map_geography.mjs",
     "preview": "vite preview",
     "test": "vitest run"
   },
