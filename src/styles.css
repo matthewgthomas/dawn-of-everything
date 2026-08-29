@@ -29,6 +29,8 @@ button, input, select { font: inherit; font-family: var(--font-ui); }
 button { color: inherit; }
 button:disabled { cursor: not-allowed; opacity: 0.45; }
 a { color: inherit; }
+.book-title { font-style: italic; }
+.book-title a { text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
 svg { flex-shrink: 0; }
 p { text-wrap: pretty; }
 h1, h2, h3, h4 {
@@ -901,7 +903,8 @@ a:focus-visible { outline: 3px solid var(--oxblood); outline-offset: 3px; }
   line-height: 1.25;
   text-align: left;
 }
-.header-subtitle em { color: var(--red); font-size: inherit; }
+.header-subtitle .book-title a { color: var(--red); font-weight: 600; }
+.header-subtitle strong { color: var(--oxblood); font-weight: 600; }
 
 .search-band { padding: 9px 24px; }
 .search-box { max-width: none; }
@@ -1170,6 +1173,17 @@ mark { border-bottom: 2px solid var(--oxblood); }
 
 .about-start { padding: 14px; background: var(--paper); border-left: 4px solid var(--red); }
 .about-start-actions { display: grid; gap: 5px; }
+.book-credit { padding: 16px; background: var(--paper); border-left: 4px solid var(--red); }
+.about-content .book-credit .eyebrow { margin: 0 0 5px; color: var(--muted); font-size: 0.72rem; line-height: 1.2; }
+.book-credit h3 { font-size: 1.55rem; line-height: 1.05; text-transform: none; }
+.book-credit h3 a { color: var(--red); }
+.about-content .book-credit .book-subtitle { margin: 5px 0 14px; color: var(--oxblood); font-size: 1.05rem; font-style: italic; line-height: 1.25; }
+.book-credit dl { margin: 0; border-top: 1px solid var(--line); }
+.book-credit dl div { padding: 9px 0; display: grid; grid-template-columns: 92px 1fr; gap: 12px; border-bottom: 1px solid var(--line); }
+.book-credit dt { color: var(--muted); font-family: var(--font-ui); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+.book-credit dd { margin: 0; }
+.legal-notice { padding: 16px; background: rgba(244, 160, 0, 0.12); border: 1px solid var(--line); border-top: 4px solid var(--red); }
+.legal-notice p:last-child { margin-bottom: 0; }
 
 .timeline-presets {
   padding: 10px 12px 0;

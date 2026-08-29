@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, BookOpen, MapPinOff, Star, X } from 'lucide-react'
+import BookTitleLink from './BookTitleLink'
 import type { Mention, NormalizedSettlement } from './data'
 import HighlightedText from './HighlightedText'
 import SettlementLocationMap from './SettlementLocationMap'
@@ -108,7 +109,7 @@ export default function DetailDrawer({
       <div className="detail-content">
         {view === 'overview' && (
           <div className="detail-view overview-view">
-            <p className="detail-description">{settlement.wikidata_description || `A ${settlement.settlement_type} mentioned in The Dawn of Everything.`}</p>
+            <p className="detail-description">{settlement.wikidata_description || <>A {settlement.settlement_type} mentioned in <BookTitleLink />.</>}</p>
 
             {featuredMention && (
               <article className="featured-passage">

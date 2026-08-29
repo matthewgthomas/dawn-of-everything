@@ -1,6 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { BookOpen, Clock3, Filter, Info, List, Map as MapIcon, MapPin, Search, SlidersHorizontal, X } from 'lucide-react'
 import AboutPanel from './AboutPanel'
+import BookTitleLink from './BookTitleLink'
 import CompareTray from './CompareTray'
 import DetailDrawer, { type DetailView } from './DetailDrawer'
 import FilterPanel from './FilterPanel'
@@ -222,7 +223,7 @@ export default function App() {
     <section className="start-card" aria-labelledby="start-card-title">
       <button className="start-card-close" onClick={dismissOnboarding} aria-label="Dismiss start exploring card"><X /></button>
       <p className="eyebrow">The book, mapped</p><h2 id="start-card-title">Start exploring</h2>
-      <p>Discover how settlements connect to the passages and ideas in <em>The Dawn of Everything</em>.</p>
+      <p>Discover how settlements connect to the passages and ideas in <BookTitleLink />.</p>
       <div>
         <button onClick={exploreTeotihuacan}><MapPin /> Explore Teotihuacan</button>
         <button onClick={browseChapterEight}><BookOpen /> Browse Chapter 8</button>
@@ -236,8 +237,8 @@ export default function App() {
       <header className="site-header">
         <div className="brand-mark" aria-hidden="true"><span /></div>
         <div className="brand-copy"><h1 aria-label="The Dawn Atlas"><span aria-hidden="true">The Dawn</span><span aria-hidden="true">Atlas</span></h1></div>
-        <p className="header-subtitle">Explore {settlements.length} settlements and the passages that connect them to <em>The Dawn of Everything</em>.</p>
-        <nav className="header-actions" aria-label="Atlas information"><button className="header-compare-button" onClick={openAbout}><Info size={16} aria-hidden="true" /><span>About the atlas</span></button></nav>
+        <p className="header-subtitle">Explore {settlements.length} human settlements discussed in <BookTitleLink /> by <strong>David Graeber</strong> and <strong>David Wengrow</strong>.</p>
+        <nav className="header-actions" aria-label="Atlas information"><button className="header-compare-button" onClick={openAbout} aria-label="About the atlas"><Info size={16} aria-hidden="true" /><span>About the atlas</span></button></nav>
       </header>
 
       <section className="search-band" aria-label="Search and filter settlements">
