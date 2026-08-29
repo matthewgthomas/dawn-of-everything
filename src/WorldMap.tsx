@@ -52,6 +52,7 @@ interface ProjectedLabel {
 
 const initialViewport: MapViewportSize = { width: 960, height: 470 }
 const projectionPadding = 18
+const mapLabelSizes = { landform: 9, mountains: 9.5, water: 8.5, elevation: 8.5 }
 const motionDuration = (duration: number) => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : duration
 
 export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect }: WorldMapProps) {
@@ -330,23 +331,25 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
                 {landformLabels.map((label) => (
                   <text
                     className={`map-geography-label map-geography-label--${label.kind}`}
-                    fontSize={(label.kind === 'mountains' ? 8.5 : 8) / transform.k}
+                    fontSize={(label.kind === 'mountains' ? mapLabelSizes.mountains : mapLabelSizes.landform) / transform.k}
                     key={label.key}
                     transform={`translate(${label.x} ${label.y})`}
+                    vectorEffect="non-scaling-stroke"
                   >{label.name}</text>
                 ))}
                 {waterLabels.map((label) => (
                   <text
                     className={`map-geography-label map-geography-label--${label.kind}`}
-                    fontSize={7.5 / transform.k}
+                    fontSize={mapLabelSizes.water / transform.k}
                     key={label.key}
                     transform={`translate(${label.x} ${label.y})`}
+                    vectorEffect="non-scaling-stroke"
                   >{label.name}</text>
                 ))}
                 {elevationLabels.map((label) => (
                   <g className={`map-elevation map-elevation--${label.kind}`} key={label.key} transform={`translate(${label.x} ${label.y})`}>
                     <path d={`M 0 ${-4.5 / transform.k} L ${4 / transform.k} ${3 / transform.k} L ${-4 / transform.k} ${3 / transform.k} Z`} />
-                    <text x={6 / transform.k} y={2.5 / transform.k} fontSize={7.5 / transform.k}>
+                    <text x={6 / transform.k} y={2.5 / transform.k} fontSize={mapLabelSizes.elevation / transform.k} vectorEffect="non-scaling-stroke">
                       {label.name}{label.detail ? ` · ${label.detail}` : ''}
                     </text>
                   </g>

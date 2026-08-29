@@ -85,4 +85,17 @@ describe('WorldMap', () => {
     expect(document.querySelector('.map-river')).not.toBeInTheDocument()
     expect(document.querySelector('.map-lake')).not.toBeInTheDocument()
   })
+
+  it('keeps geography label outlines from growing with map zoom', async () => {
+    const firstMappedSettlement = settlements.find(
+      ({ latitudeNumber, longitudeNumber }) => latitudeNumber !== null && longitudeNumber !== null,
+    )!
+    render(<WorldMap settlements={[firstMappedSettlement]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+
+    await waitFor(() => expect(document.querySelector('.map-elevation text')).toBeInTheDocument())
+    const labels = document.querySelectorAll('.map-geography-label, .map-elevation text')
+
+    expect(labels.length).toBeGreaterThan(0)
+    labels.forEach((label) => expect(label).toHaveAttribute('vector-effect', 'non-scaling-stroke'))
+  })
 })
