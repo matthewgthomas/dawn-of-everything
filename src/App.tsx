@@ -295,7 +295,7 @@ export default function App() {
           <section className={`map-panel view-pane${mobileView === 'map' ? ' mobile-active' : ''}`}>
             {showOnboarding && onboardingCard}
             <WorldMap settlements={results} selectedId={selectedId} pinnedIds={compareIds} onSelect={selectSettlement} />
-            <section className="map-discovery" aria-label="Map discovery">
+            <section className="map-discovery" data-state={selected ? 'selected' : hasFilters ? 'filtered' : 'default'} aria-label="Map discovery">
               {selected ? <><p className="eyebrow">Selected place</p><h2>{selected.canonical_name}</h2><p>{selected.settlement_type} · {selected.occupation_interval_display}</p><button className="primary-button" onClick={() => selectSettlement(selected.settlement_id)}>Open details</button></>
                 : hasFilters ? <><p><strong>{results.length}</strong> settlement{results.length === 1 ? '' : 's'} match your search and filters.</p><button className="primary-button" onClick={() => setMobileView('results')}>View results</button></>
                   : <><p><strong>{results.length} settlements</strong> to explore. Select a marker or start with one of these places.</p><div className="discovery-suggestions">{results.slice(0, 3).map((settlement) => <button key={settlement.settlement_id} onClick={() => selectSettlement(settlement.settlement_id)}>{settlement.canonical_name}</button>)}</div></>}
