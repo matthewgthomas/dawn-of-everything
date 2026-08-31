@@ -136,7 +136,12 @@ export const EMPTY_FILTERS: FilterState = {
   includeUnknownEnd: true,
 }
 
-const normalize = (value: string) => value.toLocaleLowerCase().normalize('NFC')
+export const normalizeSearchText = (value: string) => value
+  .toLocaleLowerCase()
+  .normalize('NFD')
+  .replace(/\p{M}/gu, '')
+
+const normalize = normalizeSearchText
 export const searchTerms = (rawQuery: string) => normalize(rawQuery.trim()).split(/\s+/u).filter(Boolean)
 const containsTerms = (text: string, terms: string[]) => {
   const normalized = normalize(text)
@@ -190,12 +195,21 @@ export const createPassageExcerpt = (text: string, terms: string[], maxCharacter
   const points = Array.from(text.trim())
   if (points.length <= maxCharacters) return points.join('')
 
-  const normalized = normalize(text)
+  let originalOffset = 0
+  const normalizedParts: string[] = []
+  const originalOffsets: number[] = []
+  Array.from(text).forEach((point) => {
+    const normalizedPoint = normalize(point)
+    normalizedParts.push(normalizedPoint)
+    originalOffsets.push(...Array.from({ length: normalizedPoint.length }, () => originalOffset))
+    originalOffset += point.length
+  })
+  const normalized = normalizedParts.join('')
   const utf16MatchIndex = terms
     .map((term) => normalized.indexOf(term))
     .filter((index) => index >= 0)
     .sort((a, b) => a - b)[0] ?? 0
-  const matchIndex = Array.from(text.slice(0, utf16MatchIndex)).length
+  const matchIndex = Array.from(text.slice(0, originalOffsets[utf16MatchIndex] ?? 0)).length
   let start = Math.max(0, matchIndex - Math.floor(maxCharacters * 0.38))
   let end = Math.min(points.length, start + maxCharacters)
 

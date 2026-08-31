@@ -1,6 +1,6 @@
 import { Search, Star } from 'lucide-react'
 import HighlightedText from './HighlightedText'
-import { searchTerms, type SettlementSearchResult } from './filtering'
+import { normalizeSearchText, searchTerms, type SettlementSearchResult } from './filtering'
 
 interface ResultsContentProps {
   results: SettlementSearchResult[]
@@ -35,7 +35,10 @@ const matchExplanation = (result: SettlementSearchResult, query: string) => {
   if (result.matchSource === 'description') return 'Description match'
   if (result.matchSource === 'section') {
     const terms = searchTerms(query)
-    const section = result.settlement.sections.find((entry) => terms.every((term) => entry.toLocaleLowerCase().includes(term)))
+    const section = result.settlement.sections.find((entry) => {
+      const normalizedEntry = normalizeSearchText(entry)
+      return terms.every((term) => normalizedEntry.includes(term))
+    })
     return section ? `Mentioned in ${section}` : 'Book section match'
   }
   return `${result.settlement.mention_paragraph_count} book mentions`

@@ -6,6 +6,7 @@ import {
   deriveSettlementNameSuggestions,
   EMPTY_FILTERS,
   ERA_PRESETS,
+  normalizeSearchText,
   PLACE_CATEGORIES,
   type EraPresetId,
   type FilterState,
@@ -70,8 +71,8 @@ export default function FilterPanel({ filters, settlements, resultCount = settle
   useDialogFocus(panelRef)
 
   const visibleTypes = useMemo(() => {
-    const query = typeSearch.trim().toLocaleLowerCase()
-    return query ? settlementTypes.filter(({ type }) => type.toLocaleLowerCase().includes(query)) : settlementTypes
+    const query = normalizeSearchText(typeSearch.trim())
+    return query ? settlementTypes.filter(({ type }) => normalizeSearchText(type).includes(query)) : settlementTypes
   }, [typeSearch])
   const visibleSettlements = useMemo(() => {
     const suggestions = deriveSettlementNameSuggestions(settlements, settlementSearch)

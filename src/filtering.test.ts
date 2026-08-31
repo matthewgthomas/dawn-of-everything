@@ -64,11 +64,23 @@ describe('search ranking and filters', () => {
   })
 
   it('classifies aliases and preserves Unicode-safe excerpts', () => {
-    const aztlan = settlement('Aztlán')
-    expect(deriveSearchResult(aztlan, 'Aztlan')?.matchSource).toBe('alias')
+    expect(deriveSearchResult(settlement('Uruk'), 'Warka')?.matchSource).toBe('alias')
     const excerpt = createPassageExcerpt(`Beginning 😀 ${'long text '.repeat(30)}women gathered here ${'after '.repeat(30)}`, ['women'], 90)
     expect(excerpt).toContain('women')
     expect(excerpt).not.toContain('�')
+  })
+
+  it('ignores accents in names, suggestions, passages, and excerpts', () => {
+    const chavin = settlement('Chavín de Huántar')
+    const result = deriveSearchResult(chavin, 'Chavin')
+
+    expect(result?.matchSource).toBe('name')
+    expect(result?.matchingMentions.length).toBeGreaterThan(0)
+    expect(deriveSettlementNameSuggestions(settlements, 'Chavin')[0]).toMatchObject({
+      settlement: { settlement_id: chavin.settlement_id },
+      matchingAlias: null,
+    })
+    expect(createPassageExcerpt(`${'earlier áccented text '.repeat(20)}Chavín appears here ${'later '.repeat(20)}`, ['chavin'], 90)).toContain('Chavín')
   })
 
   it('uses occupation overlap for era presets, including partial unknown intervals', () => {
@@ -98,8 +110,8 @@ describe('search ranking and filters', () => {
     const canonical = deriveSettlementNameSuggestions(settlements, 'Teotihuacan')
     expect(canonical[0]).toMatchObject({ settlement: { settlement_id: teotihuacan.settlement_id }, matchingAlias: null, rank: 0 })
 
-    const alias = deriveSettlementNameSuggestions(settlements, 'Aztlan')
-    expect(alias[0]).toMatchObject({ settlement: { canonical_name: 'Aztlán' }, matchingAlias: 'Aztlan', rank: 1 })
+    const accentVariant = deriveSettlementNameSuggestions(settlements, 'Aztlan')
+    expect(accentVariant[0]).toMatchObject({ settlement: { canonical_name: 'Aztlán' }, matchingAlias: null, rank: 0 })
 
     const prefix = deriveSettlementNameSuggestions(settlements, 'Wark')
     expect(prefix[0]).toMatchObject({ settlement: { canonical_name: 'Uruk' }, matchingAlias: 'Warka', rank: 3 })
