@@ -1,37 +1,7 @@
 canonical_name,aliases,selection_hint,settlement_type,occupation_start_year,occupation_end_year,occupation_qualifier,occupation_basis,curation_note
 Quebec City,Quebec,capital city Quebec Canada,modern city,1608,2026,c.–present,reference synthesis,Text calls it the town of Quebec.
-Amsterdam,Amsterdam,capital city Netherlands,modern city,1275,2026,c.–present,reference synthesis,
-Beirut,Beirut,capital city Lebanon,modern city,-3000,2026,c.–present,reference synthesis,Long episodic occupation.
-Chicago,Chicago,city Illinois United States,modern city,1833,2026,c.–present,reference synthesis,
-Delhi,Delhi,capital territory India,modern city,-600,2026,c.–present,reference synthesis,Represents the long-lived Delhi settlement complex.
-Glasgow,Glasgow,city Scotland,modern city,550,2026,c.–present,reference synthesis,
-Jerusalem,Jerusalem,city Middle East,modern city,-3000,2026,c.–present,reference synthesis,Long episodic occupation.
-Montreal,Montreal,city Quebec Canada,modern city,1642,2026,c.–present,reference synthesis,
-Paris,Paris,capital city France,modern city,-250,2026,c.–present,reference synthesis,
-Quito,Quito,capital Ecuador,modern city,800,2026,c.–present,reference synthesis,Pre-Hispanic settlement date is approximate.
-Samarkand,Samarkand,city Uzbekistan,modern city,-700,2026,c.–present,reference synthesis,
-Amman,Amman,capital Jordan,modern city,-7250,2026,c.–present,reference synthesis,Long settlement sequence in the Amman area.
 Cholula,Cholula|San Pedro Cholula,city Puebla Mexico,modern and ancient city,-500,2026,c.–present,reference synthesis,
-Damascus,Damascus,capital Syria,modern city,-3000,2026,c.–present,reference synthesis,Long episodic occupation.
-Gaza City,Gaza,city Gaza Strip,modern city,-3000,2026,c.–present,reference synthesis,
-Hiroshima,Hiroshima,city Japan,modern city,1589,2026,c.–present,reference synthesis,
-Los Angeles,Los Angeles,city California United States,modern city,1781,2026,c.–present,reference synthesis,
-Mbanza Kongo,Mbanza Congo|Mbanza Kongo,city Angola,modern and historic capital,1390,2026,c.–present,reference synthesis,
-Nagasaki,Nagasaki,city Japan,modern city,1570,2026,c.–present,reference synthesis,
-Sofia,Sofia,capital Bulgaria,modern city,-700,2026,c.–present,reference synthesis,
-Tbilisi,Tbilisi,capital Georgia,modern city,458,2026,c.–present,reference synthesis,
-Vancouver,Vancouver,city British Columbia Canada,modern city,1867,2026,c.–present,reference synthesis,Colonial named settlement; Indigenous habitation predates it.
-Venice,Venice,city Italy,modern city,421,2026,c.–present,reference synthesis,
-Bologna,Bologna,city Italy,modern city,-1000,2026,c.–present,reference synthesis,
-New York City,New York City,city New York United States,modern city,1624,2026,c.–present,reference synthesis,
-Toledo,Toledo,city Spain,modern city,-500,2026,c.–present,reference synthesis,
-Mérida,Mérida,city Yucatan Mexico,modern city,1542,2026,c.–present,reference synthesis,Named Spanish city built over the Maya settlement T'ho.
 Palos de la Frontera,Palos de la Frontera,town Huelva Spain,modern town,1322,2026,c.–present,reference synthesis,
-Batman,Batman,city Turkey,modern city,1940,2026,c.–present,reference synthesis,
-East St. Louis,East St Louis|East St. Louis,city Illinois United States,modern city,1861,2026,c.–present,reference synthesis,
-Kraków,Kraków|Krakow,city Poland,modern city,700,2026,c.–present,reference synthesis,
-Kyiv,Kiev|Kyiv,capital Ukraine,modern city,482,2026,c.–present,reference synthesis,
-Brno,Brno,city Czech Republic,modern city,1000,2026,c.–present,reference synthesis,
 Sainte-Engrâce,Sainte-Engrâce,commune Pyrenees France,modern village,1000,2026,c.–present,reference synthesis,Approximate medieval foundation.
 Cuzco,Cuzco|Cusco,city Peru,modern and ancient city,1100,2026,c.–present,reference synthesis,
 Athens,Athens,capital Greece ancient city,ancient and modern city,-3000,2026,c.–present,reference synthesis,Long episodic occupation.
@@ -157,14 +127,7 @@ Basta,Basta,Pre-Pottery Neolithic archaeological site Jordan,large Neolithic set
 Byblos,Byblos|Jbeil,ancient port city Lebanon,ancient and modern port city,-8800,2026,c.–present,reference synthesis,Long episodic occupation; Jbeil is the modern name used parenthetically in the notes.
 Mezin,Mezin,Upper Palaeolithic mammoth-bone settlement Ukraine,Upper Palaeolithic aggregation settlement,-18000,-13000,c.,reference synthesis,Note-only settlement paired with Mezhirich.
 Tågerup,Tågerup|Tagerup,Mesolithic settlement western Scania Sweden,Mesolithic coastal settlement,-7000,-5500,c.,reference synthesis,Note-only settlement; long-lived Mesolithic occupation.
-Salamanca,Salamanca,city Spain,modern city,-220,2026,c.–present,reference synthesis,Included because the substantive text explicitly names Salamanca in Spain.
-Seville,Seville,city Spain,modern city,-800,2026,c.–present,reference synthesis,Included from the biographical paragraph on Cervantes de Salazar.
-Madrid,Madrid,capital city Spain,modern city,860,2026,c.–present,reference synthesis,Included from the biographical paragraph on Zelia Nuttall.
-Mexico City,city of Mexico|Municipality of Mexico|Mexico City,capital city Mexico,modern city,1521,2026,c.–present,reference synthesis,Aliases avoid conflating the city with country-level mentions of Mexico.
 Onondaga town,Onondaga town,traditional Onondaga settlement New York,historical settlement,,,unknown,book evidence,Traditional narrative names a town but does not provide a recoverable location or occupation interval.
-Brighton,Brighton,city England,modern city,-350,2026,c.–present,reference synthesis,Named in the Glasgow newspaper thought experiment.
-Aberdeen,Aberdeen,city Scotland,modern city,1179,2026,c.–present,reference synthesis,Named in the Glasgow newspaper thought experiment.
-Santiago,Santiago,capital city Chile,modern city,1541,2026,c.–present,reference synthesis,The Inca-domain paragraph uses modern Quito-to-Santiago endpoints.
 Merv,Merv,ancient city Turkmenistan,ancient city,-3000,1800,c.,reference synthesis,
 Fort Michilimackinac,Michilimackinac|Fort Michilimackinac,French fort and trading settlement Michigan,fortified trading settlement,1715,1781,c.,reference synthesis,The text calls it a French fort in a place named Michilimackinac.
 Mound Key (Calos),Calos|Mound Key,Calusa capital Mound Key Florida,shell-mound capital,500,1700,c.,reference synthesis,The text names Calos and identifies the surviving archaeological complex as Mound Key.

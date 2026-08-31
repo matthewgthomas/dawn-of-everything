@@ -8,7 +8,7 @@ import FilterPanel from './FilterPanel'
 import SettlementViewsPanel, { type SettlementPanelView } from './SettlementViewsPanel'
 import type { TimelinePresetId } from './Timeline'
 import WorldMap from './WorldMap'
-import { formatYear, sections, settlementById, settlements, settlementTypes } from './data'
+import { formatYear, sections, settlementById, settlementByName, settlements, settlementTypes } from './data'
 import {
   countActiveFilters,
   deriveSettlementNameSuggestions,
@@ -211,7 +211,7 @@ export default function App() {
     setOnboardingDismissed(true)
     try { localStorage.setItem(onboardingStorageKey, 'true') } catch { /* private browsing */ }
   }
-  const exploreTeotihuacan = () => selectSettlement('S106')
+  const exploreTeotihuacan = () => selectSettlement(settlementByName.get('Teotihuacan')!.settlement_id)
   const browseChapterEight = () => {
     setAboutOpen(false)
     setFilters((current) => ({ ...current, sections: [chapterEight] }))

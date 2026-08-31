@@ -1,8 +1,8 @@
 category,example,rationale
 fictional place,Omelas,Fictional city used in a philosophical thought experiment rather than a real settlement.
-country or region,Mexico,Political geography alone is not a settlement; Mexico City is catalogued separately when explicitly named.
+country or region,Mexico,Political geography alone is not a settlement.
 physical geography,Sacramento River,A river is not a settlement; no Sacramento city mention occurs in the matched paragraph.
-physical geography,Vancouver Island,An island mention is excluded while the distinct paragraph referring to the surroundings of Vancouver city is retained.
+physical geography,Vancouver Island,An island is physical geography rather than a settlement.
 culture or archaeological tradition,Trypillia,The book uses the term for a culture or settlement tradition rather than as an explicit mention of the Trypillia type-site.
 culture or archaeological tradition,Hopewell,Generic Hopewell culture/sphere uses are excluded; explicit references to Hopewell itself or Hopewell Mound Group are retained.
 intra-urban place,Teopancazco,A compound or neighbourhood inside Teotihuacan is below the settlement-level unit of analysis.

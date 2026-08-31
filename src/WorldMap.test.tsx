@@ -2,13 +2,15 @@ import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { geoEqualEarth, zoomIdentity } from 'd3'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { settlementById, settlements } from './data'
+import { settlementByName, settlements } from './data'
 import WorldMap, {
   SETTLEMENT_LABEL_FONT_SIZE,
   SETTLEMENT_LABEL_MIN_ZOOM,
   layoutSettlementLabels,
   shouldShowSettlementLabels,
 } from './WorldMap'
+
+const settlement = (name: string) => settlementByName.get(name)!
 
 let resizeCallback: ResizeObserverCallback
 const originalMatchMedia = window.matchMedia
@@ -66,14 +68,14 @@ describe('WorldMap', () => {
   })
 
   it.each([
-    ['Uruk and Lagash', ['S078', 'S088']],
-    ['Tenochtitlan and Tlaxcala', ['S105', 'S115']],
-  ])('moves nearby %s labels to non-overlapping positions at the active zoom', (_name, ids) => {
+    ['Uruk and Lagash', ['Uruk', 'Lagash']],
+    ['Tenochtitlan and Tlaxcala', ['Tenochtitlan', 'Tlaxcala']],
+  ])('moves nearby %s labels to non-overlapping positions at the active zoom', (_name, names) => {
     const projection = geoEqualEarth().fitExtent([[18, 18], [782, 482]], { type: 'Sphere' })
-    const entries = ids.map((id) => {
-      const settlement = settlementById.get(id)!
-      const [x, y] = projection([settlement.longitudeNumber!, settlement.latitudeNumber!])!
-      return { id, label: settlement.canonical_name, x, y, markerRadius: 5 }
+    const entries = names.map((name) => {
+      const entry = settlement(name)
+      const [x, y] = projection([entry.longitudeNumber!, entry.latitudeNumber!])!
+      return { id: entry.settlement_id, label: entry.canonical_name, x, y, markerRadius: 5 }
     })
     const centerX = (entries[0].x + entries[1].x) / 2
     const centerY = (entries[0].y + entries[1].y) / 2
@@ -158,11 +160,11 @@ describe('WorldMap', () => {
 
   it('labels a small named-filter set with fixed-size, non-interactive text independent of the Names layer', async () => {
     const user = userEvent.setup()
-    const teotihuacan = settlementById.get('S106')!
+    const teotihuacan = settlement('Teotihuacan')
     const { rerender } = render(<WorldMap settlements={[teotihuacan]} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     expect(document.querySelector('.map-settlement-label')).not.toBeInTheDocument()
 
-    rerender(<WorldMap settlements={[teotihuacan]} labelledSettlementIds={['S106']} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    rerender(<WorldMap settlements={[teotihuacan]} labelledSettlementIds={[teotihuacan.settlement_id]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     await waitFor(() => expect(document.querySelector('.map-settlement-label')).toBeInTheDocument())
     const label = document.querySelector<SVGTextElement>('.map-settlement-label')!
     expect(label).toHaveTextContent('Teotihuacan')
@@ -180,19 +182,19 @@ describe('WorldMap', () => {
   })
 
   it('does not label unresolved or clustered named settlements', async () => {
-    const aztlan = settlementById.get('S117')!
-    const { rerender } = render(<WorldMap settlements={[aztlan]} labelledSettlementIds={['S117']} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    const aztlan = settlement('Aztlán')
+    const { rerender } = render(<WorldMap settlements={[aztlan]} labelledSettlementIds={[aztlan.settlement_id]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     expect(document.querySelector('.map-settlement-label')).not.toBeInTheDocument()
 
-    const teotihuacan = settlementById.get('S106')!
+    const teotihuacan = settlement('Teotihuacan')
     const duplicate = {
-      ...settlementById.get('S078')!,
-      settlement_id: 'S078-nearby',
+      ...settlement('Uruk'),
+      settlement_id: `${settlement('Uruk').settlement_id}-nearby`,
       canonical_name: 'Nearby settlement',
       latitudeNumber: teotihuacan.latitudeNumber,
       longitudeNumber: teotihuacan.longitudeNumber,
     }
-    rerender(<WorldMap settlements={[teotihuacan, duplicate]} labelledSettlementIds={['S106', duplicate.settlement_id]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    rerender(<WorldMap settlements={[teotihuacan, duplicate]} labelledSettlementIds={[teotihuacan.settlement_id, duplicate.settlement_id]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     await waitFor(() => expect(document.querySelector('.map-cluster')).toBeInTheDocument())
     expect(document.querySelector('.map-settlement-label')).not.toBeInTheDocument()
   })

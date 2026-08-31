@@ -184,7 +184,15 @@ qaSheet.getRange(`B${formulaStart + 1}:B${formulaStart + 4}`).formulas = [
   [`=COUNTA(References!$A$2:$A$${referenceRegion.lastRow})`],
   [`=COUNT(Settlements!$E$2:$E$${settlementRegion.lastRow})`],
 ];
-qaSheet.getRange(`C${formulaStart + 1}:C${formulaStart + 4}`).values = [[174], [668], [295], [171]];
+qaSheet.getRange(`C${formulaStart + 1}:C${formulaStart + 4}`).values = [[
+  dataset.settlements.length,
+], [
+  dataset.mentions.length,
+], [
+  dataset.references.length,
+], [
+  dataset.settlements.filter((row) => row.latitude !== "" && row.longitude !== "").length,
+]];
 qaSheet.getRange(`D${formulaStart + 1}:D${formulaStart + 4}`).formulas = [
   [`=IF(B${formulaStart + 1}=C${formulaStart + 1},"PASS","FAIL")`],
   [`=IF(B${formulaStart + 2}=C${formulaStart + 2},"PASS","FAIL")`],
@@ -207,7 +215,7 @@ readMe.getRange("A1:H2").format = {
 };
 readMe.getRange("A4:H5").merge();
 readMe.getRange("A4:H5").values = [[
-  "An exhaustive catalogue of named, real human settlements in the book’s substantive chapters and notes. Each mention retains the complete source paragraph, note links, and resolved bibliography entries.",
+  "A curated catalogue of named, real human settlements in the book’s substantive chapters and notes. Each included mention retains the complete source paragraph, note links, and resolved bibliography entries.",
 ]];
 readMe.getRange("A4:H5").format = {
   fill: AQUA, font: { color: INK, italic: true }, wrapText: true,
@@ -256,7 +264,7 @@ readMe.getRange("A18:H23").format = {
 };
 readMe.getRange("A25:H26").merge();
 readMe.getRange("A25:H26").values = [[
-  "Release: 2026-08-24 · Source: book/The_Dawn_of_Everything.txt · Validation: 20/20 independent checks passed",
+  `Release: 2026-08-31 · Source: book/The_Dawn_of_Everything.txt · Validation: ${validation.summary.passed}/${validation.summary.checks} independent checks passed`,
 ]];
 readMe.getRange("A25:H26").format = { fill: AQUA, font: { color: NAVY, bold: true }, verticalAlignment: "center" };
 readMe.getRange("A1:B26").format.columnWidth = 28;
@@ -267,7 +275,7 @@ readMe.getRange("A18:H23").format.rowHeight = 28;
 readMe.showGridLines = false;
 
 const descriptions = {
-  settlement_id: "Stable canonical settlement identifier.",
+  settlement_id: "Canonical settlement identifier within this dataset release.",
   canonical_name: "Preferred name used for the settlement in this dataset.",
   aliases_in_book: "Alternative spellings or names matched in the book.",
   settlement_type: "Curated functional/type description.",
@@ -392,6 +400,14 @@ const inspection = await workbook.inspect({
   tableMaxCellChars: 80,
 });
 await fs.writeFile(path.join(outputRoot, "workbook_inspection.txt"), inspection.ndjson ?? String(inspection), "utf8");
+
+const formulaErrorScan = await workbook.inspect({
+  kind: "match",
+  searchTerm: "#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A",
+  options: { useRegex: true, maxResults: 300 },
+  summary: "final formula error scan",
+});
+await fs.writeFile(path.join(outputRoot, "formula_error_scan.txt"), formulaErrorScan.ndjson ?? String(formulaErrorScan), "utf8");
 
 console.log(JSON.stringify({
   outputPath,

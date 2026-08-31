@@ -1,14 +1,14 @@
 # Settlements in *The Dawn of Everything*
 
-This dataset is an exhaustive, paragraph-level catalogue of named human settlements in the substantive text and notes of `book/The_Dawn_of_Everything.txt`. It contains 174 canonical settlements, 668 distinct settlement–paragraph mentions, and 295 bibliography entries linked through the book's note apparatus.
+This dataset is a curated, paragraph-level catalogue of named human settlements in the substantive text and notes of `book/The_Dawn_of_Everything.txt`. It contains 137 canonical settlements, 603 distinct settlement–paragraph mentions, and 289 bibliography entries linked through the book's note apparatus.
 
 ## Scope
 
 A settlement is included when the book names a real place where people lived together: a city, town, village, inhabited archaeological site, seasonal aggregation site, cave habitation or burial site, fort/trading settlement, or historically attested capital. Both ancient sites and modern cities are in scope.
 
-The catalogue covers the chapter text and chapter notes. The publisher's address, table-of-contents place strings, map labels that never appear substantively, and locations appearing only in bibliography publication data are not treated as mentions. Countries, broad regions, rivers, islands, cultures/ethnonyms, fictional places, individual buildings and intra-urban compounds are excluded unless the book also uses the name for an inhabited settlement. Unnamed generic settlements cannot be assigned a canonical entity and are excluded. `scope_exclusions.csv` records the principal boundary cases.
+The catalogue draws from the chapter text and chapter notes. The publisher's address, table-of-contents place strings, map labels that never appear substantively, and locations appearing only in bibliography publication data are not treated as mentions. Countries, broad regions, rivers, islands, cultures/ethnonyms, fictional places, individual buildings and intra-urban compounds are excluded unless the book also uses the name for an inhabited settlement. Unnamed generic settlements cannot be assigned a canonical entity and are excluded. Project curation also intentionally omits some otherwise eligible place mentions. `scope_exclusions.csv` records the principal categorical boundary cases.
 
-The practical meaning of “every” is therefore every **named, real human settlement identifiable in the substantive prose or notes under this operational definition**. Ambiguous historical names are retained rather than silently dropped.
+Every exported mention is tied to an included canonical settlement and retains the complete source paragraph. A paragraph that also names an omitted place remains unchanged when it belongs to a retained settlement.
 
 ## Tables and grain
 
@@ -42,7 +42,7 @@ Three rows intentionally have blank coordinates:
 
 The `book_note_ids` and `book_note_texts` fields link a mention paragraph to the book's chapter notes. Author–year keys recognized in those notes are resolved against the book's bibliography and expanded into `full_bibliography_entries`. Repeated-author em dashes in the printed bibliography are expanded to the preceding author string so that each exported reference is self-contained. Blank reference fields mean that the relevant paragraph has no linked book note or the note has no resolvable author–year bibliography entry; they do not imply that the settlement has no scholarly literature.
 
-The validator compares every stored paragraph byte-for-byte (after the source parser's whitespace normalization) with the indexed source paragraph and checks the original line range. The current release passes all 20 validation checks.
+The validator compares every stored paragraph byte-for-byte (after the source parser's whitespace normalization) with the indexed source paragraph and checks the original line range. The current release passes all 22 validation checks.
 
 ## Physical basemap
 

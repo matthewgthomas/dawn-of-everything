@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDuration, formatYear, settlementById, settlements } from './data'
+import { formatDuration, formatYear, settlementByName, settlements } from './data'
 import {
   categoriesForType,
   createPassageExcerpt,
@@ -15,25 +15,27 @@ import {
   writeUrlState,
 } from './filtering'
 
+const settlement = (name: string) => settlementByName.get(name)!
+
 describe('dataset normalization and dates', () => {
   it('normalizes signed years and missing coordinates', () => {
-    const aztlan = settlementById.get('S117')!
+    const aztlan = settlement('Aztlán')
     expect(aztlan.startYear).toBeNull()
     expect(aztlan.endYear).toBe(1150)
     expect(aztlan.latitudeNumber).toBeNull()
     expect(formatYear(-9500)).toBe('9,500 BCE')
     expect(formatYear(550)).toBe('550 CE')
-    expect(formatDuration(settlementById.get('S106')!)).toBe('649 years')
+    expect(formatDuration(settlement('Teotihuacan'))).toBe('649 years')
   })
 })
 
 describe('search ranking and filters', () => {
-  const teotihuacan = settlementById.get('S106')!
+  const teotihuacan = settlement('Teotihuacan')
 
   it('ranks canonical names ahead of passage-only matches', () => {
     expect(rankSettlement(teotihuacan, 'Teotihuacan')).toBe(0)
     const results = filterAndSortSettlements(settlements, { ...EMPTY_FILTERS, query: 'Teotihuacan' })
-    expect(results[0].settlement_id).toBe('S106')
+    expect(results[0].settlement_id).toBe(teotihuacan.settlement_id)
   })
 
   it('combines categories with AND and values within a category with OR', () => {
@@ -48,7 +50,7 @@ describe('search ranking and filters', () => {
   })
 
   it('handles unknown date endpoints explicitly', () => {
-    const aztlan = settlementById.get('S117')!
+    const aztlan = settlement('Aztlán')
     expect(matchesFilters(aztlan, { ...EMPTY_FILTERS, startFrom: -10000 })).toBe(true)
     expect(matchesFilters(aztlan, { ...EMPTY_FILTERS, startFrom: -10000, includeUnknownStart: false })).toBe(false)
   })
@@ -62,8 +64,8 @@ describe('search ranking and filters', () => {
   })
 
   it('classifies aliases and preserves Unicode-safe excerpts', () => {
-    const krakow = settlementById.get('S031')!
-    expect(deriveSearchResult(krakow, 'Krakow')?.matchSource).toBe('alias')
+    const aztlan = settlement('Aztlán')
+    expect(deriveSearchResult(aztlan, 'Aztlan')?.matchSource).toBe('alias')
     const excerpt = createPassageExcerpt(`Beginning 😀 ${'long text '.repeat(30)}women gathered here ${'after '.repeat(30)}`, ['women'], 90)
     expect(excerpt).toContain('women')
     expect(excerpt).not.toContain('�')
@@ -72,7 +74,7 @@ describe('search ranking and filters', () => {
   it('uses occupation overlap for era presets, including partial unknown intervals', () => {
     expect(overlapsEra(teotihuacan, 'ancient-classical')).toBe(true)
     expect(overlapsEra(teotihuacan, 'earliest')).toBe(false)
-    expect(overlapsEra(settlementById.get('S117')!, 'later')).toBe(true)
+    expect(overlapsEra(settlement('Aztlán'), 'later')).toBe(true)
   })
 
   it('maps every detailed settlement type to a broad category', () => {
@@ -82,22 +84,22 @@ describe('search ranking and filters', () => {
   })
 
   it('limits results to selected settlement IDs before applying other filters', () => {
-    const filters = { ...EMPTY_FILTERS, settlementIds: ['S106', 'S078'] }
+    const filters = { ...EMPTY_FILTERS, settlementIds: [teotihuacan.settlement_id, settlement('Uruk').settlement_id] }
     expect(matchesFilters(teotihuacan, filters)).toBe(true)
-    expect(matchesFilters(settlementById.get('S078')!, filters)).toBe(true)
-    expect(matchesFilters(settlementById.get('S117')!, filters)).toBe(false)
+    expect(matchesFilters(settlement('Uruk'), filters)).toBe(true)
+    expect(matchesFilters(settlement('Aztlán'), filters)).toBe(false)
 
     const queried = deriveSearchResults(settlements, { ...filters, query: 'Warka' })
-    expect(queried.map(({ settlement }) => settlement.settlement_id)).toEqual(['S078'])
+    expect(queried.map(({ settlement: result }) => result.settlement_id)).toEqual([settlement('Uruk').settlement_id])
     expect(matchesFilters(teotihuacan, { ...filters, types: ['modern city'] })).toBe(false)
   })
 
   it('ranks canonical and alias-only settlement name suggestions', () => {
     const canonical = deriveSettlementNameSuggestions(settlements, 'Teotihuacan')
-    expect(canonical[0]).toMatchObject({ settlement: { settlement_id: 'S106' }, matchingAlias: null, rank: 0 })
+    expect(canonical[0]).toMatchObject({ settlement: { settlement_id: teotihuacan.settlement_id }, matchingAlias: null, rank: 0 })
 
-    const alias = deriveSettlementNameSuggestions(settlements, 'Krakow')
-    expect(alias[0]).toMatchObject({ settlement: { canonical_name: 'Kraków' }, matchingAlias: 'Krakow', rank: 1 })
+    const alias = deriveSettlementNameSuggestions(settlements, 'Aztlan')
+    expect(alias[0]).toMatchObject({ settlement: { canonical_name: 'Aztlán' }, matchingAlias: 'Aztlan', rank: 1 })
 
     const prefix = deriveSettlementNameSuggestions(settlements, 'Wark')
     expect(prefix[0]).toMatchObject({ settlement: { canonical_name: 'Uruk' }, matchingAlias: 'Warka', rank: 3 })

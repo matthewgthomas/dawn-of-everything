@@ -139,8 +139,24 @@ def main() -> None:
     present_forbidden = sorted(forbidden_names & set(settlement_names))
     checks.append(check("Known river/culture/fiction false positives are excluded", not present_forbidden, len(present_forbidden), 0, " | ".join(present_forbidden)))
 
-    checks.append(check("Dataset contains substantive settlement coverage", len(settlements) >= 170, len(settlements), ">= 170"))
-    checks.append(check("Dataset contains source-context coverage", len(mentions) >= 650, len(mentions), ">= 650"))
+    intentionally_removed = {
+        "Aberdeen", "Amman", "Amsterdam", "Batman", "Beirut", "Bologna", "Brighton", "Brno",
+        "Chicago", "Damascus", "Delhi", "East St. Louis", "Gaza City", "Glasgow", "Hiroshima",
+        "Jerusalem", "Kraków", "Kyiv", "Los Angeles", "Madrid", "Mbanza Kongo", "Mérida",
+        "Mexico City", "Montreal", "Nagasaki", "New York City", "Paris", "Quito", "Salamanca",
+        "Samarkand", "Santiago", "Seville", "Sofia", "Tbilisi", "Toledo", "Vancouver", "Venice",
+    }
+    present_removed = sorted(intentionally_removed & set(settlement_names))
+    checks.append(check("Intentionally removed settlements are absent", not present_removed, len(present_removed), 0, " | ".join(present_removed)))
+
+    varna_false_matches = [
+        row["mention_id"] for row in mentions
+        if row["canonical_name"] == "Varna" and row["paragraph_id"] == "L2929"
+    ]
+    checks.append(check("Varna caste-system false positive is excluded", not varna_false_matches, len(varna_false_matches), 0, " | ".join(varna_false_matches)))
+
+    checks.append(check("Dataset contains substantive settlement coverage", len(settlements) >= 130, len(settlements), ">= 130"))
+    checks.append(check("Dataset contains source-context coverage", len(mentions) >= 600, len(mentions), ">= 600"))
     checks.append(check("Dataset contains linked bibliography coverage", len(references) >= 250, len(references), ">= 250"))
 
     report = {
@@ -159,7 +175,11 @@ def main() -> None:
     args.output_json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     args.output_csv.parent.mkdir(parents=True, exist_ok=True)
     with args.output_csv.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["check", "status", "observed", "expected", "detail"])
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["check", "status", "observed", "expected", "detail"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(checks)
 

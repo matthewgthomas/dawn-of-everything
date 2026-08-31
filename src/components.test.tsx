@@ -7,7 +7,7 @@ import DetailDrawer from './DetailDrawer'
 import FilterPanel from './FilterPanel'
 import App from './App'
 import { EMPTY_FILTERS } from './filtering'
-import { settlementById, settlements } from './data'
+import { settlementByName, settlements } from './data'
 import SettlementAreaComparison from './SettlementAreaComparison'
 
 afterEach(() => {
@@ -31,6 +31,8 @@ const setDesktopMedia = (desktop: boolean) => {
     }),
   })
 }
+
+const settlement = (name: string) => settlementByName.get(name)!
 
 describe('App responsive results', () => {
   it('links book references and prominently credits the authors and publisher', async () => {
@@ -68,7 +70,7 @@ describe('App responsive results', () => {
     setDesktopMedia(true)
     const user = userEvent.setup()
     render(<App />)
-    const launcher = screen.getByRole('button', { name: '174 settlements' })
+    const launcher = screen.getByRole('button', { name: '137 settlements' })
     const viewSwitcher = screen.getByRole('navigation', { name: 'Settlement list view' })
     expect(within(viewSwitcher).getByRole('button', { name: 'Timeline' })).toHaveAttribute('aria-pressed', 'true')
     await user.click(launcher)
@@ -109,7 +111,7 @@ describe('App responsive results', () => {
     expect(screen.getByRole('heading', { name: 'Occupation through time' })).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Settlement area' }))
     expect(screen.getByRole('heading', { name: 'Settlement area' })).toBeInTheDocument()
-    expect(screen.getByText('69 of 174 filtered settlements have an estimated size.')).toBeInTheDocument()
+    expect(screen.getByText('65 of 137 filtered settlements have an estimated size.')).toBeInTheDocument()
     await user.click(within(screen.getByRole('navigation', { name: 'Settlement list view' })).getByRole('button', { name: 'Timeline' }))
     expect(screen.getByRole('heading', { name: 'Occupation through time' })).toBeInTheDocument()
   })
@@ -151,7 +153,7 @@ describe('App responsive results', () => {
     expect(within(mentions).queryByText('Aztlán')).not.toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'Reset all' }))
-    expect(screen.getByRole('button', { name: '174 settlements' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '137 settlements' })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /Place: Teotihuacan/i })).not.toBeInTheDocument()
   })
 })
@@ -163,7 +165,7 @@ describe('SettlementAreaComparison', () => {
     const onPin = vi.fn()
     render(
       <SettlementAreaComparison
-        settlements={[settlementById.get('S078')!, settlementById.get('S106')!, settlementById.get('S001')!]}
+        settlements={[settlement('Uruk'), settlement('Teotihuacan'), settlement('Quebec City')]}
         selectedId={null}
         pinnedIds={[]}
         onSelect={onSelect}
@@ -179,7 +181,7 @@ describe('SettlementAreaComparison', () => {
     await user.click(screen.getByText('Area not established'))
     expect(screen.getByText('Quebec City')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /Add Teotihuacan to comparison/i }))
-    expect(onPin).toHaveBeenCalledWith('S106')
+    expect(onPin).toHaveBeenCalledWith(settlement('Teotihuacan').settlement_id)
   })
 })
 
@@ -195,7 +197,7 @@ describe('CompareTray', () => {
     const { rerender } = render(<CompareTray settlements={[]} open={false} {...props} />)
     expect(document.querySelector('.compare-launcher')).not.toBeInTheDocument()
 
-    rerender(<CompareTray settlements={[settlementById.get('S106')!]} open={false} {...props} />)
+    rerender(<CompareTray settlements={[settlement('Teotihuacan')]} open={false} {...props} />)
     expect(document.querySelector('.compare-launcher')).toBeInTheDocument()
   })
 
@@ -207,11 +209,11 @@ describe('CompareTray', () => {
 
   it('explains that a second settlement is needed and cannot open the full tray', async () => {
     const user = userEvent.setup()
-    render(<CompareTray settlements={[settlementById.get('S106')!]} open={false} {...props} />)
+    render(<CompareTray settlements={[settlement('Teotihuacan')]} open={false} {...props} />)
     expect(screen.getByText('Add one more to compare')).toBeInTheDocument()
     expect(screen.queryByRole('dialog', { name: 'Compare settlements' })).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /remove teotihuacan/i }))
-    expect(props.onRemove).toHaveBeenCalledWith('S106')
+    expect(props.onRemove).toHaveBeenCalledWith(settlement('Teotihuacan').settlement_id)
   })
 })
 
@@ -232,7 +234,7 @@ describe('FilterPanel', () => {
   it('searches aliases, manages selected names, and clears the named allow-list', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    const selected = { ...EMPTY_FILTERS, settlementIds: ['S106', 'S078'] }
+    const selected = { ...EMPTY_FILTERS, settlementIds: [settlement('Teotihuacan').settlement_id, settlement('Uruk').settlement_id] }
     const { rerender } = render(<FilterPanel filters={selected} settlements={settlements} onChange={onChange} onClose={() => undefined} />)
 
     expect(screen.getByRole('button', { name: /Remove Teotihuacan from visible settlements/i })).toBeInTheDocument()
@@ -243,13 +245,13 @@ describe('FilterPanel', () => {
     await user.type(screen.getByRole('textbox', { name: /Find a settlement by name or alias/i }), 'Warka')
     expect(screen.getByText('Also known as Warka')).toBeInTheDocument()
     await user.click(screen.getByText('Uruk'))
-    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ settlementIds: ['S078'] }))
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ settlementIds: [settlement('Uruk').settlement_id] }))
   })
 })
 
 describe('DetailDrawer', () => {
   it('links the book title in the fallback settlement description', () => {
-    const settlementWithoutDescription = settlementById.get('S040')!
+    const settlementWithoutDescription = settlement('Altamira Cave')
     expect(settlementWithoutDescription.wikidata_description).toBe('')
     render(<DetailDrawer settlement={settlementWithoutDescription} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     const bookLink = screen.getByRole('link', { name: 'The Dawn of Everything' })
@@ -259,7 +261,7 @@ describe('DetailDrawer', () => {
   })
 
   it('shows the selected settlement on a static world map when coordinates are resolved', () => {
-    const teotihuacan = settlementById.get('S106')!
+    const teotihuacan = settlement('Teotihuacan')
     render(<DetailDrawer settlement={teotihuacan} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     expect(screen.getByRole('img', { name: /Location of Teotihuacan on the world map/i })).toBeInTheDocument()
     expect(screen.queryByText('Location unresolved')).not.toBeInTheDocument()
@@ -267,7 +269,7 @@ describe('DetailDrawer', () => {
 
   it('summarizes peak area and exposes full comparator provenance', async () => {
     const user = userEvent.setup()
-    const teotihuacan = settlementById.get('S106')!
+    const teotihuacan = settlement('Teotihuacan')
     render(<DetailDrawer settlement={teotihuacan} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     expect(screen.getByText('2072 ha')).toBeInTheDocument()
     expect(screen.getByText('About 2.1 × Richmond Park')).toBeInTheDocument()
@@ -282,7 +284,7 @@ describe('DetailDrawer', () => {
 
   it('shows every multi-phase estimate and marks alternates', async () => {
     const user = userEvent.setup()
-    render(<DetailDrawer settlement={settlementById.get('S078')!} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    render(<DetailDrawer settlement={settlement('Uruk')} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     await user.click(screen.getByRole('button', { name: 'Area' }))
     expect(screen.getByText('5 observations')).toBeInTheDocument()
     expect(screen.getByText('Alternate estimate')).toBeInTheDocument()
@@ -292,7 +294,7 @@ describe('DetailDrawer', () => {
 
   it('renders multiple area research sources as separate valid links', async () => {
     const user = userEvent.setup()
-    render(<DetailDrawer settlement={settlementById.get('S056')!} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    render(<DetailDrawer settlement={settlement('Sannai Maruyama')} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     await user.click(screen.getByRole('button', { name: 'Area' }))
 
     expect(screen.getByRole('link', { name: 'Source 1' })).toHaveAttribute(
@@ -307,7 +309,7 @@ describe('DetailDrawer', () => {
 
   it('explains unknown areas and links supporting evidence when available', async () => {
     const user = userEvent.setup()
-    render(<DetailDrawer settlement={settlementById.get('S053')!} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    render(<DetailDrawer settlement={settlement('Durrington Walls')} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     expect(screen.getByText(/overall Durrington Walls settlement size is unknown/i)).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Area' }))
     const evidence = screen.getByRole('link', { name: /English Heritage, Stonehenge reconstructed/i })
@@ -316,7 +318,7 @@ describe('DetailDrawer', () => {
 
   it('keeps an unlocated settlement browseable with full grouped passages', async () => {
     const user = userEvent.setup()
-    const aztlan = settlementById.get('S117')!
+    const aztlan = settlement('Aztlán')
     render(<DetailDrawer settlement={aztlan} query="homeland" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     expect(screen.getByRole('heading', { name: 'Aztlán' })).toBeInTheDocument()
     expect(screen.getByText('Location unresolved')).toBeInTheDocument()

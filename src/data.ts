@@ -256,6 +256,7 @@ export const areaBarPercentage = (areaHectares: number, maximum = MAX_REPRESENTA
   maximum <= 0 ? 0 : (Math.log1p(areaHectares) / Math.log1p(maximum)) * 100
 
 export const settlementById = new Map(settlements.map((settlement) => [settlement.settlement_id, settlement]))
+export const settlementByName = new Map(settlements.map((settlement) => [settlement.canonical_name, settlement]))
 
 export const settlementTypes = [...new Set(settlements.map((settlement) => settlement.settlement_type))]
   .map((type) => ({

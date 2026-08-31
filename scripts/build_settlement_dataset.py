@@ -22,8 +22,6 @@ MANUAL_COORDINATES = {
     # Values in this table take precedence over automatic entity matching. Each
     # entry records latitude, longitude, precision note, source URL, and a
     # compact precision class so approximate locations remain explicit.
-    "Bologna": (44.4949, 11.3426, "modern city centre", "https://www.wikidata.org/wiki/Q1891", "city centroid"),
-    "Toledo": (39.8628, -4.0273, "modern city centre in Spain", "https://www.wikidata.org/wiki/Q5836", "city centroid"),
     "Altamira Cave": (43.3775, -4.1225, "cave entrance/site centroid", "https://en.wikipedia.org/wiki/Cave_of_Altamira", "site centroid"),
     "El Castillo Cave": (43.2923, -3.9655, "cave entrance/site centroid", "https://fr.wikipedia.org/wiki/Grotte_d%27El_Castillo", "site centroid"),
     "Brixham Cave": (50.3938, -3.5143, "scheduled-monument location", "https://ancientmonuments.uk/106896-windmill-hill-cave-brixham-brixham", "site centroid"),
@@ -53,13 +51,6 @@ MANUAL_COORDINATES = {
     "Byblos": (34.1236, 35.6511, "ancient and modern city centre", "https://en.wikipedia.org/wiki/Byblos", "city centroid"),
     "Mezin": (51.823, 33.068, "archaeological site near the modern village", "https://en.wikipedia.org/wiki/Mezin", "nearby locality"),
     "Tågerup": (55.856, 12.938, "Mesolithic site location", "https://xronos.ch/sites/22754", "site centroid"),
-    "Salamanca": (40.9701, -5.6635, "modern city centre", "https://www.wikidata.org/wiki/Q15695", "city centroid"),
-    "Seville": (37.3891, -5.9845, "modern city centre", "https://www.wikidata.org/wiki/Q8717", "city centroid"),
-    "Madrid": (40.4168, -3.7038, "modern city centre", "https://www.wikidata.org/wiki/Q2807", "city centroid"),
-    "Mexico City": (19.4326, -99.1332, "modern city centre", "https://www.wikidata.org/wiki/Q1489", "city centroid"),
-    "Brighton": (50.8225, -0.1372, "modern city centre", "https://www.wikidata.org/wiki/Q131491", "city centroid"),
-    "Aberdeen": (57.1497, -2.0943, "modern city centre", "https://www.wikidata.org/wiki/Q36405", "city centroid"),
-    "Santiago": (-33.4489, -70.6693, "modern city centre", "https://www.wikidata.org/wiki/Q2887", "city centroid"),
     "Merv": (37.6627, 62.1891, "ancient urban complex centroid", "https://en.wikipedia.org/wiki/Merv", "site centroid"),
     "Fort Michilimackinac": (45.786, -84.7278, "fort and trading settlement site", "https://en.wikipedia.org/wiki/Fort_Michilimackinac", "site centroid"),
     "Mound Key (Calos)": (26.019, -81.995, "Calusa capital on Mound Key in Estero Bay", "https://www.floridastateparks.org/parks-and-trails/mound-key-archaeological-state-park", "site centroid"),
@@ -72,8 +63,6 @@ MANUAL_COORDINATES = {
 INTENTIONALLY_UNLOCATED = {"Aztlán", "Onondaga town", "Hor-mer"}
 
 MANUAL_ENTITY_OVERRIDES = {
-    "Bologna": {"wikidata_id": "Q1891", "wikidata_url": "https://www.wikidata.org/wiki/Q1891", "wikipedia_url": "https://en.wikipedia.org/wiki/Bologna", "description": "city in Emilia-Romagna, Italy"},
-    "Toledo": {"wikidata_id": "Q5836", "wikidata_url": "https://www.wikidata.org/wiki/Q5836", "wikipedia_url": "https://en.wikipedia.org/wiki/Toledo,_Spain", "description": "city in Castilla-La Mancha, Spain"},
     "Zhengzhou Shang City": {"wikidata_id": "Q203132", "wikidata_url": "https://www.wikidata.org/wiki/Q203132", "wikipedia_url": "https://en.wikipedia.org/wiki/Zhengzhou_Shang_City", "description": "Bronze Age archaeological city in Zhengzhou, China"},
     "Yaxchilán": {"wikidata_id": "Q662263", "wikidata_url": "https://www.wikidata.org/wiki/Q662263", "wikipedia_url": "https://en.wikipedia.org/wiki/Yaxchilan", "description": "pre-Columbian Maya city in Chiapas, Mexico"},
 }
@@ -164,6 +153,8 @@ def alias_pattern(alias: str) -> re.Pattern[str]:
 
 
 def paragraph_matches(settlement: dict[str, str], paragraph: dict[str, object]) -> list[str]:
+    if settlement["canonical_name"] == "Varna" and paragraph["paragraph_id"] == "L2929":
+        return []
     text = str(paragraph["paragraph_text"])
     aliases = sorted({settlement["canonical_name"], *settlement["aliases"].split("|")}, key=len, reverse=True)
     matched = []
@@ -171,10 +162,6 @@ def paragraph_matches(settlement: dict[str, str], paragraph: dict[str, object]) 
         if not alias or "(" in alias:
             continue
         if alias_pattern(alias).search(text):
-            if settlement["canonical_name"] == "Vancouver" and re.search(r"Vancouver\s+Island", text, re.I):
-                # The island is not the city; a separate paragraph explicitly
-                # refers to the surroundings of Vancouver and is retained.
-                continue
             if settlement["canonical_name"] == "San Lorenzo Tenochtitlán" and re.search(r"Rio\s+San Lorenzo", text, re.I):
                 # Keep only paragraphs that contain an additional non-river San Lorenzo occurrence.
                 occurrences = list(re.finditer(r"San Lorenzo", text, re.I))
@@ -389,7 +376,7 @@ def main() -> None:
         with path.open("w", encoding="utf-8", newline="") as handle:
             if not rows:
                 return
-            writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+            writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
 

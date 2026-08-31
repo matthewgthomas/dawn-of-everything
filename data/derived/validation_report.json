@@ -1,10 +1,10 @@
 {
   "summary": {
-    "settlements": 174,
-    "mentions": 668,
-    "references": 295,
-    "checks": 20,
-    "passed": 20,
+    "settlements": 137,
+    "mentions": 603,
+    "references": 289,
+    "checks": 22,
+    "passed": 22,
     "failed": 0,
     "unlocated_settlements": [
       "Aztlán",
@@ -16,29 +16,29 @@
     {
       "check": "Settlement IDs are unique",
       "status": "PASS",
-      "observed": 174,
-      "expected": 174,
+      "observed": 137,
+      "expected": 137,
       "detail": ""
     },
     {
       "check": "Canonical settlement names are unique",
       "status": "PASS",
-      "observed": 174,
-      "expected": 174,
+      "observed": 137,
+      "expected": 137,
       "detail": ""
     },
     {
       "check": "Mention IDs are unique",
       "status": "PASS",
-      "observed": 668,
-      "expected": 668,
+      "observed": 603,
+      "expected": 603,
       "detail": ""
     },
     {
       "check": "Settlement-paragraph grain is unique",
       "status": "PASS",
-      "observed": 668,
-      "expected": 668,
+      "observed": 603,
+      "expected": 603,
       "detail": ""
     },
     {
@@ -133,23 +133,37 @@
       "detail": ""
     },
     {
+      "check": "Intentionally removed settlements are absent",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Varna caste-system false positive is excluded",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
       "check": "Dataset contains substantive settlement coverage",
       "status": "PASS",
-      "observed": 174,
-      "expected": ">= 170",
+      "observed": 137,
+      "expected": ">= 130",
       "detail": ""
     },
     {
       "check": "Dataset contains source-context coverage",
       "status": "PASS",
-      "observed": 668,
-      "expected": ">= 650",
+      "observed": 603,
+      "expected": ">= 600",
       "detail": ""
     },
     {
       "check": "Dataset contains linked bibliography coverage",
       "status": "PASS",
-      "observed": 295,
+      "observed": 289,
       "expected": ">= 250",
       "detail": ""
     }
