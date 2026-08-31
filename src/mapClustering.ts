@@ -1,5 +1,6 @@
 export const MIN_MAP_ZOOM = 1
-export const MAX_MAP_ZOOM = 14
+export const MAX_MAP_ZOOM = 28
+export const CLUSTER_CUTOFF_ZOOM = 14
 export const MAX_ZOOM_EPSILON = 0.001
 
 const CLUSTER_DENSITY_BREAKPOINT = 6
@@ -23,7 +24,7 @@ export function clusterMapPoints<Point extends ClusterableMapPoint>(
   points: Point[],
   committedScale: number,
 ): MapPointCluster<Point>[] {
-  if (committedScale >= MAX_MAP_ZOOM - MAX_ZOOM_EPSILON) {
+  if (committedScale >= CLUSTER_CUTOFF_ZOOM - MAX_ZOOM_EPSILON) {
     return points.map((point) => ({
       key: `point:${point.id}`,
       x: point.x,

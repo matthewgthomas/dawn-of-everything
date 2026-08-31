@@ -1,5 +1,5 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
-import { BookOpen, Clock3, Filter, Info, List, Map as MapIcon, MapPin, Search, SlidersHorizontal, X } from 'lucide-react'
+import { BookOpen, Check, Clock3, Filter, Info, List, Map as MapIcon, MapPin, Plus, Search, SlidersHorizontal, X } from 'lucide-react'
 import AboutPanel from './AboutPanel'
 import BookTitleLink from './BookTitleLink'
 import CompareTray from './CompareTray'
@@ -11,6 +11,7 @@ import WorldMap from './WorldMap'
 import { formatYear, sections, settlementById, settlements, settlementTypes } from './data'
 import {
   countActiveFilters,
+  deriveSettlementNameSuggestions,
   deriveSearchResults,
   EMPTY_FILTERS,
   ERA_PRESETS,
@@ -51,18 +52,28 @@ export default function App() {
   const [panelView, setPanelView] = useState<SettlementPanelView>('timeline')
   const [isDesktop, setIsDesktop] = useState(() => typeof window === 'undefined' || window.matchMedia('(min-width: 901px)').matches)
   const [timelineRequest, setTimelineRequest] = useState<TimelinePresetId | null>(null)
+  const [nameSuggestionsOpen, setNameSuggestionsOpen] = useState(false)
+  const [activeNameSuggestion, setActiveNameSuggestion] = useState(-1)
   const [onboardingDismissed, setOnboardingDismissed] = useState(() => {
     try { return localStorage.getItem(onboardingStorageKey) === 'true' } catch { return false }
   })
   const searchRef = useRef<HTMLInputElement>(null)
+  const searchContainerRef = useRef<HTMLDivElement>(null)
   const searchSessionRef = useRef(false)
   const suppressSearchResultsRef = useRef(false)
   const deferredQuery = useDeferredValue(filters.query)
 
   const effectiveFilters = useMemo(() => ({ ...filters, query: deferredQuery }), [filters, deferredQuery])
   const searchResults = useMemo(() => deriveSearchResults(settlements, effectiveFilters), [effectiveFilters])
+  const nameSuggestions = useMemo(() => filters.query.trim().length >= 2
+    ? deriveSettlementNameSuggestions(settlements, filters.query).slice(0, 8)
+    : [], [filters.query])
   const results = useMemo(() => searchResults.map((result) => result.settlement), [searchResults])
   const selected = selectedId ? settlementById.get(selectedId) ?? null : null
+  const namedSettlements = filters.settlementIds.flatMap((id) => {
+    const settlement = settlementById.get(id)
+    return settlement ? [settlement] : []
+  })
   const compared = compareIds.flatMap((id) => {
     const settlement = settlementById.get(id)
     return settlement ? [settlement] : []
@@ -129,6 +140,7 @@ export default function App() {
         event.preventDefault()
         searchRef.current?.focus()
       }
+      if (event.defaultPrevented) return
       if (event.key === 'Escape') {
         if (compareOpen) setCompareOpen(false)
         else if (aboutOpen) setAboutOpen(false)
@@ -190,6 +202,7 @@ export default function App() {
 
   const resetAll = () => setFilters({ ...EMPTY_FILTERS })
   const removeType = (type: string) => setFilters((current) => ({ ...current, types: current.types.filter((entry) => entry !== type) }))
+  const removeSettlement = (id: string) => setFilters((current) => ({ ...current, settlementIds: current.settlementIds.filter((entry) => entry !== id) }))
   const removeSection = (section: string) => setFilters((current) => ({ ...current, sections: current.sections.filter((entry) => entry !== section) }))
   const removeEra = (era: FilterState['eras'][number]) => setFilters((current) => ({ ...current, eras: current.eras.filter((entry) => entry !== era) }))
   const removeCategory = (category: FilterState['categories'][number]) => setFilters((current) => ({ ...current, categories: current.categories.filter((entry) => entry !== category) }))
@@ -225,6 +238,39 @@ export default function App() {
     setPanelView(view)
   }
 
+  const toggleNamedSettlement = (id: string) => {
+    setFilters((current) => ({
+      ...current,
+      query: '',
+      settlementIds: current.settlementIds.includes(id)
+        ? current.settlementIds.filter((entry) => entry !== id)
+        : [...current.settlementIds, id],
+    }))
+    setNameSuggestionsOpen(false)
+    setActiveNameSuggestion(-1)
+    window.requestAnimationFrame(() => searchRef.current?.focus())
+  }
+
+  const handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape' && nameSuggestionsOpen) {
+      event.preventDefault()
+      setNameSuggestionsOpen(false)
+      setActiveNameSuggestion(-1)
+      return
+    }
+    if (!nameSuggestionsOpen || nameSuggestions.length === 0) return
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setActiveNameSuggestion((current) => current < nameSuggestions.length - 1 ? current + 1 : 0)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setActiveNameSuggestion((current) => current > 0 ? current - 1 : nameSuggestions.length - 1)
+    } else if (event.key === 'Enter' && activeNameSuggestion >= 0) {
+      event.preventDefault()
+      toggleNamedSettlement(nameSuggestions[activeNameSuggestion].settlement.settlement_id)
+    }
+  }
+
   const onboardingCard = (
     <section className="start-card" aria-labelledby="start-card-title">
       <button className="start-card-close" onClick={dismissOnboarding} aria-label="Dismiss start exploring card"><X /></button>
@@ -248,30 +294,76 @@ export default function App() {
       </header>
 
       <section className="search-band" aria-label="Search and filter settlements">
-        <label className="search-box">
-          <Search size={19} aria-hidden="true" /><span className="sr-only">Search settlements and book text</span>
-          <input
-            ref={searchRef}
-            value={filters.query}
-            onFocus={() => {
-              if (!searchSessionRef.current) suppressSearchResultsRef.current = false
-              searchSessionRef.current = true
-            }}
-            onBlur={() => { searchSessionRef.current = false }}
-            onChange={(event) => setFilters({ ...filters, query: event.target.value })}
-            placeholder="Search places, chapters or passages…"
-          />
-          {filters.query ? <button onClick={() => setFilters({ ...filters, query: '' })} aria-label="Clear search"><X /></button> : <kbd>⌘ K</kbd>}
-        </label>
+        <div className="search-combobox" ref={searchContainerRef}>
+          <div className="search-box">
+            <Search size={19} aria-hidden="true" />
+            <label className="sr-only" htmlFor="atlas-search">Search settlements and book text</label>
+            <input
+              id="atlas-search"
+              ref={searchRef}
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={nameSuggestionsOpen && nameSuggestions.length > 0}
+              aria-controls="settlement-name-suggestions"
+              aria-activedescendant={activeNameSuggestion >= 0 ? `settlement-name-option-${activeNameSuggestion}` : undefined}
+              value={filters.query}
+              onFocus={() => {
+                if (!searchSessionRef.current) suppressSearchResultsRef.current = false
+                searchSessionRef.current = true
+                if (nameSuggestions.length > 0) setNameSuggestionsOpen(true)
+              }}
+              onBlur={(event) => {
+                searchSessionRef.current = false
+                if (!searchContainerRef.current?.contains(event.relatedTarget as Node | null)) {
+                  setNameSuggestionsOpen(false)
+                  setActiveNameSuggestion(-1)
+                }
+              }}
+              onKeyDown={handleSearchKeyDown}
+              onChange={(event) => {
+                const query = event.target.value
+                setFilters({ ...filters, query })
+                setNameSuggestionsOpen(query.trim().length >= 2)
+                setActiveNameSuggestion(-1)
+              }}
+              placeholder="Search book text or add settlements…"
+            />
+            {filters.query ? <button onClick={() => { setFilters({ ...filters, query: '' }); setNameSuggestionsOpen(false) }} aria-label="Clear search"><X /></button> : <kbd>⌘ K</kbd>}
+          </div>
+          {nameSuggestionsOpen && nameSuggestions.length > 0 && (
+            <div className="name-suggestion-popover" id="settlement-name-suggestions" role="listbox" aria-label="Settlement name suggestions">
+              <p>Add a settlement to the filtered list</p>
+              {nameSuggestions.map(({ settlement, matchingAlias }, index) => {
+                const included = filters.settlementIds.includes(settlement.settlement_id)
+                return (
+                  <button
+                    type="button"
+                    role="option"
+                    id={`settlement-name-option-${index}`}
+                    aria-selected={included}
+                    className={index === activeNameSuggestion ? 'is-active' : ''}
+                    key={settlement.settlement_id}
+                    onMouseEnter={() => setActiveNameSuggestion(index)}
+                    onClick={() => toggleNamedSettlement(settlement.settlement_id)}
+                  >
+                    <span><strong>{settlement.canonical_name}</strong><small>{matchingAlias ? `Also known as ${matchingAlias} · ` : ''}{settlement.settlement_type}</small></span>
+                    <b>{included ? <><Check /> Selected</> : <><Plus /> Add</>}</b>
+                  </button>
+                )
+              })}
+            </div>
+          )}
+        </div>
         <button className={activeFilterCount ? 'filter-button has-filters' : 'filter-button'} onClick={openFilters}><SlidersHorizontal size={17} /><span className="filter-button-label">Filters</span>{activeFilterCount > 0 && <span className="filter-count">{activeFilterCount}</span>}</button>
-        <button className="results-button" aria-pressed={panelView === 'mentions'} onClick={openResults}><List size={17} /><span>{hasFilters ? `${results.length} results` : `${settlements.length} settlements`}</span></button>
-        <p className="sr-only" aria-live="polite">{results.length} settlements shown</p>
+        <button className="results-button" aria-pressed={panelView === 'mentions'} onClick={openResults}><List size={17} /><span>{hasFilters ? `${results.length} result${results.length === 1 ? '' : 's'}` : `${settlements.length} settlements`}</span></button>
+        <p className="sr-only" aria-live="polite">{results.length} settlement{results.length === 1 ? '' : 's'} shown</p>
       </section>
 
       {hasFilters && (
         <section className="active-filter-strip" aria-label="Active filters">
           <Filter size={14} aria-hidden="true" /><span>Showing</span>
           {filters.query && <button onClick={() => setFilters({ ...filters, query: '' })}>Search: {filters.query}<X /></button>}
+          {namedSettlements.map((settlement) => <button key={settlement.settlement_id} onClick={() => removeSettlement(settlement.settlement_id)}>Place: {settlement.canonical_name}<X /></button>)}
           {filters.sections.map((section) => <button key={section} onClick={() => removeSection(section)}>{section}<X /></button>)}
           {filters.eras.map((era) => <button key={era} onClick={() => removeEra(era)}>{ERA_PRESETS[era].label}<X /></button>)}
           {filters.categories.map((category) => <button key={category} onClick={() => removeCategory(category)}>{PLACE_CATEGORIES[category].label}<X /></button>)}
@@ -295,7 +387,7 @@ export default function App() {
         <div className="visual-workspace">
           <section className={`map-panel view-pane${mobileView === 'map' ? ' mobile-active' : ''}`}>
             {showOnboarding && onboardingCard}
-            <WorldMap settlements={results} selectedId={selectedId} pinnedIds={compareIds} onSelect={selectSettlement} />
+            <WorldMap settlements={results} labelledSettlementIds={filters.settlementIds} selectedId={selectedId} pinnedIds={compareIds} onSelect={selectSettlement} />
             <section className="map-discovery" data-state={selected ? 'selected' : hasFilters ? 'filtered' : 'default'} aria-label="Map discovery">
               {selected ? <><p className="eyebrow">Selected place</p><h2>{selected.canonical_name}</h2><p>{selected.settlement_type} · {selected.occupation_interval_display}</p><button className="primary-button" onClick={() => selectSettlement(selected.settlement_id)}>Open details</button></>
                 : hasFilters ? <><p><strong>{results.length}</strong> settlement{results.length === 1 ? '' : 's'} match your search and filters.</p><button className="primary-button" onClick={openResults}>View results</button></>
@@ -323,7 +415,7 @@ export default function App() {
         </div>
       </section>
 
-      {filtersOpen && <><div className="drawer-scrim" onClick={() => setFiltersOpen(false)} /><FilterPanel filters={filters} resultCount={results.length} onChange={setFilters} onClose={() => setFiltersOpen(false)} /></>}
+      {filtersOpen && <><div className="drawer-scrim" onClick={() => setFiltersOpen(false)} /><FilterPanel filters={filters} settlements={settlements} resultCount={results.length} onChange={setFilters} onClose={() => setFiltersOpen(false)} /></>}
       {detailOpen && selected && <><div className="drawer-scrim detail-scrim" onClick={closeDetail} /><DetailDrawer key={`${selected.settlement_id}-${detailContext.initialView}`} settlement={selected} query={filters.query} initialView={detailContext.initialView} matchingMentionIds={detailContext.matchingMentionIds} bestMentionId={detailContext.bestMentionId} pinned={compareIds.includes(selected.settlement_id)} canPin={compareIds.length < 4} onPin={() => togglePin(selected.settlement_id)} onClose={closeDetail} /></>}
       {aboutOpen && <><div className="drawer-scrim" onClick={() => setAboutOpen(false)} /><AboutPanel onClose={() => setAboutOpen(false)} onExploreSettlement={exploreTeotihuacan} onBrowseChapter={browseChapterEight} onExploreEarliest={exploreEarliest} /></>}
 

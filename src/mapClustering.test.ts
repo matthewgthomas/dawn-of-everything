@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  CLUSTER_CUTOFF_ZOOM,
   clusterMapPoints,
   MAX_MAP_ZOOM,
   MAX_ZOOM_EPSILON,
@@ -41,10 +42,11 @@ describe('clusterMapPoints', () => {
     expect(clusterSummary(points, beforePan.k)).toEqual(clusterSummary(points, afterPan.k))
   })
 
-  it('returns every point as a singleton at maximum zoom', () => {
+  it('stops clustering at the original cutoff even though the map can zoom closer', () => {
     const points = [point('a', 5, 5), point('b', 5, 5), point('c', 6, 6)]
-    const clusters = clusterMapPoints(points, MAX_MAP_ZOOM - MAX_ZOOM_EPSILON / 2)
+    const clusters = clusterMapPoints(points, CLUSTER_CUTOFF_ZOOM - MAX_ZOOM_EPSILON / 2)
 
+    expect(MAX_MAP_ZOOM).toBeGreaterThan(CLUSTER_CUTOFF_ZOOM)
     expect(clusters).toHaveLength(points.length)
     expect(clusters.every((cluster) => cluster.points.length === 1)).toBe(true)
     expect(clusters.map((cluster) => cluster.key)).toEqual(['point:a', 'point:b', 'point:c'])
