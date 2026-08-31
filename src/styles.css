@@ -683,6 +683,16 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); background: #f4e5bd; colo
   text-anchor: middle;
   pointer-events: none;
 }
+.map-marker .map-settlement-label {
+  fill: var(--oxblood);
+  stroke: rgba(255, 246, 218, 0.96);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  text-transform: none;
+}
 .map-marker.pin-0 circle { fill: #5a1327; }
 .map-marker.pin-1 circle { fill: #ce0b35; }
 .map-marker.pin-2 circle { fill: #7c3b16; }

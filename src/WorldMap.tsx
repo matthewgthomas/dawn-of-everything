@@ -23,6 +23,7 @@ import { fitMapPoints, type MapViewportPadding, type MapViewportSize } from './m
 
 interface WorldMapProps {
   settlements: NormalizedSettlement[]
+  labelledSettlementIds: string[]
   selectedId: string | null
   pinnedIds: string[]
   onSelect: (id: string) => void
@@ -53,9 +54,39 @@ interface ProjectedLabel {
 const initialViewport: MapViewportSize = { width: 960, height: 470 }
 const projectionPadding = 18
 const mapLabelSizes = { landform: 10, mountains: 10, water: 10, elevation: 10 }
+export const SETTLEMENT_LABEL_COUNT_LIMIT = 4
+export const SETTLEMENT_LABEL_MIN_ZOOM = 7
+export const SETTLEMENT_LABEL_FONT_SIZE = 11
+const settlementLabelOffset = 5
+const settlementLabelMinimumWidth = 72
+const settlementLabelMaximumWidth = 240
+const settlementLabelCharacterWidth = 7
 const motionDuration = (duration: number) => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : duration
 
-export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect }: WorldMapProps) {
+export const shouldShowSettlementLabels = (visibleLabelCount: number, committedZoom: number) =>
+  visibleLabelCount > 0
+  && (visibleLabelCount <= SETTLEMENT_LABEL_COUNT_LIMIT || committedZoom >= SETTLEMENT_LABEL_MIN_ZOOM)
+
+export const settlementLabelPlacement = (
+  projectedX: number,
+  transform: ZoomTransform,
+  viewportWidth: number,
+  markerRadius: number,
+  label: string,
+) => {
+  const estimatedWidth = Math.min(
+    settlementLabelMaximumWidth,
+    Math.max(settlementLabelMinimumWidth, label.length * settlementLabelCharacterWidth),
+  )
+  const placeOnLeft = transform.applyX(projectedX) > viewportWidth - estimatedWidth - settlementLabelOffset
+  const offset = (markerRadius + settlementLabelOffset) / transform.k
+  return {
+    x: placeOnLeft ? -offset : offset,
+    textAnchor: placeOnLeft ? 'end' as const : 'start' as const,
+  }
+}
+
+export default function WorldMap({ settlements, labelledSettlementIds, selectedId, pinnedIds, onSelect }: WorldMapProps) {
   const shellRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const zoomRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null)
@@ -83,6 +114,13 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
     const point = projection([settlement.longitudeNumber, settlement.latitudeNumber])
     return point ? [{ id: settlement.settlement_id, settlement, x: point[0], y: point[1] }] : []
   }), [projection, settlements])
+
+  const labelledIdSet = useMemo(() => new Set(labelledSettlementIds), [labelledSettlementIds])
+  const visibleLabelCount = useMemo(
+    () => points.filter(({ id }) => labelledIdSet.has(id)).length,
+    [labelledIdSet, points],
+  )
+  const settlementLabelsVisible = shouldShowSettlementLabels(visibleLabelCount, clusterScale)
 
   const clusters = useMemo(() => clusterMapPoints(points, clusterScale), [clusterScale, points])
   const visibleRivers = useMemo(() => (geography?.rivers.features ?? []).filter(
@@ -289,7 +327,7 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
         aria-labelledby="map-title map-desc"
       >
         <title id="map-title">Settlements in The Dawn of Everything</title>
-        <desc id="map-desc">Pan and zoom a physical map with rivers, lakes and landforms. Select a marker or numbered cluster to inspect settlements.</desc>
+        <desc id="map-desc">Pan and zoom a physical map with rivers, lakes and landforms. Select a marker or numbered cluster to inspect settlements. Named-filter settlements are labelled when space permits.</desc>
         <defs>
           <clipPath id="world-map-clip"><rect width={width} height={height} /></clipPath>
           <pattern id="map-mountain-pattern" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
@@ -377,10 +415,15 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
               const { settlement, x, y } = cluster.points[0]
               const selected = settlement.settlement_id === selectedId
               const pinIndex = pinnedIds.indexOf(settlement.settlement_id)
+              const markerRadius = selected ? 8 : 5
+              const showLabel = settlementLabelsVisible && labelledIdSet.has(settlement.settlement_id)
+              const labelPlacement = showLabel
+                ? settlementLabelPlacement(x, transform, width, markerRadius, settlement.canonical_name)
+                : null
               return (
                 <g className={`map-marker${selected ? ' is-selected' : ''}${pinIndex >= 0 ? ` is-pinned pin-${pinIndex}` : ''}`} key={settlement.settlement_id} transform={`translate(${x} ${y})`}>
                   <circle
-                    r={(selected ? 8 : 5) / transform.k}
+                    r={markerRadius / transform.k}
                     tabIndex={0}
                     role="button"
                     aria-label={`${settlement.canonical_name}, ${settlement.occupation_interval_display}`}
@@ -388,6 +431,18 @@ export default function WorldMap({ settlements, selectedId, pinnedIds, onSelect 
                     onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onSelect(settlement.settlement_id) }}
                   />
                   {pinIndex >= 0 && <text fontSize={8 / transform.k} dy={2.7 / transform.k}>{String.fromCharCode(65 + pinIndex)}</text>}
+                  {labelPlacement && (
+                    <text
+                      className="map-settlement-label"
+                      x={labelPlacement.x}
+                      dy={3.5 / transform.k}
+                      fontSize={SETTLEMENT_LABEL_FONT_SIZE / transform.k}
+                      style={{ textAnchor: labelPlacement.textAnchor }}
+                      vectorEffect="non-scaling-stroke"
+                      pointerEvents="none"
+                      aria-hidden="true"
+                    >{settlement.canonical_name}</text>
+                  )}
                   <title>{settlement.canonical_name}</title>
                 </g>
               )

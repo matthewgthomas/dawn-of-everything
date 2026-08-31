@@ -1,8 +1,14 @@
 import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { zoomIdentity } from 'd3'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { settlements } from './data'
-import WorldMap from './WorldMap'
+import { settlementById, settlements } from './data'
+import WorldMap, {
+  SETTLEMENT_LABEL_FONT_SIZE,
+  SETTLEMENT_LABEL_MIN_ZOOM,
+  settlementLabelPlacement,
+  shouldShowSettlementLabels,
+} from './WorldMap'
 
 let resizeCallback: ResizeObserverCallback
 const originalMatchMedia = window.matchMedia
@@ -41,8 +47,21 @@ afterEach(() => {
 })
 
 describe('WorldMap', () => {
+  it('uses an adaptive visibility policy for named settlement labels', () => {
+    expect(shouldShowSettlementLabels(0, SETTLEMENT_LABEL_MIN_ZOOM)).toBe(false)
+    expect(shouldShowSettlementLabels(4, 1)).toBe(true)
+    expect(shouldShowSettlementLabels(5, SETTLEMENT_LABEL_MIN_ZOOM - 0.01)).toBe(false)
+    expect(shouldShowSettlementLabels(5, SETTLEMENT_LABEL_MIN_ZOOM)).toBe(true)
+  })
+
+  it('places labels to the right unless their estimated width would cross the viewport edge', () => {
+    const transform = zoomIdentity.scale(2)
+    expect(settlementLabelPlacement(100, transform, 800, 5, 'Uruk')).toEqual({ x: 5, textAnchor: 'start' })
+    expect(settlementLabelPlacement(380, transform, 800, 5, 'Teotihuacan')).toEqual({ x: -5, textAnchor: 'end' })
+  })
+
   it('rebuilds its viewport from ResizeObserver measurements', async () => {
-    render(<WorldMap settlements={settlements.slice(0, 2)} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    render(<WorldMap settlements={settlements.slice(0, 2)} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
 
     act(() => resizeCallback([{ contentRect: { width: 640, height: 420 } } as ResizeObserverEntry], {} as ResizeObserver))
 
@@ -54,21 +73,21 @@ describe('WorldMap', () => {
 
   it('refits when the visible settlement set changes and exposes the fit control', async () => {
     const firstSettlement = settlements.find(({ latitudeNumber, longitudeNumber }) => latitudeNumber !== null && longitudeNumber !== null)!
-    const { rerender } = render(<WorldMap settlements={[firstSettlement]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    const { rerender } = render(<WorldMap settlements={[firstSettlement]} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     const map = screen.getByRole('img', { name: /Settlements in The Dawn of Everything/i })
     const viewportGroup = map.querySelector('g[clip-path] > g')!
 
     await waitFor(() => expect(viewportGroup.getAttribute('transform')).toContain('scale(4)'))
     const singlePointTransform = viewportGroup.getAttribute('transform')
 
-    rerender(<WorldMap settlements={settlements} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    rerender(<WorldMap settlements={settlements} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
     await waitFor(() => expect(viewportGroup.getAttribute('transform')).not.toBe(singlePointTransform))
     expect(screen.getByRole('button', { name: 'Fit visible settlements' })).toBeInTheDocument()
   })
 
   it('lets readers control the physical map layers', async () => {
     const user = userEvent.setup()
-    render(<WorldMap settlements={settlements.slice(0, 2)} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    render(<WorldMap settlements={settlements.slice(0, 2)} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
 
     const layerButton = screen.getByRole('button', { name: 'Map layers' })
     expect(layerButton).toHaveAttribute('aria-expanded', 'false')
@@ -90,12 +109,53 @@ describe('WorldMap', () => {
     const firstMappedSettlement = settlements.find(
       ({ latitudeNumber, longitudeNumber }) => latitudeNumber !== null && longitudeNumber !== null,
     )!
-    render(<WorldMap settlements={[firstMappedSettlement]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    render(<WorldMap settlements={[firstMappedSettlement]} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
 
     await waitFor(() => expect(document.querySelector('.map-elevation text')).toBeInTheDocument())
     const labels = document.querySelectorAll('.map-geography-label, .map-elevation text')
 
     expect(labels.length).toBeGreaterThan(0)
     labels.forEach((label) => expect(label).toHaveAttribute('vector-effect', 'non-scaling-stroke'))
+  })
+
+  it('labels a small named-filter set with fixed-size, non-interactive text independent of the Names layer', async () => {
+    const user = userEvent.setup()
+    const teotihuacan = settlementById.get('S106')!
+    const { rerender } = render(<WorldMap settlements={[teotihuacan]} labelledSettlementIds={[]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    expect(document.querySelector('.map-settlement-label')).not.toBeInTheDocument()
+
+    rerender(<WorldMap settlements={[teotihuacan]} labelledSettlementIds={['S106']} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    await waitFor(() => expect(document.querySelector('.map-settlement-label')).toBeInTheDocument())
+    const label = document.querySelector<SVGTextElement>('.map-settlement-label')!
+    expect(label).toHaveTextContent('Teotihuacan')
+    expect(label).toHaveAttribute('aria-hidden', 'true')
+    expect(label).toHaveAttribute('vector-effect', 'non-scaling-stroke')
+    expect(label).toHaveAttribute('pointer-events', 'none')
+
+    const viewportGroup = document.querySelector<SVGGElement>('.world-map g[clip-path] > g')!
+    await waitFor(() => expect(viewportGroup.getAttribute('transform')).toContain('scale(4)'))
+    expect(Number(label.getAttribute('font-size')) * 4).toBeCloseTo(SETTLEMENT_LABEL_FONT_SIZE)
+
+    await user.click(screen.getByRole('button', { name: 'Map layers' }))
+    await user.click(screen.getByRole('checkbox', { name: /Names Geographic labels/i }))
+    expect(document.querySelector('.map-settlement-label')).toBeInTheDocument()
+  })
+
+  it('does not label unresolved or clustered named settlements', async () => {
+    const aztlan = settlementById.get('S117')!
+    const { rerender } = render(<WorldMap settlements={[aztlan]} labelledSettlementIds={['S117']} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    expect(document.querySelector('.map-settlement-label')).not.toBeInTheDocument()
+
+    const teotihuacan = settlementById.get('S106')!
+    const duplicate = {
+      ...settlementById.get('S078')!,
+      settlement_id: 'S078-nearby',
+      canonical_name: 'Nearby settlement',
+      latitudeNumber: teotihuacan.latitudeNumber,
+      longitudeNumber: teotihuacan.longitudeNumber,
+    }
+    rerender(<WorldMap settlements={[teotihuacan, duplicate]} labelledSettlementIds={['S106', duplicate.settlement_id]} selectedId={null} pinnedIds={[]} onSelect={() => undefined} />)
+    await waitFor(() => expect(document.querySelector('.map-cluster')).toBeInTheDocument())
+    expect(document.querySelector('.map-settlement-label')).not.toBeInTheDocument()
   })
 })

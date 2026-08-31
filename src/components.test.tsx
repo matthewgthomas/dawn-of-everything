@@ -128,6 +128,7 @@ describe('App responsive results', () => {
     expect(within(timeline).getByText('Uruk')).toBeInTheDocument()
     expect(within(timeline).queryByText('Aztlán')).not.toBeInTheDocument()
     await waitFor(() => expect(document.querySelectorAll('.map-marker')).toHaveLength(2))
+    await waitFor(() => expect([...document.querySelectorAll('.map-settlement-label')].map((label) => label.textContent).sort()).toEqual(['Teotihuacan', 'Uruk']))
 
     await user.click(screen.getByRole('button', { name: 'Settlement area' }))
     const area = screen.getByRole('heading', { name: 'Settlement area' }).closest('section')!
