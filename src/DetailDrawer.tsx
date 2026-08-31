@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, BookOpen, MapPinOff, Star, X } from 'lucide-react'
 import BookTitleLink from './BookTitleLink'
-import type { Mention, NormalizedSettlement } from './data'
+import { formatAreaEstimate, getPeakAreaObservation, type Mention, type NormalizedSettlement } from './data'
 import HighlightedText from './HighlightedText'
 import SettlementLocationMap from './SettlementLocationMap'
 import { useDialogFocus } from './useDialogFocus'
 
-export type DetailView = 'overview' | 'passages' | 'references'
+export type DetailView = 'overview' | 'area' | 'passages' | 'references'
 
 interface DetailDrawerProps {
   settlement: NormalizedSettlement
@@ -33,6 +33,13 @@ const groupMentions = (mentions: Mention[], matchingIds: Set<string>) => {
     .map(([section, entries]) => [section, [...entries].sort((a, b) => Number(matchingIds.has(b.mention_id)) - Number(matchingIds.has(a.mention_id)) || a.source_line_start - b.source_line_start)] as const)
     .sort(([, a], [, b]) => Number(b.some((mention) => matchingIds.has(mention.mention_id))) - Number(a.some((mention) => matchingIds.has(mention.mention_id))) || a[0].source_line_start - b[0].source_line_start)
 }
+
+const formatSourceLocator = (locator: string) => {
+  const bookLine = locator.match(/The_Dawn_of_Everything\.txt:L(\d+)/)
+  return bookLine ? `The Dawn of Everything source text, line ${bookLine[1]}` : locator
+}
+
+const splitSourceUrls = (value: string) => value.split(/;\s*/u).filter(Boolean)
 
 export default function DetailDrawer({
   settlement,
@@ -62,6 +69,8 @@ export default function DetailDrawer({
   const references = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => mention.full_bibliography_entries ? [mention.full_bibliography_entries] : []))], [settlement.mentions])
   const notes = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => mention.book_note_texts ? [mention.book_note_texts] : []))], [settlement.mentions])
   const hasReferences = references.length > 0 || notes.length > 0
+  const areaSummary = useMemo(() => getPeakAreaObservation(settlement.areaObservations), [settlement.areaObservations])
+  const unknownAreaObservation = settlement.areaObservations.find((observation) => observation.research_status === 'unknown')
 
   useDialogFocus(drawerRef)
 
@@ -102,6 +111,7 @@ export default function DetailDrawer({
 
       <nav className="detail-nav" aria-label={`${settlement.canonical_name} details`}>
         <button className={view === 'overview' ? 'is-active' : ''} aria-current={view === 'overview' ? 'page' : undefined} onClick={() => setView('overview')}>Overview</button>
+        <button className={view === 'area' ? 'is-active' : ''} aria-current={view === 'area' ? 'page' : undefined} onClick={() => setView('area')}>Area</button>
         <button className={view === 'passages' ? 'is-active' : ''} aria-current={view === 'passages' ? 'page' : undefined} onClick={() => setView('passages')}>Passages ({settlement.mentions.length})</button>
         {hasReferences && <button className={view === 'references' ? 'is-active' : ''} aria-current={view === 'references' ? 'page' : undefined} onClick={() => setView('references')}>References</button>}
       </nav>
@@ -110,6 +120,9 @@ export default function DetailDrawer({
         {view === 'overview' && (
           <div className="detail-view overview-view">
             <p className="detail-description">{settlement.wikidata_description || <>A {settlement.settlement_type} mentioned in <BookTitleLink />.</>}</p>
+
+            {located && <SettlementLocationMap settlement={settlement} />}
+            {!located && <div className="location-warning"><MapPinOff /><span><strong>Location unresolved</strong>This settlement remains browseable but is not plotted on the map.</span></div>}
 
             {featuredMention && (
               <article className="featured-passage">
@@ -123,8 +136,19 @@ export default function DetailDrawer({
               <div className="section-chips">{settlement.sections.map((section) => <span key={section}>{section}</span>)}</div>
             </section>
 
-            {located && <SettlementLocationMap settlement={settlement} />}
-            {!located && <div className="location-warning"><MapPinOff /><span><strong>Location unresolved</strong>This settlement remains browseable but is not plotted on the map.</span></div>}
+            <section className={areaSummary ? 'area-summary-card' : 'area-summary-card is-unknown'} aria-labelledby="area-summary-title">
+              <div className="detail-section-title"><h3 id="area-summary-title">Settlement area</h3><span>{areaSummary ? 'Peak preferred estimate' : 'Not established'}</span></div>
+              {areaSummary ? (
+                <>
+                  <div className="area-summary-values"><strong>{formatAreaEstimate(areaSummary.area_hectares_display)}</strong><span>{formatAreaEstimate(areaSummary.area_km2_display)}</span></div>
+                  <p>{areaSummary.period_label}</p>
+                  <p className="area-summary-comparator">{areaSummary.comparator_text}</p>
+                </>
+              ) : (
+                <p>{unknownAreaObservation?.notes || 'No defensible settlement-footprint estimate was identified.'}</p>
+              )}
+              <button className="text-button area-summary-link" onClick={() => setView('area')}>View area research</button>
+            </section>
 
             <dl className="metadata-grid">
               <div><dt>Place type</dt><dd>{settlement.settlement_type}</dd></div>
@@ -144,6 +168,60 @@ export default function DetailDrawer({
               {settlement.wikidata_url && <a href={settlement.wikidata_url} target="_blank" rel="noreferrer">Wikidata <ArrowUpRight /></a>}
             </div>
           </div>
+        )}
+
+        {view === 'area' && (
+          <section className="detail-view area-detail-view" aria-labelledby="area-detail-title">
+            <div className="detail-section-title"><h3 id="area-detail-title">Settlement area</h3><span>{settlement.areaObservations.length} observation{settlement.areaObservations.length === 1 ? '' : 's'}</span></div>
+            <p className="area-detail-intro">Area estimates describe the published footprint or extent named for each period. Contemporary comparators are orientation aids, not additional measurements.</p>
+            <div className="area-observation-list">
+              {settlement.areaObservations.map((observation) => {
+                const known = observation.research_status === 'known'
+                const sourceUrls = splitSourceUrls(observation.source_url)
+                return (
+                  <article className={`area-observation-card${known ? '' : ' is-unknown'}${observation.is_preferred ? '' : ' is-alternate'}`} key={observation.observation_id}>
+                    <header>
+                      <div><p className="eyebrow">{known ? observation.period_label : 'Area not established'}</p><h4>{known ? formatAreaEstimate(observation.area_hectares_display) : 'Unknown'}</h4></div>
+                      <span>{observation.is_preferred ? 'Preferred' : 'Alternate estimate'}</span>
+                    </header>
+
+                    {known ? (
+                      <>
+                        <p className="area-km2-value">{formatAreaEstimate(observation.area_km2_display)}</p>
+                        <p className="area-comparator-detail">
+                          {observation.comparator_source_url
+                            ? <a href={observation.comparator_source_url} target="_blank" rel="noopener noreferrer">{observation.comparator_text}<ArrowUpRight /></a>
+                            : observation.comparator_text}
+                        </p>
+                        <dl className="area-metadata-grid">
+                          <div><dt>Area basis</dt><dd>{observation.area_basis}</dd></div>
+                          <div><dt>Qualifier</dt><dd>{observation.qualifier}</dd></div>
+                          <div><dt>Confidence</dt><dd>{observation.confidence}</dd></div>
+                          <div><dt>Source type</dt><dd>{[observation.source_tier, observation.source_type].filter(Boolean).join(' · ')}</dd></div>
+                        </dl>
+                      </>
+                    ) : (
+                      <p className="unknown-area-explanation">{observation.notes || 'No defensible settlement-footprint estimate was identified.'}</p>
+                    )}
+
+                    <div className="area-source-block">
+                      <p className="eyebrow">Research source</p>
+                      {sourceUrls.length === 1 && <a href={sourceUrls[0]} target="_blank" rel="noopener noreferrer">{observation.source_citation}<ArrowUpRight /></a>}
+                      {sourceUrls.length > 1 && (
+                        <>
+                          <p>{observation.source_citation}</p>
+                          <div className="area-source-links">{sourceUrls.map((url, index) => <a href={url} target="_blank" rel="noopener noreferrer" key={url}>Source {index + 1}<ArrowUpRight /></a>)}</div>
+                        </>
+                      )}
+                      {sourceUrls.length === 0 && <p>{observation.source_citation}</p>}
+                      {observation.source_locator && <p className="area-source-locator">{formatSourceLocator(observation.source_locator)}</p>}
+                      {known && observation.notes && <p className="area-observation-note">{observation.notes}</p>}
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+          </section>
         )}
 
         {view === 'passages' && (

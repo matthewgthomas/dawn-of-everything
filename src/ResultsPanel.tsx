@@ -1,8 +1,6 @@
-import { useRef } from 'react'
-import { List, Search, Star, X } from 'lucide-react'
+import { Search, Star } from 'lucide-react'
 import HighlightedText from './HighlightedText'
 import { searchTerms, type SettlementSearchResult } from './filtering'
-import { useDialogFocus } from './useDialogFocus'
 
 interface ResultsContentProps {
   results: SettlementSearchResult[]
@@ -83,21 +81,5 @@ export function ResultsContent({ results, query, selectedId, compareIds, onSelec
         })}
       </div>
     </>
-  )
-}
-
-interface ResultsDrawerProps extends ResultsContentProps { onClose: () => void }
-
-export default function ResultsDrawer(props: ResultsDrawerProps) {
-  const drawerRef = useRef<HTMLElement>(null)
-  useDialogFocus(drawerRef)
-  return (
-    <aside ref={drawerRef} className="results-drawer" role="dialog" aria-modal="true" aria-labelledby="results-drawer-title">
-      <div className="drawer-header results-drawer-header">
-        <div><h2 id="results-drawer-title"><List /> Settlements</h2></div>
-        <button className="icon-button" onClick={props.onClose} aria-label="Close results"><X /></button>
-      </div>
-      <ResultsContent {...props} />
-    </aside>
   )
 }

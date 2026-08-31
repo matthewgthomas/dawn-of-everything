@@ -48,9 +48,10 @@ export default function AboutPanel({ onClose, onExploreSettlement, onBrowseChapt
         </section>
 
         <section><h3>What is included?</h3><p>Real, named places where people lived together: cities, towns, villages, inhabited archaeological sites, seasonal aggregation sites, cave habitations, forts, and historically attested capitals. Broad regions, countries, and unnamed settlements are excluded.</p></section>
-        <section><h3>Method and caveats</h3><p>The catalogue is exhaustive at paragraph level across the substantive text and notes. Occupation dates summarise known periods of habitation rather than claiming continuous occupation, and may not be dates stated in the associated passage.</p><p>Coordinates are representative points, not settlement boundaries. Three records remain deliberately unlocated because the evidence does not support a unique physical point.</p></section>
+        <section><h3>Method and caveats</h3><p>The catalogue is exhaustive at paragraph level across the substantive text and notes. Occupation dates summarise known periods of habitation rather than claiming continuous occupation, and may not be dates stated in the associated passage.</p><p>Settlement-area observations are a separate source-backed research synthesis. They retain period-specific estimates, uncertainty, measurement basis, and explicit unknown findings; park and football-pitch comparisons are orientation aids only.</p><p>Coordinates are representative points, not settlement boundaries. Three records remain deliberately unlocated because the evidence does not support a unique physical point.</p></section>
         <div className="about-links">
           <a href="https://github.com/matthewgthomas/dawn-of-everything/blob/main/data/README.md" target="_blank" rel="noreferrer">Read the data methodology <ArrowUpRight /></a>
+          <a href="https://github.com/matthewgthomas/dawn-of-everything/blob/main/data/research/settlement_areas.csv" target="_blank" rel="noreferrer">View settlement areas <ArrowUpRight /></a>
           <a href="https://github.com/matthewgthomas/dawn-of-everything/blob/main/data/derived/dataset.json" target="_blank" rel="noreferrer">View dataset.json <ArrowUpRight /></a>
         </div>
         <section className="legal-notice" aria-labelledby="rights-title">

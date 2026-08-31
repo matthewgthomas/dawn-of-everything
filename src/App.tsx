@@ -5,8 +5,8 @@ import BookTitleLink from './BookTitleLink'
 import CompareTray from './CompareTray'
 import DetailDrawer, { type DetailView } from './DetailDrawer'
 import FilterPanel from './FilterPanel'
-import ResultsDrawer, { ResultsContent } from './ResultsPanel'
-import Timeline, { type TimelinePresetId } from './Timeline'
+import SettlementViewsPanel, { type SettlementPanelView } from './SettlementViewsPanel'
+import type { TimelinePresetId } from './Timeline'
 import WorldMap from './WorldMap'
 import { formatYear, sections, settlementById, settlements, settlementTypes } from './data'
 import {
@@ -21,7 +21,7 @@ import {
   type SettlementSearchResult,
 } from './filtering'
 
-type MobileView = 'results' | 'map' | 'timeline'
+type MobileView = 'map' | 'list'
 interface DetailContext { initialView: DetailView; matchingMentionIds: string[]; bestMentionId: string | null }
 
 const validTypes = new Set(settlementTypes.map(({ type }) => type))
@@ -42,13 +42,13 @@ export default function App() {
   const [filters, setFilters] = useState<FilterState>(initialUrlState.filters)
   const [selectedId, setSelectedId] = useState<string | null>(initialUrlState.selectedId)
   const [compareIds, setCompareIds] = useState<string[]>(initialUrlState.compareIds)
-  const [resultsOpen, setResultsOpen] = useState(false)
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [detailOpen, setDetailOpen] = useState(Boolean(initialUrlState.selectedId))
   const [detailContext, setDetailContext] = useState<DetailContext>({ initialView: 'overview', matchingMentionIds: [], bestMentionId: null })
   const [compareOpen, setCompareOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('map')
+  const [panelView, setPanelView] = useState<SettlementPanelView>('timeline')
   const [isDesktop, setIsDesktop] = useState(() => typeof window === 'undefined' || window.matchMedia('(min-width: 901px)').matches)
   const [timelineRequest, setTimelineRequest] = useState<TimelinePresetId | null>(null)
   const [onboardingDismissed, setOnboardingDismissed] = useState(() => {
@@ -72,7 +72,6 @@ export default function App() {
   const showOnboarding = !onboardingDismissed && !hasFilters && !selectedId && compareIds.length === 0
 
   const closeLocalSurfaces = () => {
-    setResultsOpen(false)
     setFiltersOpen(false)
     setAboutOpen(false)
     setCompareOpen(false)
@@ -108,20 +107,21 @@ export default function App() {
     const trimmedLength = filters.query.trim().length
     if (trimmedLength < 2) return
     if (!isDesktop) {
-      setMobileView('results')
+      setPanelView('mentions')
+      setMobileView('list')
       return
     }
-    if (!searchSessionRef.current || suppressSearchResultsRef.current || resultsOpen || detailOpen || filtersOpen || aboutOpen || compareOpen) return
+    if (!searchSessionRef.current || suppressSearchResultsRef.current || panelView === 'mentions' || detailOpen || filtersOpen || aboutOpen || compareOpen) return
     const timer = window.setTimeout(() => {
       if (searchSessionRef.current && !suppressSearchResultsRef.current) {
         setFiltersOpen(false)
         setAboutOpen(false)
         setDetailOpen(false)
-        setResultsOpen(true)
+        setPanelView('mentions')
       }
     }, 450)
     return () => window.clearTimeout(timer)
-  }, [aboutOpen, compareOpen, detailOpen, filters.query, filtersOpen, isDesktop, resultsOpen])
+  }, [aboutOpen, compareOpen, detailOpen, filters.query, filtersOpen, isDesktop, panelView])
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -133,7 +133,6 @@ export default function App() {
         if (compareOpen) setCompareOpen(false)
         else if (aboutOpen) setAboutOpen(false)
         else if (filtersOpen) setFiltersOpen(false)
-        else if (resultsOpen) closeResults()
         else if (detailOpen) closeDetail()
       }
     }
@@ -168,11 +167,6 @@ export default function App() {
     setSelectedId(null)
     setDetailContext({ initialView: 'overview', matchingMentionIds: [], bestMentionId: null })
     window.history.replaceState(window.history.state, '', urlForState(filters, null, compareIds))
-  }
-
-  const closeResults = () => {
-    if (searchSessionRef.current) suppressSearchResultsRef.current = true
-    setResultsOpen(false)
   }
 
   const togglePin = (id: string) => {
@@ -213,11 +207,23 @@ export default function App() {
     setAboutOpen(false)
     setFilters((current) => ({ ...current, eras: ['earliest'] }))
     setTimelineRequest('earliest')
-    if (!isDesktop) setMobileView('timeline')
+    setPanelView('timeline')
+    if (!isDesktop) setMobileView('list')
   }
-  const openAbout = () => { setResultsOpen(false); setFiltersOpen(false); setDetailOpen(false); setCompareOpen(false); setAboutOpen(true) }
-  const openFilters = () => { setResultsOpen(false); setAboutOpen(false); setDetailOpen(false); setCompareOpen(false); setFiltersOpen(true) }
-  const openResults = () => { setFiltersOpen(false); setAboutOpen(false); setDetailOpen(false); setCompareOpen(false); setResultsOpen(true) }
+  const openAbout = () => { setFiltersOpen(false); setDetailOpen(false); setCompareOpen(false); setAboutOpen(true) }
+  const openFilters = () => { setAboutOpen(false); setDetailOpen(false); setCompareOpen(false); setFiltersOpen(true) }
+  const openResults = () => {
+    setFiltersOpen(false)
+    setAboutOpen(false)
+    setDetailOpen(false)
+    setCompareOpen(false)
+    setPanelView('mentions')
+    if (!isDesktop) setMobileView('list')
+  }
+  const changePanelView = (view: SettlementPanelView) => {
+    if (view !== 'mentions' && searchSessionRef.current) suppressSearchResultsRef.current = true
+    setPanelView(view)
+  }
 
   const onboardingCard = (
     <section className="start-card" aria-labelledby="start-card-title">
@@ -251,14 +257,14 @@ export default function App() {
               if (!searchSessionRef.current) suppressSearchResultsRef.current = false
               searchSessionRef.current = true
             }}
-            onBlur={() => { if (!resultsOpen) searchSessionRef.current = false }}
+            onBlur={() => { searchSessionRef.current = false }}
             onChange={(event) => setFilters({ ...filters, query: event.target.value })}
             placeholder="Search places, chapters or passages…"
           />
           {filters.query ? <button onClick={() => setFilters({ ...filters, query: '' })} aria-label="Clear search"><X /></button> : <kbd>⌘ K</kbd>}
         </label>
         <button className={activeFilterCount ? 'filter-button has-filters' : 'filter-button'} onClick={openFilters}><SlidersHorizontal size={17} /><span className="filter-button-label">Filters</span>{activeFilterCount > 0 && <span className="filter-count">{activeFilterCount}</span>}</button>
-        <button className="results-button" onClick={isDesktop ? openResults : () => setMobileView('results')}><List size={17} /><span>{hasFilters ? `${results.length} results` : `${settlements.length} settlements`}</span></button>
+        <button className="results-button" aria-pressed={panelView === 'mentions'} onClick={openResults}><List size={17} /><span>{hasFilters ? `${results.length} results` : `${settlements.length} settlements`}</span></button>
         <p className="sr-only" aria-live="polite">{results.length} settlements shown</p>
       </section>
 
@@ -281,34 +287,42 @@ export default function App() {
       )}
 
       <nav className="mobile-tabs" aria-label="Explorer views">
-        <button className={mobileView === 'results' ? 'is-active' : ''} onClick={() => setMobileView('results')}><List /> Results</button>
         <button className={mobileView === 'map' ? 'is-active' : ''} onClick={() => setMobileView('map')}><MapIcon /> Map</button>
-        <button className={mobileView === 'timeline' ? 'is-active' : ''} onClick={() => setMobileView('timeline')}><span className="timeline-tab-icon" /> Timeline</button>
+        <button className={mobileView === 'list' ? 'is-active' : ''} onClick={() => setMobileView('list')}><List /> Explorer</button>
       </nav>
 
       <section className="explorer-grid">
-        <aside className={`mobile-results-panel results-panel view-pane${mobileView === 'results' ? ' mobile-active' : ''}`} aria-label="Settlement results">
-          <ResultsContent results={searchResults} query={filters.query} selectedId={selectedId} compareIds={compareIds} onSelect={selectSearchResult} onPin={togglePin} onReset={resetAll} />
-        </aside>
-
         <div className="visual-workspace">
           <section className={`map-panel view-pane${mobileView === 'map' ? ' mobile-active' : ''}`}>
             {showOnboarding && onboardingCard}
             <WorldMap settlements={results} selectedId={selectedId} pinnedIds={compareIds} onSelect={selectSettlement} />
             <section className="map-discovery" data-state={selected ? 'selected' : hasFilters ? 'filtered' : 'default'} aria-label="Map discovery">
               {selected ? <><p className="eyebrow">Selected place</p><h2>{selected.canonical_name}</h2><p>{selected.settlement_type} · {selected.occupation_interval_display}</p><button className="primary-button" onClick={() => selectSettlement(selected.settlement_id)}>Open details</button></>
-                : hasFilters ? <><p><strong>{results.length}</strong> settlement{results.length === 1 ? '' : 's'} match your search and filters.</p><button className="primary-button" onClick={() => setMobileView('results')}>View results</button></>
+                : hasFilters ? <><p><strong>{results.length}</strong> settlement{results.length === 1 ? '' : 's'} match your search and filters.</p><button className="primary-button" onClick={openResults}>View results</button></>
                   : <><p><strong>{results.length} settlements</strong> to explore. Select a marker or start with one of these places.</p><div className="discovery-suggestions">{results.slice(0, 3).map((settlement) => <button key={settlement.settlement_id} onClick={() => selectSettlement(settlement.settlement_id)}>{settlement.canonical_name}</button>)}</div></>}
             </section>
           </section>
 
-          <div className={`timeline-panel view-pane${mobileView === 'timeline' ? ' mobile-active' : ''}`}>
-            <Timeline settlements={results} selectedId={selectedId} pinnedIds={compareIds} onSelect={selectSettlement} onPin={togglePin} requestedPreset={timelineRequest} onPresetApplied={() => setTimelineRequest(null)} />
+          <div className={`timeline-panel view-pane${mobileView === 'list' ? ' mobile-active' : ''}`}>
+            <SettlementViewsPanel
+              view={panelView}
+              settlements={results}
+              searchResults={searchResults}
+              query={filters.query}
+              selectedId={selectedId}
+              pinnedIds={compareIds}
+              onViewChange={changePanelView}
+              onSelect={selectSettlement}
+              onSelectSearchResult={selectSearchResult}
+              onPin={togglePin}
+              onReset={resetAll}
+              requestedPreset={timelineRequest}
+              onPresetApplied={() => setTimelineRequest(null)}
+            />
           </div>
         </div>
       </section>
 
-      {resultsOpen && isDesktop && <><div className="drawer-scrim results-scrim" onClick={closeResults} /><ResultsDrawer results={searchResults} query={filters.query} selectedId={selectedId} compareIds={compareIds} onSelect={selectSearchResult} onPin={togglePin} onReset={resetAll} onClose={closeResults} /></>}
       {filtersOpen && <><div className="drawer-scrim" onClick={() => setFiltersOpen(false)} /><FilterPanel filters={filters} resultCount={results.length} onChange={setFilters} onClose={() => setFiltersOpen(false)} /></>}
       {detailOpen && selected && <><div className="drawer-scrim detail-scrim" onClick={closeDetail} /><DetailDrawer key={`${selected.settlement_id}-${detailContext.initialView}`} settlement={selected} query={filters.query} initialView={detailContext.initialView} matchingMentionIds={detailContext.matchingMentionIds} bestMentionId={detailContext.bestMentionId} pinned={compareIds.includes(selected.settlement_id)} canPin={compareIds.length < 4} onPin={() => togglePin(selected.settlement_id)} onClose={closeDetail} /></>}
       {aboutOpen && <><div className="drawer-scrim" onClick={() => setAboutOpen(false)} /><AboutPanel onClose={() => setAboutOpen(false)} onExploreSettlement={exploreTeotihuacan} onBrowseChapter={browseChapterEight} onExploreEarliest={exploreEarliest} /></>}
