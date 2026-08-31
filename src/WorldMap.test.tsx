@@ -1,12 +1,12 @@
 import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { zoomIdentity } from 'd3'
+import { geoEqualEarth, zoomIdentity } from 'd3'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { settlementById, settlements } from './data'
 import WorldMap, {
   SETTLEMENT_LABEL_FONT_SIZE,
   SETTLEMENT_LABEL_MIN_ZOOM,
-  settlementLabelPlacement,
+  layoutSettlementLabels,
   shouldShowSettlementLabels,
 } from './WorldMap'
 
@@ -56,8 +56,46 @@ describe('WorldMap', () => {
 
   it('places labels to the right unless their estimated width would cross the viewport edge', () => {
     const transform = zoomIdentity.scale(2)
-    expect(settlementLabelPlacement(100, transform, 800, 5, 'Uruk')).toEqual({ x: 5, textAnchor: 'start' })
-    expect(settlementLabelPlacement(380, transform, 800, 5, 'Teotihuacan')).toEqual({ x: -5, textAnchor: 'end' })
+    const placements = layoutSettlementLabels([
+      { id: 'uruk', label: 'Uruk', x: 100, y: 100, markerRadius: 5 },
+      { id: 'teotihuacan', label: 'Teotihuacan', x: 380, y: 100, markerRadius: 5 },
+    ], transform, 800, 500)
+
+    expect(placements.get('uruk')).toMatchObject({ x: 5, textAnchor: 'start' })
+    expect(placements.get('teotihuacan')).toMatchObject({ x: -5, textAnchor: 'end' })
+  })
+
+  it.each([
+    ['Uruk and Lagash', ['S078', 'S088']],
+    ['Tenochtitlan and Tlaxcala', ['S105', 'S115']],
+  ])('moves nearby %s labels to non-overlapping positions at the active zoom', (_name, ids) => {
+    const projection = geoEqualEarth().fitExtent([[18, 18], [782, 482]], { type: 'Sphere' })
+    const entries = ids.map((id) => {
+      const settlement = settlementById.get(id)!
+      const [x, y] = projection([settlement.longitudeNumber!, settlement.latitudeNumber!])!
+      return { id, label: settlement.canonical_name, x, y, markerRadius: 5 }
+    })
+    const centerX = (entries[0].x + entries[1].x) / 2
+    const centerY = (entries[0].y + entries[1].y) / 2
+    const transform = zoomIdentity.translate(400, 250).scale(14).translate(-centerX, -centerY)
+    const placements = layoutSettlementLabels(entries, transform, 800, 500)
+    const screenBaselines = entries.map((entry) => {
+      const placement = placements.get(entry.id)!
+      return transform.apply([entry.x + placement.x, entry.y + placement.y])
+    })
+
+    expect(placements.size).toBe(2)
+    expect(Math.abs(screenBaselines[0][1] - screenBaselines[1][1])).toBeGreaterThan(SETTLEMENT_LABEL_FONT_SIZE)
+  })
+
+  it('omits a label when no collision-free placement fits in the viewport', () => {
+    const placements = layoutSettlementLabels([
+      { id: 'first', label: 'Tenochtitlan', x: 10, y: 10, markerRadius: 5 },
+      { id: 'second', label: 'Tlaxcala', x: 10, y: 10, markerRadius: 5 },
+      { id: 'third', label: 'Teotihuacan', x: 10, y: 10, markerRadius: 5 },
+    ], zoomIdentity, 50, 30)
+
+    expect(placements.size).toBeLessThan(3)
   })
 
   it('rebuilds its viewport from ResizeObserver measurements', async () => {
