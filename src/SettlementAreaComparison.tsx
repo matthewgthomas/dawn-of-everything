@@ -1,6 +1,7 @@
 import { Ruler, Search, Star } from 'lucide-react'
 import {
   areaBarPercentage,
+  formatAreaEstimate,
   rankSettlementsByArea,
   type NormalizedSettlement,
 } from './data'
@@ -47,15 +48,17 @@ export default function SettlementAreaComparison({
             const selected = settlement.settlement_id === selectedId
             const pinIndex = pinnedIds.indexOf(settlement.settlement_id)
             const barWidth = areaBarPercentage(representativeAreaHectares)
+            const hectaresDisplay = formatAreaEstimate(observation.area_hectares_display)
+            const squareKilometresDisplay = formatAreaEstimate(observation.area_km2_display)
             return (
               <article className={selected ? 'area-comparison-row is-selected' : 'area-comparison-row'} key={settlement.settlement_id}>
                 <button className="area-row-main" onClick={() => onSelect(settlement.settlement_id)}>
-                  <span className="area-row-heading"><strong>{settlement.canonical_name}</strong><b>{observation.area_hectares_display}</b></span>
+                  <span className="area-row-heading"><strong>{settlement.canonical_name}</strong><b>{hectaresDisplay}</b></span>
                   <span className="area-row-period">{observation.period_label}</span>
-                  <span className="area-bar-track" role="img" aria-label={`${settlement.canonical_name}: ${observation.area_hectares_display}, displayed on a logarithmic scale`}>
+                  <span className="area-bar-track" role="img" aria-label={`${settlement.canonical_name}: ${hectaresDisplay}, displayed on a logarithmic scale`}>
                     <span className="area-bar" style={{ width: `${barWidth}%` }} />
                   </span>
-                  <span className="area-row-values">{observation.area_km2_display} <i aria-hidden="true">·</i> {observation.comparator_text}</span>
+                  <span className="area-row-values">{squareKilometresDisplay} <i aria-hidden="true">·</i> {observation.comparator_text}</span>
                 </button>
                 <button
                   className={pinIndex >= 0 ? `area-pin is-pinned pin-${pinIndex}` : 'area-pin'}

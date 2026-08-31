@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   areaBarPercentage,
   areaObservations,
+  formatAreaEstimate,
   getPeakAreaObservation,
   MAX_REPRESENTATIVE_AREA_HECTARES,
   rankSettlementsByArea,
@@ -60,5 +61,13 @@ describe('settlement-area data', () => {
     expect(areaBarPercentage(MAX_REPRESENTATIVE_AREA_HECTARES)).toBe(100)
     expect(areaBarPercentage(600)).toBeGreaterThan(areaBarPercentage(5))
     expect(areaBarPercentage(5)).toBeGreaterThan(0)
+  })
+
+  it('presents decimal area estimates with at most three significant digits', () => {
+    expect(formatAreaEstimate('36419.2306 ha')).toBe('36,400 ha')
+    expect(formatAreaEstimate('364.192306 km²')).toBe('364 km²')
+    expect(formatAreaEstimate('55.34 ha')).toBe('55.3 ha')
+    expect(formatAreaEstimate('0.5534 km²')).toBe('0.553 km²')
+    expect(formatAreaEstimate('35–40 ha')).toBe('35–40 ha')
   })
 })

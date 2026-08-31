@@ -46,9 +46,10 @@ use the latest dated phase and then the curated CSV order. Non-preferred rows ar
 excluded from the ranking but remain visible in the settlement's Area details.
 
 Because the observations span roughly 1 to 90,669 hectares, comparison bars use
-a labelled logarithmic scale. Exact hectares and square kilometres remain the
-authoritative display values. Settlements with unknown areas are retained in a
-separate expandable group rather than being omitted.
+a labelled logarithmic scale. The app presents decimal hectare and square-kilometre
+values to no more than three significant digits while retaining the source values
+in this dataset for ranking and audit. Settlements with unknown areas are retained
+in a separate expandable group rather than being omitted.
 
 ## Comparators
 

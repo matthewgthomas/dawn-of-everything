@@ -112,6 +112,15 @@ const parseOptionalNumber = (value: string | undefined) => {
   return Number.isFinite(parsed) ? parsed : null
 }
 
+const areaEstimateNumberFormatter = new Intl.NumberFormat('en-GB', {
+  maximumSignificantDigits: 3,
+})
+
+export const formatAreaEstimate = (displayValue: string) => displayValue.replace(
+  /\d+\.\d+/g,
+  (value) => areaEstimateNumberFormatter.format(Number(value)),
+)
+
 export const areaObservations: AreaObservation[] = csvParse(rawSettlementAreas).map((row, sourceOrder) => ({
   observation_id: row.observation_id ?? '',
   settlement_id: row.settlement_id ?? '',

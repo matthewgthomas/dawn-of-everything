@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, BookOpen, MapPinOff, Star, X } from 'lucide-react'
 import BookTitleLink from './BookTitleLink'
-import { getPeakAreaObservation, type Mention, type NormalizedSettlement } from './data'
+import { formatAreaEstimate, getPeakAreaObservation, type Mention, type NormalizedSettlement } from './data'
 import HighlightedText from './HighlightedText'
 import SettlementLocationMap from './SettlementLocationMap'
 import { useDialogFocus } from './useDialogFocus'
@@ -140,7 +140,7 @@ export default function DetailDrawer({
               <div className="detail-section-title"><h3 id="area-summary-title">Settlement area</h3><span>{areaSummary ? 'Peak preferred estimate' : 'Not established'}</span></div>
               {areaSummary ? (
                 <>
-                  <div className="area-summary-values"><strong>{areaSummary.area_hectares_display}</strong><span>{areaSummary.area_km2_display}</span></div>
+                  <div className="area-summary-values"><strong>{formatAreaEstimate(areaSummary.area_hectares_display)}</strong><span>{formatAreaEstimate(areaSummary.area_km2_display)}</span></div>
                   <p>{areaSummary.period_label}</p>
                   <p className="area-summary-comparator">{areaSummary.comparator_text}</p>
                 </>
@@ -181,13 +181,13 @@ export default function DetailDrawer({
                 return (
                   <article className={`area-observation-card${known ? '' : ' is-unknown'}${observation.is_preferred ? '' : ' is-alternate'}`} key={observation.observation_id}>
                     <header>
-                      <div><p className="eyebrow">{known ? observation.period_label : 'Area not established'}</p><h4>{known ? observation.area_hectares_display : 'Unknown'}</h4></div>
+                      <div><p className="eyebrow">{known ? observation.period_label : 'Area not established'}</p><h4>{known ? formatAreaEstimate(observation.area_hectares_display) : 'Unknown'}</h4></div>
                       <span>{observation.is_preferred ? 'Preferred' : 'Alternate estimate'}</span>
                     </header>
 
                     {known ? (
                       <>
-                        <p className="area-km2-value">{observation.area_km2_display}</p>
+                        <p className="area-km2-value">{formatAreaEstimate(observation.area_km2_display)}</p>
                         <p className="area-comparator-detail">
                           {observation.comparator_source_url
                             ? <a href={observation.comparator_source_url} target="_blank" rel="noopener noreferrer">{observation.comparator_text}<ArrowUpRight /></a>
