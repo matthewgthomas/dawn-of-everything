@@ -104,13 +104,13 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const trimmedLength = filters.query.trim().length
-    if (trimmedLength < 2) return
-    if (!isDesktop) {
-      setPanelView('mentions')
-      setMobileView('list')
-      return
-    }
+    if (isDesktop || filters.query.trim().length < 2) return
+    setPanelView('mentions')
+    setMobileView('list')
+  }, [filters.query, isDesktop])
+
+  useEffect(() => {
+    if (!isDesktop || filters.query.trim().length < 2) return
     if (!searchSessionRef.current || suppressSearchResultsRef.current || panelView === 'mentions' || detailOpen || filtersOpen || aboutOpen || compareOpen) return
     const timer = window.setTimeout(() => {
       if (searchSessionRef.current && !suppressSearchResultsRef.current) {

@@ -78,7 +78,7 @@ describe('App responsive results', () => {
     expect(launcher).toHaveFocus()
   })
 
-  it('uses a single mobile Explorer tab and switches it to mentions after two search characters', async () => {
+  it('switches mobile search to mentions once while keeping the other settlement views selectable', async () => {
     setDesktopMedia(false)
     const user = userEvent.setup()
     render(<App />)
@@ -92,6 +92,14 @@ describe('App responsive results', () => {
     expect(explorerTab).toHaveClass('is-active')
     expect(screen.getByRole('button', { name: 'Book mentions' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('button', { name: 'Filters' })).not.toHaveTextContent('0')
+
+    await user.click(screen.getByRole('button', { name: 'Timeline' }))
+    expect(screen.getByRole('button', { name: 'Timeline' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('heading', { name: 'Occupation through time' })).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Settlement area' }))
+    expect(screen.getByRole('button', { name: 'Settlement area' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('heading', { name: 'Settlement area' })).toBeInTheDocument()
   })
 
   it('switches between timeline and settlement-area modes without replacing the timeline component', async () => {
