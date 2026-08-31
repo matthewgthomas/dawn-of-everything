@@ -1,4 +1,4 @@
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { BOOK_WEBSITE_URL } from './BookTitleLink'
@@ -7,7 +7,7 @@ import DetailDrawer from './DetailDrawer'
 import FilterPanel from './FilterPanel'
 import App from './App'
 import { EMPTY_FILTERS } from './filtering'
-import { settlementById } from './data'
+import { settlementById, settlements } from './data'
 import SettlementAreaComparison from './SettlementAreaComparison'
 
 afterEach(() => {
@@ -83,7 +83,7 @@ describe('App responsive results', () => {
     const user = userEvent.setup()
     render(<App />)
     expect(screen.getByRole('button', { name: 'About the atlas' })).toBeInTheDocument()
-    const input = screen.getByRole('textbox', { name: /Search settlements and book text/i })
+    const input = screen.getByRole('combobox', { name: /Search settlements and book text/i })
     const explorerTab = screen.getByRole('button', { name: 'Explorer' })
     expect(screen.queryByRole('button', { name: 'Results' })).not.toBeInTheDocument()
     await user.type(input, 'w')
@@ -104,6 +104,46 @@ describe('App responsive results', () => {
     expect(screen.getByText('69 of 174 filtered settlements have an estimated size.')).toBeInTheDocument()
     await user.click(within(screen.getByRole('navigation', { name: 'Settlement list view' })).getByRole('button', { name: 'Timeline' }))
     expect(screen.getByRole('heading', { name: 'Occupation through time' })).toBeInTheDocument()
+  })
+
+  it('builds a named settlement allow-list from mouse and keyboard suggestions across every view', async () => {
+    setDesktopMedia(true)
+    const user = userEvent.setup()
+    render(<App />)
+    const input = screen.getByRole('combobox', { name: /Search settlements and book text/i })
+
+    await user.type(input, 'Teo')
+    await user.click(screen.getByRole('option', { name: /Teotihuacan.*Add/i }))
+    expect(input).toHaveValue('')
+    expect(screen.getByRole('button', { name: /Place: Teotihuacan/i })).toBeInTheDocument()
+
+    await user.type(input, 'Uruk')
+    await user.keyboard('{ArrowDown}{Enter}')
+    expect(input).toHaveValue('')
+    expect(screen.getByRole('button', { name: /Place: Uruk/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '2 results' })).toBeInTheDocument()
+
+    const timeline = screen.getByRole('heading', { name: 'Occupation through time' }).closest('section')!
+    expect(within(timeline).getByText('Teotihuacan')).toBeInTheDocument()
+    expect(within(timeline).getByText('Uruk')).toBeInTheDocument()
+    expect(within(timeline).queryByText('Aztlán')).not.toBeInTheDocument()
+    await waitFor(() => expect(document.querySelectorAll('.map-marker')).toHaveLength(2))
+
+    await user.click(screen.getByRole('button', { name: 'Settlement area' }))
+    const area = screen.getByRole('heading', { name: 'Settlement area' }).closest('section')!
+    expect(area).toHaveTextContent('2 filtered settlements')
+    expect(within(area).getByText('Teotihuacan')).toBeInTheDocument()
+    expect(within(area).getByText('Uruk')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Book mentions' }))
+    const mentions = screen.getByRole('region', { name: 'Book mentions settlement view' })
+    expect(within(mentions).getByText('Teotihuacan')).toBeInTheDocument()
+    expect(within(mentions).getByText('Uruk')).toBeInTheDocument()
+    expect(within(mentions).queryByText('Aztlán')).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Reset all' }))
+    expect(screen.getByRole('button', { name: '174 settlements' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Place: Teotihuacan/i })).not.toBeInTheDocument()
   })
 })
 
@@ -170,14 +210,31 @@ describe('FilterPanel', () => {
   it('selects an exact settlement type and resets it', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    const { rerender } = render(<FilterPanel filters={EMPTY_FILTERS} onChange={onChange} onClose={() => undefined} />)
-    await user.click(screen.getByText('ancient city'))
+    const { rerender } = render(<FilterPanel filters={EMPTY_FILTERS} settlements={settlements} onChange={onChange} onClose={() => undefined} />)
+    await user.click(within(document.querySelector('.type-list')!).getByText('ancient city'))
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ types: ['ancient city'] }))
 
     const selected = { ...EMPTY_FILTERS, types: ['ancient city'] }
-    rerender(<FilterPanel filters={selected} onChange={onChange} onClose={() => undefined} />)
+    rerender(<FilterPanel filters={selected} settlements={settlements} onChange={onChange} onClose={() => undefined} />)
     await user.click(screen.getByRole('button', { name: /reset filters/i }))
     expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ types: [] }))
+  })
+
+  it('searches aliases, manages selected names, and clears the named allow-list', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    const selected = { ...EMPTY_FILTERS, settlementIds: ['S106', 'S078'] }
+    const { rerender } = render(<FilterPanel filters={selected} settlements={settlements} onChange={onChange} onClose={() => undefined} />)
+
+    expect(screen.getByRole('button', { name: /Remove Teotihuacan from visible settlements/i })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Clear selected' }))
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ settlementIds: [] }))
+
+    rerender(<FilterPanel filters={EMPTY_FILTERS} settlements={settlements} onChange={onChange} onClose={() => undefined} />)
+    await user.type(screen.getByRole('textbox', { name: /Find a settlement by name or alias/i }), 'Warka')
+    expect(screen.getByText('Also known as Warka')).toBeInTheDocument()
+    await user.click(screen.getByText('Uruk'))
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ settlementIds: ['S078'] }))
   })
 })
 

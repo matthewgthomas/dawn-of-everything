@@ -3,6 +3,7 @@ import { formatDuration, formatYear, settlementById, settlements } from './data'
 import {
   categoriesForType,
   createPassageExcerpt,
+  deriveSettlementNameSuggestions,
   deriveSearchResult,
   deriveSearchResults,
   EMPTY_FILTERS,
@@ -79,6 +80,28 @@ describe('search ranking and filters', () => {
       .filter((type) => categoriesForType(type).length === 0)
     expect(unmapped).toEqual([])
   })
+
+  it('limits results to selected settlement IDs before applying other filters', () => {
+    const filters = { ...EMPTY_FILTERS, settlementIds: ['S106', 'S078'] }
+    expect(matchesFilters(teotihuacan, filters)).toBe(true)
+    expect(matchesFilters(settlementById.get('S078')!, filters)).toBe(true)
+    expect(matchesFilters(settlementById.get('S117')!, filters)).toBe(false)
+
+    const queried = deriveSearchResults(settlements, { ...filters, query: 'Warka' })
+    expect(queried.map(({ settlement }) => settlement.settlement_id)).toEqual(['S078'])
+    expect(matchesFilters(teotihuacan, { ...filters, types: ['modern city'] })).toBe(false)
+  })
+
+  it('ranks canonical and alias-only settlement name suggestions', () => {
+    const canonical = deriveSettlementNameSuggestions(settlements, 'Teotihuacan')
+    expect(canonical[0]).toMatchObject({ settlement: { settlement_id: 'S106' }, matchingAlias: null, rank: 0 })
+
+    const alias = deriveSettlementNameSuggestions(settlements, 'Krakow')
+    expect(alias[0]).toMatchObject({ settlement: { canonical_name: 'Kraków' }, matchingAlias: 'Krakow', rank: 1 })
+
+    const prefix = deriveSettlementNameSuggestions(settlements, 'Wark')
+    expect(prefix[0]).toMatchObject({ settlement: { canonical_name: 'Uruk' }, matchingAlias: 'Warka', rank: 3 })
+  })
 })
 
 describe('shareable URL state', () => {
@@ -86,6 +109,7 @@ describe('shareable URL state', () => {
     const filters = {
       ...EMPTY_FILTERS,
       query: 'ice age',
+      settlementIds: ['S106', 'S117'],
       types: ['ancient city'],
       sections: ['Chapter 8: Imaginary Cities'],
       eras: ['ancient-classical' as const],
@@ -101,6 +125,7 @@ describe('shareable URL state', () => {
       new Set(['S106', 'S117']),
     )
     expect(parsed.filters.query).toBe('ice age')
+    expect(parsed.filters.settlementIds).toEqual(['S106', 'S117'])
     expect(parsed.filters.startFrom).toBe(-5000)
     expect(parsed.filters.includeUnknownEnd).toBe(false)
     expect(parsed.filters.eras).toEqual(['ancient-classical'])
@@ -117,5 +142,15 @@ describe('shareable URL state', () => {
       new Set(['S001', 'S002', 'S003', 'S004', 'S005']),
     )
     expect(parsed.compareIds).toEqual(['S001', 'S002', 'S003', 'S004'])
+  })
+
+  it('validates and de-duplicates named settlement filter IDs in URL order', () => {
+    const parsed = readUrlState(
+      '?places=S106&places=BAD&places=S106&places=S078',
+      new Set(),
+      new Set(),
+      new Set(['S106', 'S078']),
+    )
+    expect(parsed.filters.settlementIds).toEqual(['S106', 'S078'])
   })
 })

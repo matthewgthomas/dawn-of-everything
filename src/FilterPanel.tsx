@@ -1,8 +1,9 @@
 import { useMemo, useRef, useState } from 'react'
 import { Check, ChevronDown, RotateCcw, Search, X } from 'lucide-react'
-import { formatYear, sections, settlements, settlementTypes } from './data'
+import { formatYear, sections, settlementTypes, type NormalizedSettlement } from './data'
 import {
   categoriesForType,
+  deriveSettlementNameSuggestions,
   EMPTY_FILTERS,
   ERA_PRESETS,
   PLACE_CATEGORIES,
@@ -14,6 +15,7 @@ import { useDialogFocus } from './useDialogFocus'
 
 interface FilterPanelProps {
   filters: FilterState
+  settlements: NormalizedSettlement[]
   resultCount?: number
   onChange: (filters: FilterState) => void
   onClose: () => void
@@ -61,7 +63,8 @@ const toggleValue = <T extends string>(values: T[], value: T) =>
 const mainSections = sections.filter(({ kind }) => kind === 'chapter')
 const supplementarySections = sections.filter(({ kind }) => kind !== 'chapter')
 
-export default function FilterPanel({ filters, resultCount = settlements.length, onChange, onClose }: FilterPanelProps) {
+export default function FilterPanel({ filters, settlements, resultCount = settlements.length, onChange, onClose }: FilterPanelProps) {
+  const [settlementSearch, setSettlementSearch] = useState('')
   const [typeSearch, setTypeSearch] = useState('')
   const panelRef = useRef<HTMLElement>(null)
   useDialogFocus(panelRef)
@@ -70,6 +73,22 @@ export default function FilterPanel({ filters, resultCount = settlements.length,
     const query = typeSearch.trim().toLocaleLowerCase()
     return query ? settlementTypes.filter(({ type }) => type.toLocaleLowerCase().includes(query)) : settlementTypes
   }, [typeSearch])
+  const visibleSettlements = useMemo(() => {
+    const suggestions = deriveSettlementNameSuggestions(settlements, settlementSearch)
+    if (settlementSearch.trim()) return suggestions
+    return [...suggestions].sort((a, b) => {
+      const aIndex = filters.settlementIds.indexOf(a.settlement.settlement_id)
+      const bIndex = filters.settlementIds.indexOf(b.settlement.settlement_id)
+      if (aIndex >= 0 && bIndex >= 0) return aIndex - bIndex
+      if (aIndex >= 0) return -1
+      if (bIndex >= 0) return 1
+      return a.settlement.canonical_name.localeCompare(b.settlement.canonical_name)
+    })
+  }, [filters.settlementIds, settlementSearch, settlements])
+  const selectedSettlements = filters.settlementIds.flatMap((id) => {
+    const settlement = settlements.find((entry) => entry.settlement_id === id)
+    return settlement ? [settlement] : []
+  })
   const categoryCounts = useMemo(() => Object.fromEntries(Object.keys(PLACE_CATEGORIES).map((category) => [
     category,
     settlements.filter((settlement) => categoriesForType(settlement.settlement_type).includes(category as PlaceCategoryId)).length,
@@ -83,6 +102,37 @@ export default function FilterPanel({ filters, resultCount = settlements.length,
       </div>
 
       <div className="filter-content">
+        <section className="filter-section settlement-filter">
+          <div className="filter-section-heading"><h3>Settlements</h3><span>{filters.settlementIds.length || 'All'} selected</span></div>
+          <p className="filter-helper">Select one or more named settlements to hide every other place from the map and explorer views.</p>
+          {selectedSettlements.length > 0 && (
+            <div className="selected-settlement-manager">
+              <div className="selected-settlement-heading"><strong>Visible settlements</strong><button type="button" onClick={() => onChange({ ...filters, settlementIds: [] })}>Clear selected</button></div>
+              <div className="selected-settlement-chips">
+                {selectedSettlements.map((settlement) => (
+                  <button type="button" key={settlement.settlement_id} onClick={() => onChange({ ...filters, settlementIds: filters.settlementIds.filter((id) => id !== settlement.settlement_id) })} aria-label={`Remove ${settlement.canonical_name} from visible settlements`}>
+                    {settlement.canonical_name}<X />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          <label className="mini-search settlement-search"><Search size={15} aria-hidden="true" /><span className="sr-only">Find a settlement by name or alias</span><input value={settlementSearch} onChange={(event) => setSettlementSearch(event.target.value)} placeholder="Find a settlement…" /></label>
+          <div className="check-list settlement-list" aria-label="Named settlements">
+            {visibleSettlements.length === 0 && <p className="filter-list-empty">No settlement names match this search.</p>}
+            {visibleSettlements.map(({ settlement, matchingAlias }) => {
+              const checked = filters.settlementIds.includes(settlement.settlement_id)
+              return (
+                <label className={checked ? 'check-row settlement-row is-checked' : 'check-row settlement-row'} key={settlement.settlement_id}>
+                  <input type="checkbox" checked={checked} onChange={() => onChange({ ...filters, settlementIds: toggleValue(filters.settlementIds, settlement.settlement_id) })} />
+                  <span className="custom-check">{checked && <Check size={12} />}</span>
+                  <span><b>{settlement.canonical_name}</b><em>{matchingAlias ? `Also known as ${matchingAlias}` : settlement.settlement_type}</em></span>
+                </label>
+              )
+            })}
+          </div>
+        </section>
+
         <section className="filter-section section-filter">
           <div className="filter-section-heading"><h3>Book chapters</h3><span>{filters.sections.length || 'All'} selected</span></div>
           <div className="chapter-grid" aria-label="Book chapters">
@@ -175,7 +225,7 @@ export default function FilterPanel({ filters, resultCount = settlements.length,
 
       <div className="drawer-footer">
         <button className="secondary-button" onClick={() => onChange({ ...EMPTY_FILTERS, query: filters.query })}><RotateCcw size={16} /> Reset filters</button>
-        <button className="primary-button" onClick={onClose}>View {resultCount} settlements</button>
+        <button className="primary-button" onClick={onClose}>View {resultCount} settlement{resultCount === 1 ? '' : 's'}</button>
       </div>
     </aside>
   )

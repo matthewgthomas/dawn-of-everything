@@ -84,6 +84,7 @@ export const categoriesForType = (type: string) => categoriesByType.get(type) ??
 
 export interface FilterState {
   query: string
+  settlementIds: string[]
   types: string[]
   sections: string[]
   eras: EraPresetId[]
@@ -114,8 +115,15 @@ export interface SettlementSearchResult {
   matchScore: number
 }
 
+export interface SettlementNameSuggestion {
+  settlement: NormalizedSettlement
+  matchingAlias: string | null
+  rank: number
+}
+
 export const EMPTY_FILTERS: FilterState = {
   query: '',
+  settlementIds: [],
   types: [],
   sections: [],
   eras: [],
@@ -146,6 +154,36 @@ const termScore = (text: string, terms: string[]) => {
     }
     return score + matches
   }, 0)
+}
+
+const aliasesForSettlement = (settlement: NormalizedSettlement) => settlement.aliases_in_book
+  .split('|')
+  .map((alias) => alias.trim())
+  .filter((alias) => alias && normalize(alias) !== normalize(settlement.canonical_name))
+
+export const deriveSettlementNameSuggestions = (
+  entries: NormalizedSettlement[],
+  rawQuery: string,
+): SettlementNameSuggestion[] => {
+  const query = normalize(rawQuery.trim())
+  return entries.flatMap((settlement): SettlementNameSuggestion[] => {
+    if (!query) return [{ settlement, matchingAlias: null, rank: 6 }]
+
+    const canonicalName = normalize(settlement.canonical_name)
+    const aliases = aliasesForSettlement(settlement)
+    const exactAlias = aliases.find((alias) => normalize(alias) === query)
+    const prefixAlias = aliases.find((alias) => normalize(alias).startsWith(query))
+    const containingAlias = aliases.find((alias) => normalize(alias).includes(query))
+
+    if (canonicalName === query) return [{ settlement, matchingAlias: null, rank: 0 }]
+    if (exactAlias) return [{ settlement, matchingAlias: exactAlias, rank: 1 }]
+    if (canonicalName.startsWith(query)) return [{ settlement, matchingAlias: null, rank: 2 }]
+    if (prefixAlias) return [{ settlement, matchingAlias: prefixAlias, rank: 3 }]
+    if (canonicalName.includes(query)) return [{ settlement, matchingAlias: null, rank: 4 }]
+    if (containingAlias) return [{ settlement, matchingAlias: containingAlias, rank: 5 }]
+    return []
+  }).sort((a, b) => a.rank - b.rank
+    || a.settlement.canonical_name.localeCompare(b.settlement.canonical_name))
 }
 
 export const createPassageExcerpt = (text: string, terms: string[], maxCharacters = 220) => {
@@ -238,6 +276,7 @@ export const overlapsEra = (settlement: NormalizedSettlement, era: EraPresetId) 
 }
 
 export const matchesFilters = (settlement: NormalizedSettlement, filters: FilterState) => {
+  if (filters.settlementIds.length > 0 && !filters.settlementIds.includes(settlement.settlement_id)) return false
   if (filters.types.length > 0 && !filters.types.includes(settlement.settlement_type)) return false
   if (filters.categories.length > 0 && !filters.categories.some((category) => categoriesForType(settlement.settlement_type).includes(category))) return false
   if (filters.sections.length > 0 && !filters.sections.some((section) => settlement.sections.includes(section))) return false
@@ -285,6 +324,8 @@ export const readUrlState = (
   return {
     filters: {
       query: params.get('q') ?? '',
+      settlementIds: params.getAll('places')
+        .filter((id, index, ids) => validIds.has(id) && ids.indexOf(id) === index),
       types: params.getAll('types').filter((type) => validTypes.has(type)),
       sections: params.getAll('sections').filter((section) => validSections.has(section)),
       eras: params.getAll('era').filter((era): era is EraPresetId => era in ERA_PRESETS),
@@ -305,6 +346,7 @@ export const writeUrlState = (state: UrlState) => {
   const params = new URLSearchParams()
   const { filters } = state
   if (filters.query) params.set('q', filters.query)
+  filters.settlementIds.forEach((id) => params.append('places', id))
   filters.types.forEach((type) => params.append('types', type))
   filters.sections.forEach((section) => params.append('sections', section))
   filters.eras.forEach((era) => params.append('era', era))
@@ -321,7 +363,8 @@ export const writeUrlState = (state: UrlState) => {
 }
 
 export const countActiveFilters = (filters: FilterState) =>
-  filters.types.length
+  filters.settlementIds.length
+  + filters.types.length
   + filters.sections.length
   + filters.eras.length
   + filters.categories.length
