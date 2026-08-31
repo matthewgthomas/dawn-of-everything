@@ -121,12 +121,20 @@ export default function DetailDrawer({
           <div className="detail-view overview-view">
             <p className="detail-description">{settlement.wikidata_description || <>A {settlement.settlement_type} mentioned in <BookTitleLink />.</>}</p>
 
+            {located && <SettlementLocationMap settlement={settlement} />}
+            {!located && <div className="location-warning"><MapPinOff /><span><strong>Location unresolved</strong>This settlement remains browseable but is not plotted on the map.</span></div>}
+
             {featuredMention && (
               <article className="featured-passage">
                 <div><BookOpen aria-hidden="true" /><span>Featured passage</span><small>{featuredMention.section}</small></div>
                 <p><HighlightedText text={featuredMention.complete_paragraph_text} query={query} /></p>
               </article>
             )}
+
+            <section className="appears-summary">
+              <div className="detail-section-title"><h3>Appears in</h3><span>{settlement.sections.length} sections</span></div>
+              <div className="section-chips">{settlement.sections.map((section) => <span key={section}>{section}</span>)}</div>
+            </section>
 
             <section className={areaSummary ? 'area-summary-card' : 'area-summary-card is-unknown'} aria-labelledby="area-summary-title">
               <div className="detail-section-title"><h3 id="area-summary-title">Settlement area</h3><span>{areaSummary ? 'Peak preferred estimate' : 'Not established'}</span></div>
@@ -141,14 +149,6 @@ export default function DetailDrawer({
               )}
               <button className="text-button area-summary-link" onClick={() => setView('area')}>View area research</button>
             </section>
-
-            <section className="appears-summary">
-              <div className="detail-section-title"><h3>Appears in</h3><span>{settlement.sections.length} sections</span></div>
-              <div className="section-chips">{settlement.sections.map((section) => <span key={section}>{section}</span>)}</div>
-            </section>
-
-            {located && <SettlementLocationMap settlement={settlement} />}
-            {!located && <div className="location-warning"><MapPinOff /><span><strong>Location unresolved</strong>This settlement remains browseable but is not plotted on the map.</span></div>}
 
             <dl className="metadata-grid">
               <div><dt>Place type</dt><dd>{settlement.settlement_type}</dd></div>
@@ -172,7 +172,7 @@ export default function DetailDrawer({
 
         {view === 'area' && (
           <section className="detail-view area-detail-view" aria-labelledby="area-detail-title">
-            <div className="detail-section-title"><h3 id="area-detail-title">Settlement area research</h3><span>{settlement.areaObservations.length} observation{settlement.areaObservations.length === 1 ? '' : 's'}</span></div>
+            <div className="detail-section-title"><h3 id="area-detail-title">Settlement area</h3><span>{settlement.areaObservations.length} observation{settlement.areaObservations.length === 1 ? '' : 's'}</span></div>
             <p className="area-detail-intro">Area estimates describe the published footprint or extent named for each period. Contemporary comparators are orientation aids, not additional measurements.</p>
             <div className="area-observation-list">
               {settlement.areaObservations.map((observation) => {
