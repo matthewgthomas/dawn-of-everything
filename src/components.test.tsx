@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import { cleanup, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { BOOK_WEBSITE_URL } from './BookTitleLink'
@@ -8,6 +8,7 @@ import FilterPanel from './FilterPanel'
 import App from './App'
 import { EMPTY_FILTERS } from './filtering'
 import { settlementById } from './data'
+import SettlementAreaComparison from './SettlementAreaComparison'
 
 afterEach(() => {
   cleanup()
@@ -63,29 +64,73 @@ describe('App responsive results', () => {
     })
   })
 
-  it('opens the desktop results drawer and restores focus to its launcher', async () => {
+  it('retargets the desktop results launcher to the Book mentions panel', async () => {
     setDesktopMedia(true)
     const user = userEvent.setup()
     render(<App />)
     const launcher = screen.getByRole('button', { name: '174 settlements' })
+    const viewSwitcher = screen.getByRole('navigation', { name: 'Settlement list view' })
+    expect(within(viewSwitcher).getByRole('button', { name: 'Timeline' })).toHaveAttribute('aria-pressed', 'true')
     await user.click(launcher)
-    expect(screen.getByRole('dialog', { name: 'Settlements' })).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: 'Close results' }))
-    await waitFor(() => expect(launcher).toHaveFocus())
+    expect(screen.queryByRole('dialog', { name: 'Settlements' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Book mentions' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('region', { name: 'Book mentions settlement view' })).toBeInTheDocument()
+    expect(launcher).toHaveFocus()
   })
 
-  it('switches to mobile results only after two search characters', async () => {
+  it('uses a single mobile Explorer tab and switches it to mentions after two search characters', async () => {
     setDesktopMedia(false)
     const user = userEvent.setup()
     render(<App />)
     expect(screen.getByRole('button', { name: 'About the atlas' })).toBeInTheDocument()
     const input = screen.getByRole('textbox', { name: /Search settlements and book text/i })
-    const resultsTab = screen.getByRole('button', { name: 'Results' })
+    const explorerTab = screen.getByRole('button', { name: 'Explorer' })
+    expect(screen.queryByRole('button', { name: 'Results' })).not.toBeInTheDocument()
     await user.type(input, 'w')
-    expect(resultsTab).not.toHaveClass('is-active')
+    expect(explorerTab).not.toHaveClass('is-active')
     await user.type(input, 'o')
-    expect(resultsTab).toHaveClass('is-active')
+    expect(explorerTab).toHaveClass('is-active')
+    expect(screen.getByRole('button', { name: 'Book mentions' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('button', { name: 'Filters' })).not.toHaveTextContent('0')
+  })
+
+  it('switches between timeline and settlement-area modes without replacing the timeline component', async () => {
+    setDesktopMedia(true)
+    const user = userEvent.setup()
+    render(<App />)
+    expect(screen.getByRole('heading', { name: 'Occupation through time' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Settlement area' }))
+    expect(screen.getByRole('heading', { name: 'Settlement area' })).toBeInTheDocument()
+    expect(screen.getByText('69 of 174 filtered settlements have a defensible estimate.')).toBeInTheDocument()
+    await user.click(within(screen.getByRole('navigation', { name: 'Settlement list view' })).getByRole('button', { name: 'Timeline' }))
+    expect(screen.getByRole('heading', { name: 'Occupation through time' })).toBeInTheDocument()
+  })
+})
+
+describe('SettlementAreaComparison', () => {
+  it('ranks known areas and retains unknown settlements in a separate group', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    const onPin = vi.fn()
+    render(
+      <SettlementAreaComparison
+        settlements={[settlementById.get('S078')!, settlementById.get('S106')!, settlementById.get('S001')!]}
+        selectedId={null}
+        pinnedIds={[]}
+        onSelect={onSelect}
+        onPin={onPin}
+        onReset={() => undefined}
+      />,
+    )
+
+    const rows = document.querySelectorAll('.area-comparison-row')
+    expect(rows[0]).toHaveTextContent('Teotihuacan')
+    expect(rows[1]).toHaveTextContent('Uruk')
+    expect(screen.getByText('Area not established')).toBeInTheDocument()
+    await user.click(screen.getByText('Area not established'))
+    expect(screen.getByText('Quebec City')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /Add Teotihuacan to comparison/i }))
+    expect(onPin).toHaveBeenCalledWith('S106')
   })
 })
 
@@ -152,6 +197,54 @@ describe('DetailDrawer', () => {
     render(<DetailDrawer settlement={teotihuacan} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     expect(screen.getByRole('img', { name: /Location of Teotihuacan on the world map/i })).toBeInTheDocument()
     expect(screen.queryByText('Location unresolved')).not.toBeInTheDocument()
+  })
+
+  it('summarizes peak area and exposes full comparator provenance', async () => {
+    const user = userEvent.setup()
+    const teotihuacan = settlementById.get('S106')!
+    render(<DetailDrawer settlement={teotihuacan} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    expect(screen.getByText('2072 ha')).toBeInTheDocument()
+    expect(screen.getByText('About 2.1 × Richmond Park')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Area' }))
+    expect(screen.getByRole('heading', { name: 'Settlement area research' })).toBeInTheDocument()
+    const comparator = screen.getByRole('link', { name: /About 2.1 × Richmond Park/i })
+    expect(comparator).toHaveAttribute('href', 'https://www.royalparks.org.uk/visit/parks/richmond-park/faqs')
+    expect(comparator).toHaveAttribute('target', '_blank')
+    expect(screen.getByText('The Dawn of Everything source text, line 3090')).toBeInTheDocument()
+  })
+
+  it('shows every multi-phase estimate and marks alternates', async () => {
+    const user = userEvent.setup()
+    render(<DetailDrawer settlement={settlementById.get('S078')!} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    await user.click(screen.getByRole('button', { name: 'Area' }))
+    expect(screen.getByText('5 observations')).toBeInTheDocument()
+    expect(screen.getByText('Alternate estimate')).toBeInTheDocument()
+    expect(screen.getByText('Early Dynastic expansion, by c. 2800 BCE')).toBeInTheDocument()
+    expect(screen.getByText('Seleucid city, c. 300–125 BCE')).toBeInTheDocument()
+  })
+
+  it('renders multiple area research sources as separate valid links', async () => {
+    const user = userEvent.setup()
+    render(<DetailDrawer settlement={settlementById.get('S056')!} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    await user.click(screen.getByRole('button', { name: 'Area' }))
+
+    expect(screen.getByRole('link', { name: 'Source 1' })).toHaveAttribute(
+      'href',
+      'https://www.cambridge.org/core/services/aop-cambridge-core/content/view/AAEB4223BC3D3A300F2D1B8350977479/S0003598X00059159a.pdf/editorial.pdf',
+    )
+    expect(screen.getByRole('link', { name: 'Source 2' })).toHaveAttribute(
+      'href',
+      'https://jpsearch.go.jp/en/item/cb1-6a82762f_ac8e_41dd_a325_8dd746bfb39d',
+    )
+  })
+
+  it('explains unknown areas and links supporting evidence when available', async () => {
+    const user = userEvent.setup()
+    render(<DetailDrawer settlement={settlementById.get('S053')!} query="" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    expect(screen.getByText(/overall Durrington Walls settlement size is unknown/i)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Area' }))
+    const evidence = screen.getByRole('link', { name: /English Heritage, Stonehenge reconstructed/i })
+    expect(evidence).toHaveAttribute('target', '_blank')
   })
 
   it('keeps an unlocated settlement browseable with full grouped passages', async () => {

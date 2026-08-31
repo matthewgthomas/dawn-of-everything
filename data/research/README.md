@@ -1,9 +1,9 @@
 # Settlement-area research dataset
 
-`settlement_areas.csv` is a research-only companion to the canonical settlement
-list. It is not read by the app. The generated file contains one or more dated
-area observations for every canonical settlement and an explicit `unknown` row
-when no defensible settlement-footprint estimate was found.
+`settlement_areas.csv` is a companion to the canonical settlement list and is
+bundled directly into the app. The generated file contains one or more dated area
+observations for every canonical settlement and an explicit `unknown` row when no
+defensible settlement-footprint estimate was found.
 
 ## Scope and source policy
 
@@ -36,6 +36,19 @@ when no defensible settlement-footprint estimate was found.
   Harappa, and Taljanky.
 - A precise unit conversion does not increase the precision of the source. The
   source's qualifier remains in `qualifier`.
+
+## App ranking convention
+
+The app's settlement-area view lists each filtered settlement once. It selects
+the largest preferred observation as that settlement's peak estimate, using the
+midpoint of a bounded range or the populated bound of a one-sided estimate. Ties
+use the latest dated phase and then the curated CSV order. Non-preferred rows are
+excluded from the ranking but remain visible in the settlement's Area details.
+
+Because the observations span roughly 1 to 90,669 hectares, comparison bars use
+a labelled logarithmic scale. Exact hectares and square kilometres remain the
+authoritative display values. Settlements with unknown areas are retained in a
+separate expandable group rather than being omitted.
 
 ## Comparators
 
