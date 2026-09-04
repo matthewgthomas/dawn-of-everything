@@ -3561,6 +3561,32 @@
       "sections_mentioned": "Chapter 10: Why the State Has No Origin",
       "first_source_line": 3700,
       "last_source_line": 3700
+    },
+    {
+      "settlement_id": "S138",
+      "canonical_name": "Dholavira",
+      "aliases_in_book": "Dholavira",
+      "settlement_type": "ancient city",
+      "latitude": 23.888408,
+      "longitude": 70.213303,
+      "coordinate_note": "UNESCO World Heritage property reference point",
+      "coordinate_precision": "site centroid",
+      "coordinate_source_url": "https://whc.unesco.org/en/list/1645/",
+      "wikidata_id": "Q9468",
+      "wikidata_url": "https://www.wikidata.org/wiki/Q9468",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Dholavira",
+      "wikidata_description": "archaeological site in Kutch, Gujarat in western India",
+      "entity_resolution_score": 100.0,
+      "occupation_start_year": "-3000",
+      "occupation_end_year": "-1500",
+      "occupation_interval_display": "3000 BCE to 1500 BCE",
+      "occupation_qualifier": "c.",
+      "occupation_basis": "reference synthesis",
+      "curation_note": "The book identifies Dholavira as a town and separately discusses its surviving street sign.",
+      "mention_paragraph_count": 3,
+      "sections_mentioned": "Chapter 8: Imaginary Cities | Notes to Chapter 8: Imaginary Cities",
+      "first_source_line": 2909,
+      "last_source_line": 5510
     }
   ],
   "mentions": [
@@ -5329,8 +5355,8 @@
       "complete_paragraph_text": "Here we might also consider evidence from Çayönü Tepesi, in the Ergani plain. This was the site of a large prehistoric settlement comprising substantial houses built on stone foundations, as well as public buildings. It lay on a tributary of the Tigris in the hill country of Diyarbakır, not far north of Göbekli Tepe, and was established around the same time by a community of hunter-foragers and sometime herders.58 Near the centre of the settlement stood a long-lived structure that archaeologists call the ‘House of Skulls’, for the simple reason that it was found to hold the remains of over 450 people, including headless corpses and over ninety crania, all crammed into small compartments. Cervical vertebrae were attached to some skulls, indicating they were severed from fleshed (but not necessarily living) bodies. Most of the heads were taken from young adults or adolescents, individuals in the prime of life, and ten from children. If any of these were trophy skulls, claimed from victims or enemies, then they were chosen for their vitality. The skulls were left bare, with no trace of decoration.59",
       "book_note_ids": "ch6-n58 | ch6-n59",
       "book_note_texts": "Faunal and botanical remains from Çayönü Tepesi reveal a flexible economy which underwent numerous changes over a period of some 3,000 years. In the earlier phases of the site, which concern us here, its inhabitants made extensive use of wild pulses and nuts, as well as peas, lentil and bitter vetch, with smaller amounts of wild cereals. Cultivation of at least some of these crops is likely, but there is no clear evidence of plant domestication until the later phases of the site. Animal remains suggest its inhabitants pursued mixed herding and hunting strategies which varied over many centuries, including at times a strong reliance on pigs and wild boar, as well as sheep, cattle, gazelle and red deer, and also smaller game such as hares (see Pearson et al. 2013, with further references). | For the House of Skulls and the analysis of associated human remains at Çayönü Tepesi see Özbek 1988; 1992; Schirmer 1990; Wood 1992; also Kornienko’s (2015) broader review of evidence for ritual violence in the northern part of the Fertile Crescent. Isotopic analysis of human remains indicates that the individuals whose remains came to be stored in the Skull Building had significantly different diets to those buried elsewhere on the site, which might indicate local differences of status (Pearson et al. 2013), or conceivably the incorporation of outsiders into local mortuary rituals.",
-      "bibliography_keys": "Pearson 2013 | Schirmer 1990 | Wood 1992",
-      "full_bibliography_entries": "Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89. | Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87. | Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374."
+      "bibliography_keys": "Pearson 2013 | Özbek 1988 | Schirmer 1990 | Wood 1992",
+      "full_bibliography_entries": "Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89. | Özbek Metin. 1988. ‘Culte des cranes humains a Çayönü.’ Anatolica 15: 127–37. | Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87. | Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374."
     },
     {
       "mention_id": "M0105",
@@ -6570,8 +6596,8 @@
       "complete_paragraph_text": "Here we might also consider evidence from Çayönü Tepesi, in the Ergani plain. This was the site of a large prehistoric settlement comprising substantial houses built on stone foundations, as well as public buildings. It lay on a tributary of the Tigris in the hill country of Diyarbakır, not far north of Göbekli Tepe, and was established around the same time by a community of hunter-foragers and sometime herders.58 Near the centre of the settlement stood a long-lived structure that archaeologists call the ‘House of Skulls’, for the simple reason that it was found to hold the remains of over 450 people, including headless corpses and over ninety crania, all crammed into small compartments. Cervical vertebrae were attached to some skulls, indicating they were severed from fleshed (but not necessarily living) bodies. Most of the heads were taken from young adults or adolescents, individuals in the prime of life, and ten from children. If any of these were trophy skulls, claimed from victims or enemies, then they were chosen for their vitality. The skulls were left bare, with no trace of decoration.59",
       "book_note_ids": "ch6-n58 | ch6-n59",
       "book_note_texts": "Faunal and botanical remains from Çayönü Tepesi reveal a flexible economy which underwent numerous changes over a period of some 3,000 years. In the earlier phases of the site, which concern us here, its inhabitants made extensive use of wild pulses and nuts, as well as peas, lentil and bitter vetch, with smaller amounts of wild cereals. Cultivation of at least some of these crops is likely, but there is no clear evidence of plant domestication until the later phases of the site. Animal remains suggest its inhabitants pursued mixed herding and hunting strategies which varied over many centuries, including at times a strong reliance on pigs and wild boar, as well as sheep, cattle, gazelle and red deer, and also smaller game such as hares (see Pearson et al. 2013, with further references). | For the House of Skulls and the analysis of associated human remains at Çayönü Tepesi see Özbek 1988; 1992; Schirmer 1990; Wood 1992; also Kornienko’s (2015) broader review of evidence for ritual violence in the northern part of the Fertile Crescent. Isotopic analysis of human remains indicates that the individuals whose remains came to be stored in the Skull Building had significantly different diets to those buried elsewhere on the site, which might indicate local differences of status (Pearson et al. 2013), or conceivably the incorporation of outsiders into local mortuary rituals.",
-      "bibliography_keys": "Pearson 2013 | Schirmer 1990 | Wood 1992",
-      "full_bibliography_entries": "Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89. | Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87. | Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374."
+      "bibliography_keys": "Pearson 2013 | Özbek 1988 | Schirmer 1990 | Wood 1992",
+      "full_bibliography_entries": "Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89. | Özbek Metin. 1988. ‘Culte des cranes humains a Çayönü.’ Anatolica 15: 127–37. | Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87. | Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374."
     },
     {
       "mention_id": "M0178",
@@ -6638,8 +6664,8 @@
       "complete_paragraph_text": "59. For the House of Skulls and the analysis of associated human remains at Çayönü Tepesi see Özbek 1988; 1992; Schirmer 1990; Wood 1992; also Kornienko’s (2015) broader review of evidence for ritual violence in the northern part of the Fertile Crescent. Isotopic analysis of human remains indicates that the individuals whose remains came to be stored in the Skull Building had significantly different diets to those buried elsewhere on the site, which might indicate local differences of status (Pearson et al. 2013), or conceivably the incorporation of outsiders into local mortuary rituals.",
       "book_note_ids": "ch6-n59",
       "book_note_texts": "For the House of Skulls and the analysis of associated human remains at Çayönü Tepesi see Özbek 1988; 1992; Schirmer 1990; Wood 1992; also Kornienko’s (2015) broader review of evidence for ritual violence in the northern part of the Fertile Crescent. Isotopic analysis of human remains indicates that the individuals whose remains came to be stored in the Skull Building had significantly different diets to those buried elsewhere on the site, which might indicate local differences of status (Pearson et al. 2013), or conceivably the incorporation of outsiders into local mortuary rituals.",
-      "bibliography_keys": "Schirmer 1990 | Wood 1992 | Pearson 2013",
-      "full_bibliography_entries": "Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87. | Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374. | Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89."
+      "bibliography_keys": "Özbek 1988 | Schirmer 1990 | Wood 1992 | Pearson 2013",
+      "full_bibliography_entries": "Özbek Metin. 1988. ‘Culte des cranes humains a Çayönü.’ Anatolica 15: 127–37. | Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87. | Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374. | Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89."
     },
     {
       "mention_id": "M0182",
@@ -7376,7 +7402,7 @@
       "mention_id": "M0225",
       "settlement_id": "S048",
       "canonical_name": "Uruk",
-      "matched_aliases": "Warka | Erech | Uruk",
+      "matched_aliases": "Erech | Warka | Uruk",
       "paragraph_id": "L2833",
       "source_line_start": 2833,
       "source_line_end": 2833,
@@ -8508,8 +8534,8 @@
       "complete_paragraph_text": "Things could work the other way round. Sometimes, the arrival of an authoritarian ruler from outside the city sent urban life into reverse. Such was the case with the Amorite Dynasty of the Lims – Yaggid-Lim, Yahudun-Lim and Zimri-Lim – which conquered much of the Syrian Euphrates around the same time Mashkan-shapir was thriving far to the south. The Lims decided to set up their centre of operations in the ancient city called Mari (modern Tell Hariri, on the Syrian Euphrates), and occupied government buildings in its heart. Their arrival seems to have precipitated a mass exodus of Mari’s urban population, who left to join up with smaller townships or tent-dwelling herders scattered across the Syrian steppe. Before the sack of Mari by Hammurabi of Babylon in 1761 bc, the last ‘city’ of the Amorite kings comprised little more than the royal residence, harem, attached temples and a handful of other official buildings.60",
       "book_note_ids": "ch8-n60",
       "book_note_texts": "Fleming 2009: 1–2.",
-      "bibliography_keys": "",
-      "full_bibliography_entries": ""
+      "bibliography_keys": "Fleming 2009",
+      "full_bibliography_entries": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press."
     },
     {
       "mention_id": "M0292",
@@ -8933,8 +8959,8 @@
       "complete_paragraph_text": "Things could work the other way round. Sometimes, the arrival of an authoritarian ruler from outside the city sent urban life into reverse. Such was the case with the Amorite Dynasty of the Lims – Yaggid-Lim, Yahudun-Lim and Zimri-Lim – which conquered much of the Syrian Euphrates around the same time Mashkan-shapir was thriving far to the south. The Lims decided to set up their centre of operations in the ancient city called Mari (modern Tell Hariri, on the Syrian Euphrates), and occupied government buildings in its heart. Their arrival seems to have precipitated a mass exodus of Mari’s urban population, who left to join up with smaller townships or tent-dwelling herders scattered across the Syrian steppe. Before the sack of Mari by Hammurabi of Babylon in 1761 bc, the last ‘city’ of the Amorite kings comprised little more than the royal residence, harem, attached temples and a handful of other official buildings.60",
       "book_note_ids": "ch8-n60",
       "book_note_texts": "Fleming 2009: 1–2.",
-      "bibliography_keys": "",
-      "full_bibliography_entries": ""
+      "bibliography_keys": "Fleming 2009",
+      "full_bibliography_entries": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press."
     },
     {
       "mention_id": "M0317",
@@ -8950,8 +8976,8 @@
       "complete_paragraph_text": "Things could work the other way round. Sometimes, the arrival of an authoritarian ruler from outside the city sent urban life into reverse. Such was the case with the Amorite Dynasty of the Lims – Yaggid-Lim, Yahudun-Lim and Zimri-Lim – which conquered much of the Syrian Euphrates around the same time Mashkan-shapir was thriving far to the south. The Lims decided to set up their centre of operations in the ancient city called Mari (modern Tell Hariri, on the Syrian Euphrates), and occupied government buildings in its heart. Their arrival seems to have precipitated a mass exodus of Mari’s urban population, who left to join up with smaller townships or tent-dwelling herders scattered across the Syrian steppe. Before the sack of Mari by Hammurabi of Babylon in 1761 bc, the last ‘city’ of the Amorite kings comprised little more than the royal residence, harem, attached temples and a handful of other official buildings.60",
       "book_note_ids": "ch8-n60",
       "book_note_texts": "Fleming 2009: 1–2.",
-      "bibliography_keys": "",
-      "full_bibliography_entries": ""
+      "bibliography_keys": "Fleming 2009",
+      "full_bibliography_entries": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press."
     },
     {
       "mention_id": "M0318",
@@ -8967,8 +8993,8 @@
       "complete_paragraph_text": "Written correspondence of this period offers direct evidence of antipathy between arriviste monarchy of this kind and the established power of urban assemblies. Letters to Zimri-Lim from Terru – lord of the ancient Hurrian capital of Urkesh (modern Tell Mozan) – convey his impotence in the face of the city’s councils and assemblies. On one occasion, Terru tells Zimri-Lim: ‘Because I am submitted to my lord’s pleasure, the inhabitants of my town despise me, and two and three times I have snatched my head back from death by their hand.’ To which the Mari king responds: ‘I did not realize that the inhabitants of your town despised you on account of me. You belong to me even if the town of Urkesh belongs to someone else.’ All this came to a head when Terru confessed he had to flee from public opinion (‘the mouth of Urkesh’), taking refuge in a nearby town.61",
       "book_note_ids": "ch8-n61",
       "book_note_texts": "Fleming (2009: 197–9) notes the ‘tradition [at Urkesh] of a powerful collective balance to leadership by kings may be the inheritance of a long urban history’, and that the council of elders cannot possibly be construed as part of the king’s own circle of advisors. It was rather an ‘entirely independent political force’ of some antiquity, a collective form of urban leadership, which ‘cannot be regarded as a minor player in a primarily monarchic framework’.",
-      "bibliography_keys": "",
-      "full_bibliography_entries": ""
+      "bibliography_keys": "Fleming 2009",
+      "full_bibliography_entries": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press."
     },
     {
       "mention_id": "M0319",
@@ -9001,8 +9027,8 @@
       "complete_paragraph_text": "Written correspondence of this period offers direct evidence of antipathy between arriviste monarchy of this kind and the established power of urban assemblies. Letters to Zimri-Lim from Terru – lord of the ancient Hurrian capital of Urkesh (modern Tell Mozan) – convey his impotence in the face of the city’s councils and assemblies. On one occasion, Terru tells Zimri-Lim: ‘Because I am submitted to my lord’s pleasure, the inhabitants of my town despise me, and two and three times I have snatched my head back from death by their hand.’ To which the Mari king responds: ‘I did not realize that the inhabitants of your town despised you on account of me. You belong to me even if the town of Urkesh belongs to someone else.’ All this came to a head when Terru confessed he had to flee from public opinion (‘the mouth of Urkesh’), taking refuge in a nearby town.61",
       "book_note_ids": "ch8-n61",
       "book_note_texts": "Fleming (2009: 197–9) notes the ‘tradition [at Urkesh] of a powerful collective balance to leadership by kings may be the inheritance of a long urban history’, and that the council of elders cannot possibly be construed as part of the king’s own circle of advisors. It was rather an ‘entirely independent political force’ of some antiquity, a collective form of urban leadership, which ‘cannot be regarded as a minor player in a primarily monarchic framework’.",
-      "bibliography_keys": "",
-      "full_bibliography_entries": ""
+      "bibliography_keys": "Fleming 2009",
+      "full_bibliography_entries": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press."
     },
     {
       "mention_id": "M0321",
@@ -9018,8 +9044,8 @@
       "complete_paragraph_text": "61. Fleming (2009: 197–9) notes the ‘tradition [at Urkesh] of a powerful collective balance to leadership by kings may be the inheritance of a long urban history’, and that the council of elders cannot possibly be construed as part of the king’s own circle of advisors. It was rather an ‘entirely independent political force’ of some antiquity, a collective form of urban leadership, which ‘cannot be regarded as a minor player in a primarily monarchic framework’.",
       "book_note_ids": "ch8-n61",
       "book_note_texts": "Fleming (2009: 197–9) notes the ‘tradition [at Urkesh] of a powerful collective balance to leadership by kings may be the inheritance of a long urban history’, and that the council of elders cannot possibly be construed as part of the king’s own circle of advisors. It was rather an ‘entirely independent political force’ of some antiquity, a collective form of urban leadership, which ‘cannot be regarded as a minor player in a primarily monarchic framework’.",
-      "bibliography_keys": "",
-      "full_bibliography_entries": ""
+      "bibliography_keys": "Fleming 2009",
+      "full_bibliography_entries": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press."
     },
     {
       "mention_id": "M0322",
@@ -13814,6 +13840,57 @@
       "book_note_texts": "Translation as per Seidlmayer 1990: 118–21. Especially striking, in this regard, are the nomarch’s claims to keep his people not just healthy, but also provided with the basic necessities for a full social life: the resources to sustain a family, conduct proper funerals, and the guarantee that one would not be cut loose from one’s local moorings or condemned to live as a refugee.",
       "bibliography_keys": "",
       "full_bibliography_entries": ""
+    },
+    {
+      "mention_id": "M0604",
+      "settlement_id": "S138",
+      "canonical_name": "Dholavira",
+      "matched_aliases": "Dholavira",
+      "paragraph_id": "L2909",
+      "source_line_start": 2909,
+      "source_line_end": 2909,
+      "section": "Chapter 8: Imaginary Cities",
+      "section_kind": "chapter",
+      "chapter_number": 8,
+      "complete_paragraph_text": "In the wider ambit of Indus civilization, there is only one rival to Mohenjo-daro: the site of Harappa (whence the alternative term ‘Harappan civilization’). Of similar magnitude, it lies about 370 miles upstream on the Ravi River, a tributary of the Indus. Many other sites of the same date and cultural family exist, ranging from large towns to hamlets. They extend over most of the area of modern-day Pakistan, and well beyond the floodplain of the Indus, into northern India. For instance, perched on an island amid the salt flats of the Great Rann of Kutch lie the striking remains of Dholavira, a town equipped with over fifteen brick-built reservoirs to capture rainwater and runoff from local streams. The Indus civilization had colonial outposts as far as the Oxus River in northern Afghanistan, where the site of Shortugai presents a miniature replica of its urban mother-culture: ideally placed to tap the rich mineral sources of the Central Asian highlands (lapis, tin and other gemstones and metals). Such materials were prized by lowland artisans and their commercial partners as far away as Iran, Arabia and Mesopotamia. At Lothal, on Gujarat’s Gulf of Khambhat, lie remains of a well-appointed port town facing the Arabian Sea, presumably built by Indus engineers to service maritime trade.86",
+      "book_note_ids": "ch8-n86",
+      "book_note_texts": "For an overview of the Indus valley’s far-flung commercial and cultural contacts in the Bronze Age see Ratnagar 2004; Wright 2010.",
+      "bibliography_keys": "Ratnagar 2004 | Wright 2010",
+      "full_bibliography_entries": "Ratnagar, Shereen. 2004. Trading Encounters: From the Euphrates to the Indus in the Bronze Age. New Delhi: Oxford University Press. | Wright, Rita P. 2010. The Ancient Indus: Urbanism, Economy, and Society. New York: Cambridge University Press."
+    },
+    {
+      "mention_id": "M0605",
+      "settlement_id": "S138",
+      "canonical_name": "Dholavira",
+      "matched_aliases": "Dholavira",
+      "paragraph_id": "L2911",
+      "source_line_start": 2911,
+      "source_line_end": 2911,
+      "section": "Chapter 8: Imaginary Cities",
+      "section_kind": "chapter",
+      "chapter_number": 8,
+      "complete_paragraph_text": "The Indus civilization had its own script, which appeared and vanished together with its cities. It has not been deciphered. What survives to us are mainly short captions, stamped or incised on storage jars, copper tools and the remnants of a lonely piece of street signage from Dholavira. Short inscriptions also feature on tiny stone amulets, captioning pictorial vignettes or miniature animal figures, carved with striking precision. Most of these are realistic depictions of water buffalo, elephant, rhinoceros, tiger and other local fauna, but they also include fantastic beasts, most often unicorns. Debate surrounds the amulets’ function: were they worn as personal identifiers, for passage through the city’s gated quarters and walled compounds, or perhaps to gain entry to ceremonial occasions? Or were they used for administration, to impress identifying signs on commodities passing among unknown parties: a Bronze Age origin of product-branding? Could they be all of these things?87",
+      "book_note_ids": "",
+      "book_note_texts": "",
+      "bibliography_keys": "",
+      "full_bibliography_entries": ""
+    },
+    {
+      "mention_id": "M0606",
+      "settlement_id": "S138",
+      "canonical_name": "Dholavira",
+      "matched_aliases": "Dholavira",
+      "paragraph_id": "L5510",
+      "source_line_start": 5510,
+      "source_line_end": 5510,
+      "section": "Notes to Chapter 8: Imaginary Cities",
+      "section_kind": "notes",
+      "chapter_number": 8,
+      "complete_paragraph_text": "87. For the Indus script in general see Possehl 1996; for the Dholavira street-sign, Subramanian 2010; and for the function of Indus seals, Frenez 2018.",
+      "book_note_ids": "ch8-n87",
+      "book_note_texts": "For the Indus script in general see Possehl 1996; for the Dholavira street-sign, Subramanian 2010; and for the function of Indus seals, Frenez 2018.",
+      "bibliography_keys": "Possehl 1996 | Subramanian 2010 | Frenez 2018",
+      "full_bibliography_entries": "Possehl, G. L. 1996. Indus Age: The Writing System. Philadelphia: University of Pennsylvania Press. | Subramanian T. S. 2010. ‘The rise and fall of a Harappan city.’ Frontline 27 (12). | Frenez, Dennys. 2018. ‘Private person or public persona? Use and significance of standard Indus seals as markers of formal socio-economic identities.’ In D. Frenez et al. (eds), Walking with the Unicorn: Social Organization and Material Culture in Ancient South Asia. Oxford: Archaeopress, pp. 166–93."
     }
   ],
   "references": [
@@ -14251,1316 +14328,1346 @@
     },
     {
       "reference_id": "R073",
+      "bibliography_key": "Fleming 2009",
+      "full_bibliography_entry": "Fleming Daniel. E. 2009. Democracy’s Ancient Ancestors: Mari and Early Collective Governance. Cambridge: Cambridge University Press.",
+      "linked_book_note_ids": "ch8-n60 | ch8-n61"
+    },
+    {
+      "reference_id": "R074",
       "bibliography_key": "Fogelson 1984",
       "full_bibliography_entry": "Fogelson, Raymond D. 1984. ‘Who were the Aní-Kutánî? An excursion into Cherokee historical thought.’ Ethnohistory 31 (4): 255–63.",
       "linked_book_note_ids": "ch11-n56"
     },
     {
-      "reference_id": "R074",
+      "reference_id": "R075",
       "bibliography_key": "Formicola 2007",
       "full_bibliography_entry": "Formicola, Vincenzo. 2007. ‘From the Sungir children to the Romito dwarf: aspects of the Upper Palaeolithic funerary landscape.’ Current Anthropology 48: 446–53.",
       "linked_book_note_ids": "ch3-n36"
     },
     {
-      "reference_id": "R075",
+      "reference_id": "R076",
       "bibliography_key": "Fowler 1997",
       "full_bibliography_entry": "Fowler, Melvin. L. 1997. The Cahokia Atlas: A Historical Atlas of Cahokia Archaeology. Urbana: University of Illinois Press.",
       "linked_book_note_ids": "ch11-n34"
     },
     {
-      "reference_id": "R076",
+      "reference_id": "R077",
       "bibliography_key": "Fowler 1999",
       "full_bibliography_entry": "Fowler, Melvin L. et al. 1999. The Mound 72 Area: Dedicated and Sacred Space in Early Cahokia. Reports of Investigation no. 54. Springfield: Illinois State Museum.",
       "linked_book_note_ids": "ch11-n38 | ch11-n40"
     },
     {
-      "reference_id": "R077",
+      "reference_id": "R078",
       "bibliography_key": "Frangipane 2006",
       "full_bibliography_entry": "Frangipane, Marcella. 2006. ‘The Arslantepe “Royal Tomb”: new funerary customs and political changes in the Upper Euphrates valley at the beginning of the third millennium bc.’ In G. Bartoloni and M. G. Benedettini (eds), Buried Among the Living. Rome: Università degli studi di Roma ‘La Sapienza’, pp. 169–94.",
       "linked_book_note_ids": "ch8-n79"
     },
     {
-      "reference_id": "R078",
+      "reference_id": "R079",
       "bibliography_key": "Frangipane 2012",
       "full_bibliography_entry": "Frangipane, Marcella. 2012. ‘Fourth millennium Arslantepe: the development of a centralized society without urbanization.’ Origini 34: 19–40.",
       "linked_book_note_ids": "ch8-n77"
     },
     {
-      "reference_id": "R079",
+      "reference_id": "R080",
       "bibliography_key": "Frankfort 1948",
       "full_bibliography_entry": "Frankfort, Henri. 1948. Kingship and the Gods: A Study of Ancient Near Eastern Religion as the Integration of Society and Nature. Chicago: Chicago University Press.",
       "linked_book_note_ids": "ch9-n11"
     },
     {
-      "reference_id": "R080",
+      "reference_id": "R081",
+      "bibliography_key": "Frenez 2018",
+      "full_bibliography_entry": "Frenez, Dennys. 2018. ‘Private person or public persona? Use and significance of standard Indus seals as markers of formal socio-economic identities.’ In D. Frenez et al. (eds), Walking with the Unicorn: Social Organization and Material Culture in Ancient South Asia. Oxford: Archaeopress, pp. 166–93.",
+      "linked_book_note_ids": "ch8-n87"
+    },
+    {
+      "reference_id": "R082",
       "bibliography_key": "Friedman 2008",
       "full_bibliography_entry": "Friedman, Renée F. 2008. ‘Excavating Egypt’s early kings: recent discoveries in the elite cemetery at Hierakonpolis.’ In B. Midant-Reynes and Y. Tristant (eds), Egypt at its Origins 2. Proceedings of the International Conference Origin of the State. Predynastic and Early Dynastic Egypt, Toulouse, 5th–8th September 2005. Orientalia Lovaniensia Analecta 172. Leuven: Peeters, pp. 1157–94.",
       "linked_book_note_ids": "ch10-n86"
     },
     {
-      "reference_id": "R081",
+      "reference_id": "R083",
       "bibliography_key": "Froese 2014",
       "full_bibliography_entry": "Froese, Tom, Carlos Gershenson and Linda R. Manzanilla. 2014. ‘Can government be self-organized? A mathematical model of the collective social organization of ancient Teotihuacan, Central Mexico.’ PLoS ONE 9 (10): e109966.",
       "linked_book_note_ids": "ch9-n30 | ch9-n31 | ch9-n37 | ch9-n38 | ch9-n39"
     },
     {
-      "reference_id": "R082",
+      "reference_id": "R084",
       "bibliography_key": "García 2014",
       "full_bibliography_entry": "Moreno García, Juan Carlos. 2014. ‘Recent developments in the social and economic history of Ancient Egypt.’ Journal of Ancient Near Eastern History 1 (2): 231–61.",
       "linked_book_note_ids": "ch10-n113"
     },
     {
-      "reference_id": "R083",
+      "reference_id": "R085",
       "bibliography_key": "Gell 1993",
       "full_bibliography_entry": "Gell, Alfred. 1993. Wrapping in Images: Tattooing in Polynesia. Oxford: Clarendon Press.",
       "linked_book_note_ids": "ch7-n34"
     },
     {
-      "reference_id": "R084",
+      "reference_id": "R086",
       "bibliography_key": "Gibson 1952",
       "full_bibliography_entry": "Gibson, Charles. 1952. Tlaxcala in the Sixteenth Century. New Haven, CT and London: Yale University Press.",
       "linked_book_note_ids": "ch9-n63"
     },
     {
-      "reference_id": "R085",
+      "reference_id": "R087",
       "bibliography_key": "Gibson 2000",
       "full_bibliography_entry": "Gibson, Jon L. 2000. Ancient Mounds of Poverty Point: Place of Rings. Gainesville: University Press of Florida.",
       "linked_book_note_ids": "ch4-n27"
     },
     {
-      "reference_id": "R086",
+      "reference_id": "R088",
       "bibliography_key": "Giosan 2012",
       "full_bibliography_entry": "Giosan, Liviu et al. 2012. ‘Fluvial landscapes of the Harappan civilization.’ PNAS: E1688–E1694.",
       "linked_book_note_ids": "ch8-n83 | ch8-n84"
     },
     {
-      "reference_id": "R087",
+      "reference_id": "R089",
       "bibliography_key": "Godoy 1986",
       "full_bibliography_entry": "Godoy, Ricardo A. 1986. ‘The fiscal role of the Andean Ayllu.’ Man (N.S.) 21 (4): 723–41.",
       "linked_book_note_ids": "ch10-n15"
     },
     {
-      "reference_id": "R088",
+      "reference_id": "R090",
       "bibliography_key": "Goldstein 2003",
       "full_bibliography_entry": "Goldstein, Paul S. 2003. ‘From stew-eaters to maize-drinkers: the Chicha economy and Tiwanaku.’ In Tamara L. Bray (ed.), The Archaeology and Politics of Food and Feasting in Early States and Empires. New York: Plenum, pp. 143–71.",
       "linked_book_note_ids": "ch10-n89"
     },
     {
-      "reference_id": "R089",
+      "reference_id": "R091",
       "bibliography_key": "González 2014",
       "full_bibliography_entry": "González González, Enrique. 2014. ‘A humanist in the New World: Francisco Cervantes de Salazar (c.1514–75).’ In L. Dietz et al. (eds), Neo-Latin and the Humanities: Essays in Honour of Charles E. Fantazzi. Toronto: Center for Reformation and Renaissance Studies, pp. 235–57.",
       "linked_book_note_ids": "ch9-n49"
     },
     {
-      "reference_id": "R090",
+      "reference_id": "R092",
       "bibliography_key": "Gose 1996",
       "full_bibliography_entry": "Gose, Peter. 1996. ‘Oracles, divine kingship, and political representation in the Inka State.’ Ethnohistory 43 (1): 1–32.",
       "linked_book_note_ids": "ch10-n104 | ch10-n105 | ch10-n106"
     },
     {
-      "reference_id": "R091",
+      "reference_id": "R093",
       "bibliography_key": "Graeber 2001",
       "full_bibliography_entry": "Graeber, David. 2001. Toward an Anthropological Theory of Value: The False Coin of Our Own Dreams. New York: Palgrave.",
       "linked_book_note_ids": "ch11-n73 | ch11-n74"
     },
     {
-      "reference_id": "R092",
+      "reference_id": "R094",
       "bibliography_key": "Graeber 2007a",
       "full_bibliography_entry": "Graeber, David. 2007a. Possibilities: Essays on Hierarchy, Rebellion, and Desire. Oakland, CA: AK Press.",
       "linked_book_note_ids": "ch8-n46"
     },
     {
-      "reference_id": "R093",
+      "reference_id": "R095",
       "bibliography_key": "Graeber 2011",
       "full_bibliography_entry": "Graeber, David. 2011. Debt: The First 5,000 Years. New York: Melville House.",
       "linked_book_note_ids": "ch10-n131 | ch2-n51 | ch2-n52 | ch8-n48"
     },
     {
-      "reference_id": "R094",
+      "reference_id": "R096",
       "bibliography_key": "Green 2020",
       "full_bibliography_entry": "Green, Adam S. 2020. ‘Killing the priest-king: addressing egalitarianism in the Indus civilization.’ Journal of Archaeological Research. https://doi.org/10.1007/s10814-020-09147-9",
       "linked_book_note_ids": "ch8-n83 | ch8-n84"
     },
     {
-      "reference_id": "R095",
+      "reference_id": "R097",
       "bibliography_key": "Gresky 2017",
       "full_bibliography_entry": "Gresky, Julia, Juliane Haelm and Lee Clare. 2017. ‘Modified human crania from Göbekli Tepe provide evidence for a new form of Neolithic skull cult.’ Science Advances 3: e1700564.",
       "linked_book_note_ids": "ch6-n61"
     },
     {
-      "reference_id": "R096",
+      "reference_id": "R098",
       "bibliography_key": "Haak 2015",
       "full_bibliography_entry": "Haak, Wolfgang et al. 2015. ‘Massive migration from the steppe was a source for Indo-European languages in Europe.’ Nature 522: 207–11.",
       "linked_book_note_ids": "ch7-n35 | ch7-n36"
     },
     {
-      "reference_id": "R097",
+      "reference_id": "R099",
       "bibliography_key": "Habu 2004",
       "full_bibliography_entry": "Habu, Junko. 2004. Ancient Jomon of Japan. Cambridge: Cambridge University Press.",
       "linked_book_note_ids": "ch4-n33"
     },
     {
-      "reference_id": "R098",
+      "reference_id": "R100",
       "bibliography_key": "Hall 1997",
       "full_bibliography_entry": "Hall, Robert L. 1997. An Archaeology of the Soul: North American Indian Belief and Ritual. Chicago: University of Illinois Press.",
       "linked_book_note_ids": "ch11-n61"
     },
     {
-      "reference_id": "R099",
+      "reference_id": "R101",
       "bibliography_key": "Hassig 2001",
       "full_bibliography_entry": "Hassig, Ross. 2001. ‘Xicotencatl: rethinking an indigenous Mexican hero.’ Estudios de cultura náhuatl 32: 29–49.",
       "linked_book_note_ids": "ch9-n54 | ch9-n56"
     },
     {
-      "reference_id": "R100",
+      "reference_id": "R102",
       "bibliography_key": "He 2018",
       "full_bibliography_entry": "He, Nu. 2018. ‘Taosi: an archaeological example of urbanization as a political center in prehistoric China.’ Archaeological Research in Asia 14: 20–32.",
       "linked_book_note_ids": "ch8-n113"
     },
     {
-      "reference_id": "R101",
+      "reference_id": "R103",
       "bibliography_key": "Headrick 2007",
       "full_bibliography_entry": "Headrick, Annabeth. 2007. The Teotihuacan Trinity: The Sociopolitical Structure of an Ancient Mesoamerican City. Austin: University of Texas Press.",
       "linked_book_note_ids": "ch9-n7 | ch9-n8"
     },
     {
-      "reference_id": "R102",
+      "reference_id": "R104",
       "bibliography_key": "Henige 1999",
       "full_bibliography_entry": "Henige, David. 1999. ‘Can a myth be astronomically dated?’ American Indian Culture and Research Journal 23 (4): 127–57.",
       "linked_book_note_ids": "ch11-n75"
     },
     {
-      "reference_id": "R103",
+      "reference_id": "R105",
       "bibliography_key": "Hodder 2003",
       "full_bibliography_entry": "Hodder, Ian. 2003. ‘The lady and the seed: some thoughts on the role of agriculture in the Neolithic Revolution.’ In Mehmet Özdoğan, Harald Hauptmann and Nezih Başgelen (eds), From Villages to Cities: Early Villages in the Near East – Studies Presented to Ufuk Esin. Istanbul: Arkeoloji ve Sanat Yayinlari, pp. 155–61.",
       "linked_book_note_ids": "ch6-n11"
     },
     {
-      "reference_id": "R104",
+      "reference_id": "R106",
       "bibliography_key": "Hodder 2006",
       "full_bibliography_entry": "Hodder, Ian. 2006. Çatalhöyük. The Leopard’s Tale. Revealing the Mysteries of Turkey’s Ancient ‘Town’. London: Thames and Hudson.",
       "linked_book_note_ids": "ch6-n13 | ch6-n5 | ch6-n6"
     },
     {
-      "reference_id": "R105",
+      "reference_id": "R107",
       "bibliography_key": "Holt 2009",
       "full_bibliography_entry": "Holt, Julie Zimmerman. 2009. ‘Rethinking the Ramey state: was Cahokia the center of a theater state?’ American Antiquity 74 (2): 231–54.",
       "linked_book_note_ids": "ch11-n45"
     },
     {
-      "reference_id": "R106",
+      "reference_id": "R108",
       "bibliography_key": "Hudson 2018",
       "full_bibliography_entry": "Hudson, Michael. 2018. And Forgive Them Their Debts: Lending, Foreclosure, and Redemption from Bronze Age Finance to the Jubilee Year. Dresden: ISLET-Verlag.",
       "linked_book_note_ids": "ch10-n131 | ch8-n48"
     },
     {
-      "reference_id": "R107",
+      "reference_id": "R109",
       "bibliography_key": "Iakovleva 2015",
       "full_bibliography_entry": "Iakovleva, Lioudmila. 2015. ‘The architecture of mammoth bone circular dwellings of the Upper Palaeolithic settlements in Central and Eastern Europe and their socio-symbolic meanings.’ Quaternary International 359–60: 324–34.",
       "linked_book_note_ids": "ch3-n28"
     },
     {
-      "reference_id": "R108",
+      "reference_id": "R110",
       "bibliography_key": "Isaac 1983",
       "full_bibliography_entry": "Isaac, Barry. L. 1983. ‘The Aztec “Flowery War”: a geopolitical explanation.’ Journal of Anthropological Research 39 (4): 415–32.",
       "linked_book_note_ids": "ch9-n46"
     },
     {
-      "reference_id": "R109",
+      "reference_id": "R111",
       "bibliography_key": "Isbell 2008",
       "full_bibliography_entry": "Isbell, William H. 2008. ‘Wari and Tiwanaku: international identities in the Central Andean Middle Horizon.’ In H. Silverman and W. H. Isbell (eds), The Handbook of South American Archaeology. New York: Springer, pp. 731–59.",
       "linked_book_note_ids": "ch10-n47 | ch10-n48 | ch10-n49 | ch10-n50"
     },
     {
-      "reference_id": "R110",
+      "reference_id": "R112",
       "bibliography_key": "Jacobs 1995",
       "full_bibliography_entry": "Jacobs, Ken. 1995. ‘Returning to Oleni’ ostrov: social, economic, and skeletal dimensions of a Boreal Forest Mesolithic cemetery.’ Journal of Anthropological Archaeology 14 (4): 359–403.",
       "linked_book_note_ids": "ch4-n34"
     },
     {
-      "reference_id": "R111",
+      "reference_id": "R113",
       "bibliography_key": "Jansen 1993",
       "full_bibliography_entry": "Jansen, Michael. 1993. ‘Mohenjo-daro, type site of the earliest urbanization process in South Asia; ten years of research at Mohenjo-daro Pakistan and an attempt at a synopsis.’ In A. Parpola and P. Koskikallio (eds), South Asian Archaeology. Helsinki: Suomalainen Tiedeakatemia, pp. 263–80.",
       "linked_book_note_ids": "ch8-n88"
     },
     {
-      "reference_id": "R112",
+      "reference_id": "R114",
       "bibliography_key": "Karahashi 2016",
       "full_bibliography_entry": "Karahashi, Fumi. 2016. ‘Women and land in the Presargonic Lagaš Corpus.’ In B. Lyon and C. Michel (eds), The Role of Women in Work and Society in the Ancient Near East. Boston and Berlin: De Gruyter, pp. 57–70.",
       "linked_book_note_ids": "ch8-n49"
     },
     {
-      "reference_id": "R113",
+      "reference_id": "R115",
       "bibliography_key": "Kehoe 2007",
       "full_bibliography_entry": "Kehoe, Alice Beck. 2007. ‘Osage texts and Cahokia data.’ In F. Kent Reilly III and James F. Garber (eds), Ancient Objects and Sacred Realms: Interpretations of Mississippian Iconography. Austin: University of Texas Press, pp. 246–62.",
       "linked_book_note_ids": "ch11-n61"
     },
     {
-      "reference_id": "R114",
+      "reference_id": "R116",
       "bibliography_key": "Kelly 2008",
       "full_bibliography_entry": "Kelly, John E. 2008. ‘Contemplating Cahokia’s collapse.’ In Jim A. Railey and Richard Martin Reycraft (eds), Global Perspectives on the Collapse of Complex Systems. Anthropological Papers no. 8. Albuquerque: Maxwell Museum of Anthropology.",
       "linked_book_note_ids": "ch11-n43"
     },
     {
-      "reference_id": "R115",
+      "reference_id": "R117",
       "bibliography_key": "Kemp 2006",
       "full_bibliography_entry": "Kemp, Barry. 2006. Ancient Egypt: Anatomy of a Civilization (2nd edn). London: Routledge.",
       "linked_book_note_ids": "ch10-n85"
     },
     {
-      "reference_id": "R116",
+      "reference_id": "R118",
       "bibliography_key": "Kenoyer 1998",
       "full_bibliography_entry": "Kenoyer, J. M. 1998. Ancient Cities of the Indus Valley. Karachi: Oxford University Press.",
       "linked_book_note_ids": "ch8-n85"
     },
     {
-      "reference_id": "R117",
+      "reference_id": "R119",
       "bibliography_key": "King 2003",
       "full_bibliography_entry": "King, Adam. 2003. Etowah: The Political History of a Chiefdom Capital. Tuscaloosa: University of Alabama Press.",
       "linked_book_note_ids": "ch11-n49 | ch11-n50"
     },
     {
-      "reference_id": "R118",
+      "reference_id": "R120",
       "bibliography_key": "Kirch 1990",
       "full_bibliography_entry": "Kirch, Patrick V. 1990. ‘Specialization and exchange in the Lapita Complex of Oceania (1600–500 B.C.).’ Asian Perspectives 29 (2): 117–33.",
       "linked_book_note_ids": "ch7-n34"
     },
     {
-      "reference_id": "R119",
+      "reference_id": "R121",
       "bibliography_key": "Knight 1986",
       "full_bibliography_entry": "Knight, Vernon J. Jr. 1986. ‘The institutional organization of Mississippian religion.’ American Antiquity 51: 675–87.",
       "linked_book_note_ids": "ch11-n41"
     },
     {
-      "reference_id": "R120",
+      "reference_id": "R122",
       "bibliography_key": "Knight 2001",
       "full_bibliography_entry": "Knight, Vernon J. Jr. 2001. ‘Feasting and the emergence of platform mound ceremonialism in Eastern North America.’ In Michael Dietler and Brian Hayden (eds), Feasts: Archaeological and Ethnographic Perspectives on Food, Politics and Power. Washington: Smithsonian Institution Press, pp. 311–33.",
       "linked_book_note_ids": "ch11-n14"
     },
     {
-      "reference_id": "R121",
+      "reference_id": "R123",
       "bibliography_key": "Kobayashi 2004",
       "full_bibliography_entry": "Kobayashi, Tatsuo. 2004. Jomon Reflections: Forager Life and Culture in the Prehistoric Japanese Archipelago. Oxford: Oxbow.",
       "linked_book_note_ids": "ch4-n33"
     },
     {
-      "reference_id": "R122",
+      "reference_id": "R124",
       "bibliography_key": "Kolata 1992",
       "full_bibliography_entry": "Kolata, Alan. 1992. ‘In the realm of the Four Quarters.’ In Alvin M. Josephy (ed.), America in 1492. New York: Knopf, pp. 215–47.",
       "linked_book_note_ids": "ch10-n17"
     },
     {
-      "reference_id": "R123",
+      "reference_id": "R125",
       "bibliography_key": "Kononenko 2016",
       "full_bibliography_entry": "Kononenko, Nina et al. 2016. ‘Detecting early tattooing in the Pacific region through experimental usewear and residue analyses of obsidian tools.’ Journal of Archaeological Science, Reports 8: 147–63.",
       "linked_book_note_ids": "ch7-n34"
     },
     {
-      "reference_id": "R124",
+      "reference_id": "R126",
       "bibliography_key": "Kowaleski 2003",
       "full_bibliography_entry": "Kowaleski, Jeff. 2003. ‘Evidence for the functions and meanings of some northern Maya palaces.’ In J. J. Christie (ed.), Maya Palaces and Elite Residences. Austin: University of Texas Press, pp. 204–52.",
       "linked_book_note_ids": "ch10-n27 | ch10-n28 | ch10-n29"
     },
     {
-      "reference_id": "R125",
+      "reference_id": "R127",
       "bibliography_key": "Kuijt 1996",
       "full_bibliography_entry": "Kuijt, Ian. 1996. ‘Negotiating equality through ritual: a consideration of Late Natufian and Prepottery Neolithic A period mortuary practices.’ Journal of Anthropological Archaeology 15: 313–36.",
       "linked_book_note_ids": "ch6-n63"
     },
     {
-      "reference_id": "R126",
+      "reference_id": "R128",
       "bibliography_key": "Lang 2013",
       "full_bibliography_entry": "Lang, Caroline et al. 2013. ‘Gazelle behaviour and human presence at early Neolithic Göbekli Tepe, south-east Anatolia.’ World Archaeology 45: 410–29.",
       "linked_book_note_ids": "ch3-n39"
     },
     {
-      "reference_id": "R127",
+      "reference_id": "R129",
       "bibliography_key": "Larsson 1990",
       "full_bibliography_entry": "Larsson, Lars. 1990. ‘The Mesolithic of southern Scandinavia.’ Journal of World Prehistory 4 (3): 257–309.",
       "linked_book_note_ids": "ch4-n48"
     },
     {
-      "reference_id": "R128",
+      "reference_id": "R130",
       "bibliography_key": "Lattimore 1962",
       "full_bibliography_entry": "Lattimore, Owen. 1962. Studies in Frontier History. Collected Papers 1929– 58. London: Oxford University Press.",
       "linked_book_note_ids": "ch10-n110"
     },
     {
-      "reference_id": "R129",
+      "reference_id": "R131",
       "bibliography_key": "Lehner 2015",
       "full_bibliography_entry": "Lehner, Mark. 2015. ‘Labor and the pyramids. The Heit el-Ghurab “workers town” at Giza.’ In Steinkeller and Hudson (eds), pp. 397–522.",
       "linked_book_note_ids": "ch10-n92 | ch10-n93 | ch10-n94"
     },
     {
-      "reference_id": "R130",
+      "reference_id": "R132",
       "bibliography_key": "Lincoln 1994",
       "full_bibliography_entry": "Lincoln, Charles K. 1994. ‘Structural and philological evidence for divine kingship at Chichén Itzá, Yucatan, México.’ In Hanns J. Prem (ed.), Hidden Among the Hills. Acta Mesoamericana, vol. 7. Möckmühl: Verlag von Flemming, pp. 164–96.",
       "linked_book_note_ids": "ch10-n27 | ch10-n28 | ch10-n29"
     },
     {
-      "reference_id": "R131",
+      "reference_id": "R133",
       "bibliography_key": "Liverani 1998",
       "full_bibliography_entry": "Liverani, Mario (ed. and transl. Z. Bahrani and M. Van De Mieroop). 1998. Uruk. The First City. Sheffield: Equinox.",
       "linked_book_note_ids": "ch8-n70"
     },
     {
-      "reference_id": "R132",
+      "reference_id": "R134",
       "bibliography_key": "Lockhart 1985",
       "full_bibliography_entry": "Lockhart, James. 1985. ‘Some Nahua concepts in postconquest guise.’ History of European Ideas 6 (4): 465–82.",
       "linked_book_note_ids": "ch9-n48 | ch9-n58"
     },
     {
-      "reference_id": "R133",
+      "reference_id": "R135",
       "bibliography_key": "Lorenz 1997",
       "full_bibliography_entry": "Lorenz, Karl G. 1997. ‘A re-examination of Natchez sociopolitical complexity: a view from the grand village and beyond.’ Southeastern Archaeology 16 (2): 97–112.",
       "linked_book_note_ids": "ch10-n59"
     },
     {
-      "reference_id": "R134",
+      "reference_id": "R136",
       "bibliography_key": "Lowie 1928",
       "full_bibliography_entry": "Lowie, Robert H. 1928. ‘Incorporeal property in primitive society.’ Yale Law Journal 37 (5): 551–63.",
       "linked_book_note_ids": "ch4-n28"
     },
     {
-      "reference_id": "R135",
+      "reference_id": "R137",
       "bibliography_key": "Lévi-Strauss 1987",
       "full_bibliography_entry": "Lévi-Strauss, Claude. 1987. Anthropology and Myth: Lectures 1951–1982. Oxford: Blackwell.",
       "linked_book_note_ids": "ch10-n1"
     },
     {
-      "reference_id": "R136",
+      "reference_id": "R138",
       "bibliography_key": "MacLeod 1928",
       "full_bibliography_entry": "MacLeod, William C. 1928. ‘Economic aspects of indigenous American slavery.’ American Anthropologist 30 (4): 632–50.",
       "linked_book_note_ids": "ch5-n60"
     },
     {
-      "reference_id": "R137",
+      "reference_id": "R139",
       "bibliography_key": "Madgwick 2019",
       "full_bibliography_entry": "Madgwick, Richard et al. 2019. ‘Multi-isotope analysis reveals that feasts in the Stonehenge environs and across Wessex drew people and animals from throughout Britain.’ Science Advances 5 (3): eaau6078.",
       "linked_book_note_ids": "ch3-n42"
     },
     {
-      "reference_id": "R138",
+      "reference_id": "R140",
       "bibliography_key": "Mann 2000",
       "full_bibliography_entry": "Mann, Barbara Alice. 2000. Iroquoian Women: The Gantowisas. New York: Peter Lang.",
       "linked_book_note_ids": "ch11-n76"
     },
     {
-      "reference_id": "R139",
+      "reference_id": "R141",
       "bibliography_key": "Mann 2005",
       "full_bibliography_entry": "Mann, Charles C. 2005. 1491: The Americas before Columbus. London: Granta.",
       "linked_book_note_ids": "ch9-n43"
     },
     {
-      "reference_id": "R140",
+      "reference_id": "R142",
       "bibliography_key": "Manzanilla 1993",
       "full_bibliography_entry": "Manzanilla, Linda R. 1993. ‘Daily life in Teotihuacan apartment compounds.’ In Berrin and Pasztory (eds), pp. 90–99.",
       "linked_book_note_ids": "ch9-n34 | ch9-n35"
     },
     {
-      "reference_id": "R141",
+      "reference_id": "R143",
       "bibliography_key": "Manzanilla 2015",
       "full_bibliography_entry": "Manzanilla, Linda R. 2015. ‘Cooperation and tensions in multi-ethnic corporate societies using Teotihuacan, Central Mexico, as a case study.’ Proceedings of the National Academy of Sciences 112 (30): 9210–15.",
       "linked_book_note_ids": "ch9-n7 | ch9-n8"
     },
     {
-      "reference_id": "R142",
+      "reference_id": "R144",
       "bibliography_key": "Manzanilla 2017",
       "full_bibliography_entry": "Manzanilla, Linda R. 2017. ‘Discussion: the subsistence of the Teotihuacan metropolis.’ Archaeological and Anthropological Sciences 9: 133–40.",
       "linked_book_note_ids": "ch9-n22 | ch9-n24"
     },
     {
-      "reference_id": "R143",
+      "reference_id": "R145",
       "bibliography_key": "Marchesi 2004",
       "full_bibliography_entry": "Marchesi, Gianni. 2004. ‘Who was buried in the royal tombs of Ur? The epigraphic and textual data.’ Orientalia 73 (2): 153–97.",
       "linked_book_note_ids": "ch10-n72"
     },
     {
-      "reference_id": "R144",
+      "reference_id": "R146",
       "bibliography_key": "Martin 2001",
       "full_bibliography_entry": "Martin, Simon. 2001. ‘The power in the west: the Maya and Teotihuacan.’ In Grube et al. (eds), pp. 98–113.",
       "linked_book_note_ids": "ch9-n15"
     },
     {
-      "reference_id": "R145",
+      "reference_id": "R147",
       "bibliography_key": "Martin 2020",
       "full_bibliography_entry": "Martin, Simon. 2020. Ancient Maya Politics: A Political Anthropology of the Classic Period 150–900 CE. Cambridge: Cambridge University Press.",
       "linked_book_note_ids": "ch10-n24 | ch10-n25"
     },
     {
-      "reference_id": "R146",
+      "reference_id": "R148",
       "bibliography_key": "Matthews 2005",
       "full_bibliography_entry": "Matthews, Wendy. 2005. ‘Micromorphological and microstratigraphic traces of uses and concepts of space.’ In Ian Hodder (ed.), Inhabiting Çatalhöyük: Reports from the 1995–1999 Seasons. Cambridge: McDonald Institute for Archaeological Research, British Institute of Archaeology at Ankara, pp. 355–98.",
       "linked_book_note_ids": "ch6-n15 | ch6-n16"
     },
     {
-      "reference_id": "R147",
+      "reference_id": "R149",
       "bibliography_key": "Mellaart 1967",
       "full_bibliography_entry": "Mellaart, James. 1967. Çatal Hüyük: A Neolithic Town in Anatolia. London: Thames and Hudson.",
       "linked_book_note_ids": "ch6-n4"
     },
     {
-      "reference_id": "R148",
+      "reference_id": "R150",
       "bibliography_key": "Merrick 1991",
       "full_bibliography_entry": "Merrick, Jeffrey. 1991. ‘Patriarchalism and constitutionalism in eighteenth-century parliamentary discourse.’ Studies in Eighteenth-Century Culture 20: 317–30.",
       "linked_book_note_ids": "ch12-n14"
     },
     {
-      "reference_id": "R149",
+      "reference_id": "R151",
       "bibliography_key": "Meskell 2008",
       "full_bibliography_entry": "Meskell, Lynn, Carolyn Nakamura, Rachel King and Shahina Farid. 2008. ‘Figured lifeworlds and depositional practices at Çatalhöyük.’ Cambridge Archaeological Journal 18 (2): 139–61.",
       "linked_book_note_ids": "ch6-n5 | ch6-n6"
     },
     {
-      "reference_id": "R150",
+      "reference_id": "R152",
       "bibliography_key": "Mieroop 1989",
       "full_bibliography_entry": "Mieroop, Marc Van De. 1989. ‘Women in the economy of Sumer.’ In B. S. Lesko (ed.), Women’s Earliest Records: Western Asia and Egypt. Atlanta, GA: Scholars Press, pp. 53–66.",
       "linked_book_note_ids": "ch8-n49"
     },
     {
-      "reference_id": "R151",
+      "reference_id": "R153",
       "bibliography_key": "Mieroop 1999",
       "full_bibliography_entry": "Mieroop, Marc Van De. 1999. ‘The government of an ancient Mesopotamian city: what we know and why we know so little.’ In K. Watanabe (ed.), Priests and Officials in the Ancient Near East. Heidelberg: Universitätsverlag C. Winter, pp. 139–61.",
       "linked_book_note_ids": "ch8-n56 | ch8-n57"
     },
     {
-      "reference_id": "R152",
+      "reference_id": "R154",
       "bibliography_key": "Mieroop 2013",
       "full_bibliography_entry": "Mieroop, Marc Van De. 2013. ‘Democracy and the rule of law, the assembly, and the first law code.’ In Crawford (ed.), pp. 277–89.",
       "linked_book_note_ids": "ch8-n74"
     },
     {
-      "reference_id": "R153",
+      "reference_id": "R155",
       "bibliography_key": "Millon 1964",
       "full_bibliography_entry": "Millon, René. 1964. ‘The Teotihuacan mapping project.’ American Antiquity 29 (3): 345–52.",
       "linked_book_note_ids": "ch9-n20"
     },
     {
-      "reference_id": "R154",
+      "reference_id": "R156",
       "bibliography_key": "Millon 1976",
       "full_bibliography_entry": "Millon, René. 1976. ‘Social relations at ancient Teotihuacan.’ In E. Wolf (ed.), The Valley of Mexico: Studies in Pre-Hispanic Ecology and Society. Albuquerque: University of New Mexico Press, pp. 205–48.",
       "linked_book_note_ids": "ch9-n13 | ch9-n34 | ch9-n35"
     },
     {
-      "reference_id": "R155",
+      "reference_id": "R157",
       "bibliography_key": "Milner 1998",
       "full_bibliography_entry": "Milner, George R. 1998. The Cahokia Chiefdom: The Archaeology of a Mississippian Society. Washington: Smithsonian Institution Press.",
       "linked_book_note_ids": "ch11-n34 | ch11-n45"
     },
     {
-      "reference_id": "R156",
+      "reference_id": "R158",
       "bibliography_key": "Mitchell 1985",
       "full_bibliography_entry": "Mitchell, Donald. 1985. ‘A demographic profile of Northwest Coast slavery.’ In M. Thompson, M. T. Garcia and F. J. Kense (eds), Status, Structure and Stratification: Current Archaeological Reconstructions. Calgary, Alberta: Archaeological Association of the University of Calgary, pp. 227–36.",
       "linked_book_note_ids": "ch5-n60"
     },
     {
-      "reference_id": "R157",
+      "reference_id": "R159",
       "bibliography_key": "Mittnik 2016",
       "full_bibliography_entry": "Mittnik, Alissa et al. 2016. ‘A molecular approach to the sexing of the triple burial at the Upper Paleolithic site of Dolní Věstonice.’ PLoS ONE 11 (10): e0163019.",
       "linked_book_note_ids": "ch3-n22 | ch3-n23"
     },
     {
-      "reference_id": "R158",
+      "reference_id": "R160",
       "bibliography_key": "Moorey 1964",
       "full_bibliography_entry": "Moorey, P. R. S. 1964. ‘The “Plano-Convex Building” at Kish and Early Mesopotamian Palaces.’ Iraq 26 (2): 83–98.",
       "linked_book_note_ids": "ch8-n65"
     },
     {
-      "reference_id": "R159",
+      "reference_id": "R161",
       "bibliography_key": "Moorey 1977",
       "full_bibliography_entry": "Moorey, P. R. S. 1977. ‘What do we know about the people buried in the royal cemetery?’ Expedition 20 (1): 24–40.",
       "linked_book_note_ids": "ch10-n72"
     },
     {
-      "reference_id": "R160",
+      "reference_id": "R162",
       "bibliography_key": "Morris 2007",
       "full_bibliography_entry": "Morris, Ellen. 2007. ‘Sacrifice for the state: First Dynasty royal funerals and the rites at Macramallah’s triangle.’ In Nicola Laneri (ed.), Performing Death: Social Analysis of Funerary Traditions in the Ancient Near East and Mediterranean. Chicago: Oriental Institute of Chicago, pp. 15–38.",
       "linked_book_note_ids": "ch10-n70 | ch10-n71 | ch10-n75 | ch10-n76"
     },
     {
-      "reference_id": "R161",
+      "reference_id": "R163",
       "bibliography_key": "Murra 1956",
       "full_bibliography_entry": "Murra, John Victor. 1956. The Economic Organization of the Inca State. Chicago: Department of Anthropology. PhD dissertation, republished as The Economic Organization of the Inka State by JAI Press, Stamford, CT 1980).",
       "linked_book_note_ids": "ch10-n15"
     },
     {
-      "reference_id": "R162",
+      "reference_id": "R164",
       "bibliography_key": "Murra 1982",
       "full_bibliography_entry": "Murra, John Victor. 1982. ‘The Mit’a obligations of ethnic groups to the Inka state.’ In G. Collier, R. Rosaldo and J. Wirth (eds), The Inca and Aztec States, 1400–1800. New York: Academic Press, pp. 237–62.",
       "linked_book_note_ids": "ch10-n14"
     },
     {
-      "reference_id": "R163",
+      "reference_id": "R165",
       "bibliography_key": "Müller 2016",
       "full_bibliography_entry": "Müller, Johannes. 2016. ‘Human structure, social space: what we can learn from Trypyllia.’ In Müller et al. (eds), pp. 301–4.",
       "linked_book_note_ids": "ch8-n26 | ch8-n27 | ch8-n29"
     },
     {
-      "reference_id": "R164",
+      "reference_id": "R166",
       "bibliography_key": "Nash 1978",
       "full_bibliography_entry": "Nash, June. 1978. ‘The Aztecs and the ideology of male dominance.’ Signs 4 (2): 349–62.",
       "linked_book_note_ids": "ch10-n8 | ch10-n9"
     },
     {
-      "reference_id": "R165",
+      "reference_id": "R167",
       "bibliography_key": "Neitzel 1965",
       "full_bibliography_entry": "Neitzel, Robert S. 1965. Archaeology of the Fatherland Site: The Grand Village of the Natchez. New York: American Museum of Natural History.",
       "linked_book_note_ids": "ch10-n68 | ch10-n69"
     },
     {
-      "reference_id": "R166",
+      "reference_id": "R168",
       "bibliography_key": "Nichols 2016",
       "full_bibliography_entry": "Nichols, Deborah L. 2016. ‘Teotihuacan.’ Journal of Archaeological Research 24: 1–74.",
       "linked_book_note_ids": "ch9-n21"
     },
     {
-      "reference_id": "R167",
+      "reference_id": "R169",
       "bibliography_key": "Nissen 2002",
       "full_bibliography_entry": "Nissen, Hans. 2002. ‘Uruk: key site of the period and key site of the problem.’ In N. Postgate (ed.), Artefacts of Complexity: Tracking the Uruk in the Near East. London: British School of Archaeology in Iraq, pp. 1–16.",
       "linked_book_note_ids": "ch8-n63 | ch8-n64 | ch8-n65"
     },
     {
-      "reference_id": "R168",
+      "reference_id": "R170",
       "bibliography_key": "Notroff 2016",
       "full_bibliography_entry": "Notroff, Jens, Oliver Dietrich and Klaus Schmidt. 2016. ‘Gathering of the dead? The early Neolithic sanctuaries at Göbekli Tepe, southeastern Turkey.’ In Colin Renfrew, Michael J. Boyd and Iain Morley (eds), Death Rituals, Social Order, and the Archaeology of Immortality in the Ancient World. Cambridge: Cambridge University Press, pp. 65–81.",
       "linked_book_note_ids": "ch6-n54"
     },
     {
-      "reference_id": "R169",
+      "reference_id": "R171",
       "bibliography_key": "Nuttall 1921",
       "full_bibliography_entry": "Nuttall, Zelia. 1921. ‘Francisco Cervantes de Salazar. Biographical notes.’ Journal de la Société des Américanistes 13 (1): 59–90.",
       "linked_book_note_ids": "ch9-n50"
     },
     {
-      "reference_id": "R170",
+      "reference_id": "R172",
       "bibliography_key": "Oates 2007",
       "full_bibliography_entry": "Oates, Joan et al. 2007. ‘Early Mesopotamian urbanism: a new view from the north.’ Antiquity 81 (313): 585–600.",
       "linked_book_note_ids": "ch8-n41"
     },
     {
-      "reference_id": "R171",
+      "reference_id": "R173",
       "bibliography_key": "Ohlrau 2016",
       "full_bibliography_entry": "Ohlrau, René et al. 2016. ‘Living on the edge? Carrying capacities of Trypillian settlements in the Buh-Dnipro Interfluve.’ In Müller et al. (eds), 2016, pp. 207–20.",
       "linked_book_note_ids": "ch8-n26 | ch8-n27 | ch8-n29"
     },
     {
-      "reference_id": "R172",
+      "reference_id": "R174",
       "bibliography_key": "Pasztory 1988",
       "full_bibliography_entry": "Pasztory, Esther. 1988. ‘A reinterpretation of Teotihuacan and its mural painting tradition.’ In Berrin (ed.), pp. 45–77.",
       "linked_book_note_ids": "ch9-n12"
     },
     {
-      "reference_id": "R173",
+      "reference_id": "R175",
       "bibliography_key": "Pasztory 1992",
       "full_bibliography_entry": "Pasztory, Esther. 1992. ‘Abstraction and the rise of a utopian state at Teotihuacan.’ In J. C. Berlo (ed.), Art, Ideology, and the City of Teotihuacan. Washington: Dumbarton Oaks Research Library and Collection, pp. 281–320.",
       "linked_book_note_ids": "ch9-n12 | ch9-n32"
     },
     {
-      "reference_id": "R174",
+      "reference_id": "R176",
       "bibliography_key": "Pasztory 1997",
       "full_bibliography_entry": "Pasztory, Esther. 1997. Teotihuacan. An Experiment in Living. Norman: University of Oklahoma Press.",
       "linked_book_note_ids": "ch9-n25 | ch9-n26"
     },
     {
-      "reference_id": "R175",
+      "reference_id": "R177",
       "bibliography_key": "Pauketat 1994",
       "full_bibliography_entry": "Pauketat, Timothy R. 1994. The Ascent of Chiefs: Cahokia and Mississippian Politics in Native North America. Tuscaloosa: University of Alabama Press.",
       "linked_book_note_ids": "ch11-n34"
     },
     {
-      "reference_id": "R176",
+      "reference_id": "R178",
       "bibliography_key": "Pauketat 2007",
       "full_bibliography_entry": "Pauketat, Timothy R. 2007. Chiefdoms and Other Archaeological Delusions. Lanham, MD: AltaMira Press.",
       "linked_book_note_ids": "ch11-n45"
     },
     {
-      "reference_id": "R177",
+      "reference_id": "R179",
       "bibliography_key": "Pauketat 2009",
       "full_bibliography_entry": "Pauketat, Timothy R. 2009. Cahokia: Ancient America’s Great City on the Mississippi. Penguin Library of American Indian History. New York: Viking.",
       "linked_book_note_ids": "ch11-n10 | ch11-n32 | ch11-n33 | ch11-n34 | ch11-n41 | ch11-n9"
     },
     {
-      "reference_id": "R178",
+      "reference_id": "R180",
       "bibliography_key": "Pauketat 2013",
       "full_bibliography_entry": "Pauketat, Timothy R. 2013. An Archaeology of the Cosmos: Rethinking Agency and Religion in Ancient Times. London: Routledge.",
       "linked_book_note_ids": "ch11-n46"
     },
     {
-      "reference_id": "R179",
+      "reference_id": "R181",
       "bibliography_key": "Pauketat 2015",
       "full_bibliography_entry": "Pauketat, Timothy R., Susan M. Alt and Jeffery D. Kruchten. 2015. ‘City of earth and wood: New Cahokia and its material-historical implications.’ In Norman Yoffee (ed.), The Cambridge World History. Cambridge: Cambridge University Press, pp. 437–54.",
       "linked_book_note_ids": "ch11-n35 | ch11-n36 | ch11-n37 | ch11-n38 | ch11-n40 | ch11-n47"
     },
     {
-      "reference_id": "R180",
+      "reference_id": "R182",
       "bibliography_key": "Paulinyi 1981",
       "full_bibliography_entry": "Paulinyi, Zoltán. 1981. ‘Capitals in pre-Aztec Central Mexico.’ Acta Orientalia Academiae Scientiarum Hungaricae 35 (2/3): 315–50.",
       "linked_book_note_ids": "ch9-n25 | ch9-n26 | ch9-n42"
     },
     {
-      "reference_id": "R181",
+      "reference_id": "R183",
       "bibliography_key": "Pearson 2012",
       "full_bibliography_entry": "Parker Pearson, Mike (and the Stonehenge Riverside Project). 2012. Stonehenge: Exploring the Greatest Stone Age Mystery. London: Simon and Schuster.",
       "linked_book_note_ids": "ch3-n40"
     },
     {
-      "reference_id": "R182",
+      "reference_id": "R184",
       "bibliography_key": "Pearson 2013",
       "full_bibliography_entry": "Pearson, Jessica et al. 2013. ‘Food and social complexity at Çayönü Tepesi, southeastern Anatolia: stable isotope evidence of differentiation in diet according to burial practice and sex in the early Neolithic.’ Journal of Anthropological Archaeology 32 (2): 180–89.",
       "linked_book_note_ids": "ch6-n58 | ch6-n59"
     },
     {
-      "reference_id": "R183",
+      "reference_id": "R185",
       "bibliography_key": "Pennock 2008",
       "full_bibliography_entry": "Dodds Pennock, Caroline. 2008. Bonds of Blood: Gender, Lifecyle, and Sacrifice in Aztec Culture. New York: Palgrave Macmillan.",
       "linked_book_note_ids": "ch10-n11"
     },
     {
-      "reference_id": "R184",
+      "reference_id": "R186",
       "bibliography_key": "Pennock 2017",
       "full_bibliography_entry": "Dodds Pennock, Caroline. 2017. ‘Gender and Aztec life cycles.’ In D. L. Nichols and E. Rodríguez-Algería (eds), The Oxford Handbook of the Aztecs. Oxford: Oxford University Press, pp. 387–98.",
       "linked_book_note_ids": "ch10-n8 | ch10-n9"
     },
     {
-      "reference_id": "R185",
+      "reference_id": "R187",
       "bibliography_key": "Peters 2017",
       "full_bibliography_entry": "Peters, Joris et al. 2017. ‘The emergence of livestock husbandry in Early Neolithic Anatolia.’ In U. Albarella et al. (eds), The Oxford Handbook of Zooarchaeology. Oxford: Oxford University Press, pp. 247–65.",
       "linked_book_note_ids": "ch6-n28 | ch6-n29"
     },
     {
-      "reference_id": "R186",
+      "reference_id": "R188",
       "bibliography_key": "Pettitt 2011",
       "full_bibliography_entry": "Pettitt, Paul. 2011. The Palaeolithic Origins of Human Burial. London: Routledge.",
       "linked_book_note_ids": "ch3-n22 | ch3-n23"
     },
     {
-      "reference_id": "R187",
+      "reference_id": "R189",
+      "bibliography_key": "Possehl 1996",
+      "full_bibliography_entry": "Possehl, G. L. 1996. Indus Age: The Writing System. Philadelphia: University of Pennsylvania Press.",
+      "linked_book_note_ids": "ch8-n87"
+    },
+    {
+      "reference_id": "R190",
       "bibliography_key": "Possehl 2002",
       "full_bibliography_entry": "Possehl, G. L. 2002. The Indus Civilization: A Contemporary Perspective. Walnut Creek, CA: AltaMira Press.",
       "linked_book_note_ids": "ch8-n103 | ch8-n85 | ch8-n92"
     },
     {
-      "reference_id": "R188",
+      "reference_id": "R191",
       "bibliography_key": "Postgate 1992",
       "full_bibliography_entry": "Postgate, Nicholas. 1992. Early Mesopotamia: Society and Economy at the Dawn of History. London: Routledge.",
       "linked_book_note_ids": "ch8-n56 | ch8-n57"
     },
     {
-      "reference_id": "R189",
+      "reference_id": "R192",
       "bibliography_key": "Prendergast 2018",
       "full_bibliography_entry": "Prendergast, Amy L., Alexander J. E. Pryor, Hazel Reade and Rhiannon E. Stevens. 2018. ‘Seasonal records of palaeoenvironmental change and resource use from archaeological assemblages.’ Journal of Archaeological Science: Reports 21.",
       "linked_book_note_ids": "ch3-n38"
     },
     {
-      "reference_id": "R190",
+      "reference_id": "R193",
       "bibliography_key": "Pryor 2020",
       "full_bibliography_entry": "Pryor, Alexander J. E. et al. 2020. ‘The chronology and function of a new circular mammoth-bone structure at Kostenki 11.’ Antiquity 94 (374): 323–41.",
       "linked_book_note_ids": "ch3-n28"
     },
     {
-      "reference_id": "R191",
+      "reference_id": "R194",
       "bibliography_key": "Quilter 2002",
       "full_bibliography_entry": "Quilter, Jeffrey. 2002. ‘Moche politics, religion, and warfare.’ Journal of World Prehistory 16 (2): 145–95.",
       "linked_book_note_ids": "ch10-n47 | ch10-n48 | ch10-n49 | ch10-n50"
     },
     {
-      "reference_id": "R192",
+      "reference_id": "R195",
       "bibliography_key": "Ratnagar 2004",
       "full_bibliography_entry": "Ratnagar, Shereen. 2004. Trading Encounters: From the Euphrates to the Indus in the Bronze Age. New Delhi: Oxford University Press.",
       "linked_book_note_ids": "ch8-n86"
     },
     {
-      "reference_id": "R193",
+      "reference_id": "R196",
       "bibliography_key": "Ratnagar 2016",
       "full_bibliography_entry": "Ratnagar, Shereen. 2016. Harappan Archaeology: Early State Perspectives. Delhi: Primus Books.",
       "linked_book_note_ids": "ch8-n85"
     },
     {
-      "reference_id": "R194",
+      "reference_id": "R197",
       "bibliography_key": "Redding 1998",
       "full_bibliography_entry": "Redding, Richard W. 1998. ‘Ancestoral pigs: a New (Guinea) model for pig domestication in the Middle East.’ MASCA Research Papers in Science and Archaeology 15: 65–76.",
       "linked_book_note_ids": "ch7-n52"
     },
     {
-      "reference_id": "R195",
+      "reference_id": "R198",
       "bibliography_key": "Rehak 2002",
       "full_bibliography_entry": "Rehak, Paul. 2002. ‘Imag(in)ing a women’s world in Bronze Age Greece.’ In Nancy Sorkin Rabinowitz and Lisa Auanger (eds), Among Women from the Homosocial to the Homoerotic in the Ancient World. Austin: University of Texas Press, pp. 34–59.",
       "linked_book_note_ids": "ch10-n154"
     },
     {
-      "reference_id": "R196",
+      "reference_id": "R199",
       "bibliography_key": "Richardson 2012",
       "full_bibliography_entry": "Richardson, Seth. 2012. ‘Early Mesopotamia: the presumptive state.’ Past and Present 215: 3–49.",
       "linked_book_note_ids": "ch10-n134 | ch10-n5"
     },
     {
-      "reference_id": "R197",
+      "reference_id": "R200",
       "bibliography_key": "Ringle 2004",
       "full_bibliography_entry": "Ringle, William A. 2004. ‘On the political organization of Chichen Itza.’ Ancient Mesoamerica 15: 167–218.",
       "linked_book_note_ids": "ch10-n27 | ch10-n28 | ch10-n29"
     },
     {
-      "reference_id": "R198",
+      "reference_id": "R201",
       "bibliography_key": "Rissman 1988",
       "full_bibliography_entry": "Rissman, Paul. 1988. ‘Public displays and private values: a guide to buried wealth in Harappan archaeology.’ World Archaeology 20: 209–28.",
       "linked_book_note_ids": "ch8-n90"
     },
     {
-      "reference_id": "R199",
+      "reference_id": "R202",
       "bibliography_key": "Ritchie 2016",
       "full_bibliography_entry": "Ritchie, Morgan, Dana Lepofsky et al. 2016. ‘Beyond culture history: Coast Salish settlement patterning and demography in the Fraser Valley, bc.’ Journal of Anthropological Archaeology 43: 140–54.",
       "linked_book_note_ids": "ch4-n32"
     },
     {
-      "reference_id": "R200",
+      "reference_id": "R203",
       "bibliography_key": "Rodrigues 2005",
       "full_bibliography_entry": "Rodrigues, Teresa. 2005. ‘Gender and social differentiation within the Turner Population, Ohio, as evidenced by activity-induced musculoskeletal stress markers.’ In Carr and Case (eds), pp. 405–27.",
       "linked_book_note_ids": "ch11-n23 | ch11-n24"
     },
     {
-      "reference_id": "R201",
+      "reference_id": "R204",
       "bibliography_key": "Roebroeks 2000",
       "full_bibliography_entry": "Roebroeks, Wil et al. 2000. Hunters of the Golden Age: The Mid-Upper Palaeolithic of Eurasia 30,000–20,00 BP. Leiden: University of Leiden Press.",
       "linked_book_note_ids": "ch3-n38"
     },
     {
-      "reference_id": "R202",
+      "reference_id": "R205",
       "bibliography_key": "Rosenwig 2010",
       "full_bibliography_entry": "Rosenwig, Robert M. 2010. The Beginnings of Mesoamerican Civilization: Inter-Regional Interaction and the Olmec. Cambridge: Cambridge University Press.",
       "linked_book_note_ids": "ch10-n40"
     },
     {
-      "reference_id": "R203",
+      "reference_id": "R206",
       "bibliography_key": "Rosenwig 2017",
       "full_bibliography_entry": "Rosenwig, Robert M. 2017. ‘Olmec globalization: a Mesoamerican archipelago of complexity.’ In Tamar Hodos (ed.), The Routledge Handbook of Archaeology and Globalization. London: Routledge, pp. 177–93.",
       "linked_book_note_ids": "ch10-n39"
     },
     {
-      "reference_id": "R204",
+      "reference_id": "R207",
       "bibliography_key": "Roth 1991",
       "full_bibliography_entry": "Roth, Anne Macy. 1991. Egyptian Phyles in the Old Kingdom: The Evolution of a System of Social Organization. Chicago: Oriental Institute.",
       "linked_book_note_ids": "ch10-n92 | ch10-n93 | ch10-n94"
     },
     {
-      "reference_id": "R205",
+      "reference_id": "R208",
       "bibliography_key": "Sahlins 2004",
       "full_bibliography_entry": "Sahlins, Marshall. 2004. Apologies to Thucydides. Chicago: University of Chicago Press.",
       "linked_book_note_ids": "ch5-n22"
     },
     {
-      "reference_id": "R206",
+      "reference_id": "R209",
       "bibliography_key": "Sahlins 2017",
       "full_bibliography_entry": "Sahlins, Marshall. 2017. ‘The stranger-kingship of the Mexica.’ In Graeber and Sahlins, pp. 223–48.",
       "linked_book_note_ids": "ch10-n116 | ch10-n27 | ch10-n28 | ch10-n29 | ch10-n57 | ch10-n70 | ch10-n71 | ch9-n3 | ch9-n64"
     },
     {
-      "reference_id": "R207",
+      "reference_id": "R210",
       "bibliography_key": "Salomon 2004",
       "full_bibliography_entry": "Salomon, Frank. 2004. The Cord Keepers. Khipus and Cultural Life in a Peruvian Village. Durham, NC and London: Duke University Press.",
       "linked_book_note_ids": "ch10-n15"
     },
     {
-      "reference_id": "R208",
+      "reference_id": "R211",
       "bibliography_key": "Santana 2012",
       "full_bibliography_entry": "Santana, Jonathan et al. 2012. ‘Crania with mutilated facial skeletons: a new ritual treatment in an early Pre-Pottery Neolithic B cranial cache at Tell Qarassa North (South Syria).’ American Journal of Physical Anthropology 149: 205–16.",
       "linked_book_note_ids": "ch6-n64"
     },
     {
-      "reference_id": "R209",
+      "reference_id": "R212",
       "bibliography_key": "Sassaman 2005",
       "full_bibliography_entry": "Sassaman, Kenneth E. 2005. ‘Poverty Point as structure, event, process.’ Journal of Archaeological Method and Theory 12 (4): 335–64.",
       "linked_book_note_ids": "ch4-n27"
     },
     {
-      "reference_id": "R210",
+      "reference_id": "R213",
       "bibliography_key": "Schirmer 1990",
       "full_bibliography_entry": "Schirmer, Wulf. 1990. ‘Some aspects of building at the “aceramic-neolithic” settlement of Çayönü Tepesi.’ World Archaeology 21 (3): 363–87.",
       "linked_book_note_ids": "ch6-n58 | ch6-n59"
     },
     {
-      "reference_id": "R211",
+      "reference_id": "R214",
       "bibliography_key": "Schmandt-Besserat 1992",
       "full_bibliography_entry": "Schmandt-Besserat, Denise. 1992. Before Writing. Austin: University of Texas Press.",
       "linked_book_note_ids": "ch10-n118 | ch10-n119 | ch10-n120"
     },
     {
-      "reference_id": "R212",
+      "reference_id": "R215",
       "bibliography_key": "Schmidt 1998",
       "full_bibliography_entry": "Schmidt, Klaus. 1998. ‘Frühneolithische Silexdolche.’ In Güven Arsebük et al. (eds), Light on Top of the Black Hill. Studies Presented to Halet Çambel. Istanbul: Yeni, pp. 681–92.",
       "linked_book_note_ids": "ch6-n55 | ch6-n56 | ch6-n57"
     },
     {
-      "reference_id": "R213",
+      "reference_id": "R216",
       "bibliography_key": "Schmidt 2006",
       "full_bibliography_entry": "Schmidt, Klaus. 2006. Sie bauten die ersten Tempel. Das rätselhafte Heiligtum der Steinzeitjäger. Munich: C. H. Beck.",
       "linked_book_note_ids": "ch3-n25 | ch6-n54"
     },
     {
-      "reference_id": "R214",
+      "reference_id": "R217",
       "bibliography_key": "Schrakamp 2010",
       "full_bibliography_entry": "Schrakamp, I. 2010. Krieger und Waffen im frühen Mesopotamien. Organisation und Bewaffnung des Militärs in frühdynastischer und sargonischer Zeit. Marburg: Philipps-Universität.",
       "linked_book_note_ids": "ch10-n134"
     },
     {
-      "reference_id": "R215",
+      "reference_id": "R218",
       "bibliography_key": "Scott 2017",
       "full_bibliography_entry": "Scott, James C. 2017. Against the Grain: A Deep History of the Earliest States. New Haven, CT and London: Yale University Press.",
       "linked_book_note_ids": "ch10-n110"
     },
     {
-      "reference_id": "R216",
+      "reference_id": "R219",
       "bibliography_key": "Sharer 2003",
       "full_bibliography_entry": "Sharer, Robert J. 2003. ‘Founding events and Teotihuacan connections at Copán, Honduras.’ In Braswell (ed.), pp. 143–65.",
       "linked_book_note_ids": "ch9-n14"
     },
     {
-      "reference_id": "R217",
+      "reference_id": "R220",
       "bibliography_key": "Shaughnessy 1989",
       "full_bibliography_entry": "Shaughnessy, Edward. L. 1989. ‘Historical geography and the extent of the earliest Chinese kingdom.’ Asia Minor (2) 2: 1–22.",
       "linked_book_note_ids": "ch10-n104 | ch10-n105 | ch10-n106"
     },
     {
-      "reference_id": "R218",
+      "reference_id": "R221",
       "bibliography_key": "Sheppard 2011",
       "full_bibliography_entry": "Sheppard, Peter J. 2011. ‘Lapita colonization across the Near/Remote Oceania boundary.’ Current Anthropology 52 (6): 799–840.",
       "linked_book_note_ids": "ch7-n31"
     },
     {
-      "reference_id": "R219",
+      "reference_id": "R222",
       "bibliography_key": "Sherratt 1997",
       "full_bibliography_entry": "Sherratt, Andrew. 1997. Economy and Society in Prehistoric Europe. Changing Perspectives. Edinburgh: Edinburgh University Press.",
       "linked_book_note_ids": "ch6-n40"
     },
     {
-      "reference_id": "R220",
+      "reference_id": "R223",
       "bibliography_key": "Sherratt 2000",
       "full_bibliography_entry": "Sherratt, Susan. 2000. Arthur Evans, Knossos, and the Priest-King. Oxford: Ashmolean Museum.",
       "linked_book_note_ids": "ch10-n145 | ch10-n146 | ch10-n147"
     },
     {
-      "reference_id": "R221",
+      "reference_id": "R224",
       "bibliography_key": "Sherratt 2007",
       "full_bibliography_entry": "Sherratt, Andrew. 2007. ‘Diverse origins: regional contributions to the genesis of farming.’ In Colledge and Conolly (eds), pp. 1–20.",
       "linked_book_note_ids": "ch6-n24"
     },
     {
-      "reference_id": "R222",
+      "reference_id": "R225",
       "bibliography_key": "Sikora 2017",
       "full_bibliography_entry": "Sikora, Martin et al. 2017. ‘Ancient genomes show social and reproductive behavior of early Upper Paleolithic foragers.’ Science 358 (6363): 659–62.",
       "linked_book_note_ids": "ch3-n21"
     },
     {
-      "reference_id": "R223",
+      "reference_id": "R226",
       "bibliography_key": "Skoglund 2016",
       "full_bibliography_entry": "Skoglund, Pontus et al. 2016. ‘Genomic insights into the peopling of the Southwest Pacific.’ Nature 538 (7626): 510–13.",
       "linked_book_note_ids": "ch7-n32 | ch7-n33"
     },
     {
-      "reference_id": "R224",
+      "reference_id": "R227",
       "bibliography_key": "Skousen 2016",
       "full_bibliography_entry": "Skousen, B. Jacob. 2016. ‘Pilgrimage and the Construction of Cahokia: A View from the Emerald Site’. Doctoral dissertation, University of Illinois at Urbana-Champaign.",
       "linked_book_note_ids": "ch11-n31"
     },
     {
-      "reference_id": "R225",
+      "reference_id": "R228",
       "bibliography_key": "Slon 2014",
       "full_bibliography_entry": "Slon, Viviane et al. 2014. ‘The plastered skulls from the Pre-Pottery Neolithic B Site of Yiftahel (Israel) – a computed tomography-cased analysis.’ PLoS ONE 9 (2): e89242.",
       "linked_book_note_ids": "ch6-n63"
     },
     {
-      "reference_id": "R226",
+      "reference_id": "R229",
       "bibliography_key": "Smith 1984",
       "full_bibliography_entry": "Smith, Michael E. 1984. ‘The Aztlan migrations of the Nahuatl chronicles: myth or history?’ Ethnohistory 31 (3): 153–86.",
       "linked_book_note_ids": "ch9-n1"
     },
     {
-      "reference_id": "R227",
+      "reference_id": "R230",
       "bibliography_key": "Smith 1992",
       "full_bibliography_entry": "Smith, Bruce D. 1992. ‘Mississippian elites and solar alignments: a reflection of managerial necessity, or levers of social inequality?’ In A. W. Barker and T. R. Pauketat (eds), Lords of the Southeast: Social Inequality and the Native Elites of Southeastern North America. Washington: Archaeological Papers of the American Anthropological Association, pp 11–30.",
       "linked_book_note_ids": "ch11-n35 | ch11-n36 | ch11-n37 | ch11-n46"
     },
     {
-      "reference_id": "R228",
+      "reference_id": "R231",
       "bibliography_key": "Smith 2012",
       "full_bibliography_entry": "Smith, Michael E. 2012. The Aztecs (3rd edn). Oxford: Wiley-Blackwell.",
       "linked_book_note_ids": "ch9-n48"
     },
     {
-      "reference_id": "R229",
+      "reference_id": "R232",
       "bibliography_key": "Smith 2015",
       "full_bibliography_entry": "Smith, Michael E. 2015. ‘Neighborhood formation in semi-urban settlements.’ Journal of Urbanism 8 (2): 173–98.",
       "linked_book_note_ids": "ch8-n13"
     },
     {
-      "reference_id": "R230",
+      "reference_id": "R233",
       "bibliography_key": "Smith 2017",
       "full_bibliography_entry": "Smith, Michael. E. et al. 2017. ‘The Teotihuacan anomaly: the historical trajectory of urban design in ancient Central Mexico.’ Open Archaeology 3: 175–93.",
       "linked_book_note_ids": "ch9-n23 | ch9-n30 | ch9-n31"
     },
     {
-      "reference_id": "R231",
+      "reference_id": "R234",
       "bibliography_key": "Snow 1991",
       "full_bibliography_entry": "Snow, Dean. 1991. ‘Dating the emergence of the League of the Iroquois: a reconsideration of the documentary evidence.’ In Nancy-Anne McClure Zeller (ed.), A Beautiful and Fruitful Place: Selected Rensselaerswijck Seminar Papers. Albany, NY: New Netherland Publishing, pp. 139–43.",
       "linked_book_note_ids": "ch11-n75"
     },
     {
-      "reference_id": "R232",
+      "reference_id": "R235",
       "bibliography_key": "Soffer 1985",
       "full_bibliography_entry": "Soffer, Olga. 1985. The Upper Palaeolithic of the Central Russian Plain. London: Academic Press.",
       "linked_book_note_ids": "ch3-n28 | ch3-n38"
     },
     {
-      "reference_id": "R233",
+      "reference_id": "R236",
       "bibliography_key": "Soustelle 1962",
       "full_bibliography_entry": "Soustelle, Jacques. 1962. The Daily Life of the Aztecs on the Eve of the Spanish Conquest. New York: Macmillan.",
       "linked_book_note_ids": "ch10-n8 | ch10-n9"
     },
     {
-      "reference_id": "R234",
+      "reference_id": "R237",
       "bibliography_key": "Spriggs 1995",
       "full_bibliography_entry": "Spriggs, Matthew. 1995. ‘The Lapita culture and Austronesian prehistory in Oceania.’ In Peter Bellwood et al. (eds), The Austronesians: Historical and Comparative Perspectives. Canberra: ANU Press, pp. 112–33.",
       "linked_book_note_ids": "ch7-n32 | ch7-n33"
     },
     {
-      "reference_id": "R235",
+      "reference_id": "R238",
       "bibliography_key": "Spriggs 1997",
       "full_bibliography_entry": "Spriggs, Matthew. 1997. The Island Melanesians. Oxford: Blackwell.",
       "linked_book_note_ids": "ch7-n31"
     },
     {
-      "reference_id": "R236",
+      "reference_id": "R239",
       "bibliography_key": "Starna 2008",
       "full_bibliography_entry": "Starna, William A. 2008. ‘Retrospecting the origins of the League of the Iroquois.’ Proceedings of the American Philosophical Society 152 (3): 279–321.",
       "linked_book_note_ids": "ch11-n75"
     },
     {
-      "reference_id": "R237",
+      "reference_id": "R240",
       "bibliography_key": "Steinkeller 2015",
       "full_bibliography_entry": "Steinkeller, Piotr. 2015. ‘The employment of labour on national building projects in the Ur III period.’ In Steinkeller and Hudson (eds), pp. 137–236.",
       "linked_book_note_ids": "ch8-n46"
     },
     {
-      "reference_id": "R238",
+      "reference_id": "R241",
       "bibliography_key": "Stordeur 2000",
       "full_bibliography_entry": "Stordeur, Danielle. 2000. ‘Jerf el Ahmar et l’émergence du Néolithique au Proche-Orient.’ In Jean Guilaine (ed.), Premiers paysans du monde: Naissances des agricultures, Séminaire du Collège de France. Paris: Errance, pp. 33–60.",
       "linked_book_note_ids": "ch6-n55 | ch6-n56 | ch6-n57"
     },
     {
-      "reference_id": "R239",
+      "reference_id": "R242",
       "bibliography_key": "Straus 1977",
       "full_bibliography_entry": "Straus, Lawrence G. 1977. ‘The Upper Palaeolithic cave site of Altamira (Santander, Spain).’ Quaternaria 19: 135–48.",
       "linked_book_note_ids": "ch3-n38"
     },
     {
-      "reference_id": "R240",
+      "reference_id": "R243",
       "bibliography_key": "Stuart 2000",
       "full_bibliography_entry": "Stuart, David. 2000. ‘The arrival of strangers: Teotihuacan and Tollan in Classic Maya history.’ In D. Carrasco, L. Jones and S. Sessions (eds), Mesoamerica’s Classic Heritage: From Teotihuacan to Aztecs. Boulder: University Press of Colorado, pp. 465–513.",
       "linked_book_note_ids": "ch9-n15 | ch9-n4"
     },
     {
-      "reference_id": "R241",
+      "reference_id": "R244",
+      "bibliography_key": "Subramanian 2010",
+      "full_bibliography_entry": "Subramanian T. S. 2010. ‘The rise and fall of a Harappan city.’ Frontline 27 (12).",
+      "linked_book_note_ids": "ch8-n87"
+    },
+    {
+      "reference_id": "R245",
       "bibliography_key": "Sugiyama 2013",
       "full_bibliography_entry": "Sugiyama, Nawa, Saburo Sugiyama and Alejandro G. Sarabia. 2013. ‘Inside the Sun Pyramid at Teotihuacan, Mexico: 2008–2011 excavations and preliminary results.’ Latin American Antiquity 24 (4): 403–32.",
       "linked_book_note_ids": "ch9-n25 | ch9-n26"
     },
     {
-      "reference_id": "R242",
+      "reference_id": "R246",
       "bibliography_key": "Sugiyama 2019",
       "full_bibliography_entry": "Sugiyama, Nawa et al. 2019. ‘Artistas mayas en Teotihuacan?’ Arqueología Mexicana 24 (142): 8.",
       "linked_book_note_ids": "ch9-n15"
     },
     {
-      "reference_id": "R243",
+      "reference_id": "R247",
       "bibliography_key": "Swanton 1931",
       "full_bibliography_entry": "Swanton, John Reed. 1931. ‘Source material for the social and ceremonial life of the Choctaw Indians.’ Bureau of American Ethnology Bulletin 103: 1–282.",
       "linked_book_note_ids": "ch11-n32 | ch11-n33"
     },
     {
-      "reference_id": "R244",
+      "reference_id": "R248",
       "bibliography_key": "Tambiah 1973",
       "full_bibliography_entry": "Tambiah, Stanley J. 1973. ‘The galactic polity in Southeast Asia.’ In S. J. Tambiah, Culture, Thought, and Social Action. Cambridge, MA: Harvard University Press, pp. 3–31.",
       "linked_book_note_ids": "ch10-n110"
     },
     {
-      "reference_id": "R245",
+      "reference_id": "R249",
       "bibliography_key": "Tate 2012",
       "full_bibliography_entry": "Tate, Carolyn E. 2012. Reconsidering Olmec Visual Culture: The Unborn, Women, and Creation. Austin: University of Texas Press.",
       "linked_book_note_ids": "ch10-n41"
     },
     {
-      "reference_id": "R246",
+      "reference_id": "R250",
       "bibliography_key": "Taube 1986",
       "full_bibliography_entry": "Taube, Karl. A. 1986. ‘The Teotihuacan cave of origin: the iconography and architecture of emergence mythology in Mesoamerica and the American Southwest.’ RES: Anthropology and Aesthetics 12: 51–82.",
       "linked_book_note_ids": "ch9-n10 | ch9-n9"
     },
     {
-      "reference_id": "R247",
+      "reference_id": "R251",
       "bibliography_key": "Taube 2000",
       "full_bibliography_entry": "Taube, Karl. A. 2000. ‘The writing system of ancient Teotihuacan.’ Ancient America, vol. 1. Bardarsville, NC: Center for Ancient American Studies.",
       "linked_book_note_ids": "ch9-n7 | ch9-n8"
     },
     {
-      "reference_id": "R248",
+      "reference_id": "R252",
       "bibliography_key": "Teschler-Nicola 1996",
       "full_bibliography_entry": "Teschler-Nicola, M. et al. 1996. ‘Anthropologische Spurensicherung – Die traumatischen und postmortalen Veränderungen an den linearbandkeramischen Skelettresten von Asparn/Schletz.’ In H. Windl (ed.), Rätsel um Gewalt und Tod vor 7.000 Jahren. Eine Spurensicherung. Asparn: Katalog des Niederösterreichischen Landesmuseum, pp. 47–64.",
       "linked_book_note_ids": "ch7-n20"
     },
     {
-      "reference_id": "R249",
+      "reference_id": "R253",
       "bibliography_key": "Thomas 2005",
       "full_bibliography_entry": "Thomas, Chad R., Christopher Carr and Cynthia Keller. 2005. ‘Animaltotemic clans of Ohio Hopewellian peoples.’ In Carr and Case (eds), pp. 339–85.",
       "linked_book_note_ids": "ch11-n20 | ch11-n21"
     },
     {
-      "reference_id": "R250",
+      "reference_id": "R254",
       "bibliography_key": "Thompson 2015",
       "full_bibliography_entry": "Thompson, Andrew et al. 2015. ‘New dental and isotope evidence of biological distance and place of origin for mass burial groups at Cahokia’s Mound 72.’ American Journal of Physical Anthropology 158: 341–57.",
       "linked_book_note_ids": "ch11-n38 | ch11-n40"
     },
     {
-      "reference_id": "R251",
+      "reference_id": "R255",
       "bibliography_key": "Torres 2008",
       "full_bibliography_entry": "Torres, Constantino Manuel. 2008. ‘Chavín’s psychoactive pharmacopoeia: the iconographic evidence.’ In Conklin and Quilter (eds), pp. 237–57.",
       "linked_book_note_ids": "ch10-n53"
     },
     {
-      "reference_id": "R252",
+      "reference_id": "R256",
       "bibliography_key": "Trigger 2006",
       "full_bibliography_entry": "Trigger, Bruce G. 2006. A History of Archaeological Thought (2nd edn). Cambridge: Cambridge University Press.",
       "linked_book_note_ids": "ch3-n2"
     },
     {
-      "reference_id": "R253",
+      "reference_id": "R257",
       "bibliography_key": "Trinkaus 2018",
       "full_bibliography_entry": "Trinkaus, Erik. 2018. ‘An abundance of developmental anomalies and abnormalities in Pleistocene people.’ PNAS 115 (47): 11941–6.",
       "linked_book_note_ids": "ch3-n36"
     },
     {
-      "reference_id": "R254",
+      "reference_id": "R258",
       "bibliography_key": "Tuck 1978",
       "full_bibliography_entry": "Tuck, James A. 1978. ‘Northern Iroquoian prehistory.’ In Bruce G. Trigger (ed.), Handbook of North American Indians, vol. 15: Northeast. Washington: Smithsonian Press, pp. 322–33.",
       "linked_book_note_ids": "ch11-n76"
     },
     {
-      "reference_id": "R255",
+      "reference_id": "R259",
       "bibliography_key": "Tuerenhout 2002",
       "full_bibliography_entry": "Tuerenhout, Dirk Van. 2002. ‘Maya warfare: sources and interpretations.’ Civilisations 50: 129–52.",
       "linked_book_note_ids": "ch10-n134"
     },
     {
-      "reference_id": "R256",
+      "reference_id": "R260",
       "bibliography_key": "Underhill 2008",
       "full_bibliography_entry": "Underhill, Anne P. et al. 2008. ‘Changes in regional settlement patterns and the development of complex societies in southeastern Shandong, China.’ Journal of Anthropological Archaeology 27 (1): 1–29.",
       "linked_book_note_ids": "ch8-n19"
     },
     {
-      "reference_id": "R257",
+      "reference_id": "R261",
       "bibliography_key": "Ur 2014",
       "full_bibliography_entry": "Ur, Jason. 2014. ‘Households and the emergence of cities in Ancient Mesopotamia.’ Cambridge Archaeological Journal 24: 249–68.",
       "linked_book_note_ids": "ch8-n65"
     },
     {
-      "reference_id": "R258",
+      "reference_id": "R262",
       "bibliography_key": "Valentine 2015",
       "full_bibliography_entry": "Valentine, B. et al. 2015. ‘Evidence for patterns of selective urban migration in the Greater Indus Valley (2600–1900 bc): a lead and strontium isotope mortuary analysis.’ PLoS ONE 10 (4): e0123103.",
       "linked_book_note_ids": "ch8-n13"
     },
     {
-      "reference_id": "R259",
+      "reference_id": "R263",
       "bibliography_key": "Vidale 2010",
       "full_bibliography_entry": "Vidale, Massimo. 2010. ‘Aspects of palace life at Mohenjo-Daro.’ South Asian Studies 26 (1): 59–76.",
       "linked_book_note_ids": "ch8-n103"
     },
     {
-      "reference_id": "R260",
+      "reference_id": "R264",
       "bibliography_key": "Vidale 2013",
       "full_bibliography_entry": "Vidale, Massimo. 2013. ‘T-Shaped pillars and Mesolithic “chiefdoms” in the prehistory of Southern Eurasia: a preliminary note.’ In Dennys Frenez and Maurizio Tosi (eds), South Asian Archaeology 2007. Proceedings of the 19th International Conference of the European Association of South Asian Archaeology. Oxford: BAR, pp. 51–8.",
       "linked_book_note_ids": "ch6-n53"
     },
     {
-      "reference_id": "R261",
+      "reference_id": "R265",
       "bibliography_key": "Videiko 1996",
       "full_bibliography_entry": "Videiko, Mikhail. 1996. ‘Die Grossiedlungen der Tripol’e-Kultur in der Ukraine.’ Eurasia Antiqua 1: 45–80.",
       "linked_book_note_ids": "ch8-n22"
     },
     {
-      "reference_id": "R262",
+      "reference_id": "R266",
       "bibliography_key": "Viner 2010",
       "full_bibliography_entry": "Viner, Sarah et al. 2010. ‘Cattle mobility in prehistoric Britain: strontium isotope analysis of cattle teeth from Durrington Walls (Wiltshire, Britain).’ Journal of Archaeological Science 37: 2812–20.",
       "linked_book_note_ids": "ch3-n42"
     },
     {
-      "reference_id": "R263",
+      "reference_id": "R267",
       "bibliography_key": "Voutsaki 1997",
       "full_bibliography_entry": "Voutsaki, Sofia. 1997. ‘The creation of value and prestige in the Aegean Late Bronze Age.’ Journal of European Archaeology 5 (2): 34–52.",
       "linked_book_note_ids": "ch10-n150"
     },
     {
-      "reference_id": "R264",
+      "reference_id": "R268",
       "bibliography_key": "Wallace 1958",
       "full_bibliography_entry": "Wallace, Anthony F. C. 1958. ‘Dreams and the wishes of the soul: a type of psychoanalytic theory among the seventeenth century Iroquois.’ American Anthropologist (N.S.) 60 (2): 234–48.",
       "linked_book_note_ids": "ch11-n73 | ch11-n74"
     },
     {
-      "reference_id": "R265",
+      "reference_id": "R269",
       "bibliography_key": "Wengrow 1998",
       "full_bibliography_entry": "Wengrow, David. 1998. ‘The changing face of clay: continuity and change in the transition from village to urban life in the Near East.’ Antiquity 72: 783–95.",
       "linked_book_note_ids": "ch8-n65 | ch8-n73"
     },
     {
-      "reference_id": "R266",
+      "reference_id": "R270",
       "bibliography_key": "Wengrow 2006",
       "full_bibliography_entry": "Wengrow, David. 2006. The Archaeology of Early Egypt: Social Transformations in North-East Africa, 10,000 to 2650 bc. Cambridge: Cambridge University Press.",
       "linked_book_note_ids": "ch10-n85"
     },
     {
-      "reference_id": "R267",
+      "reference_id": "R271",
       "bibliography_key": "Wengrow 2008",
       "full_bibliography_entry": "Wengrow, David. 2008. ‘Prehistories of commodity branding.’ Current Anthropology 49 (1): 7–34.",
       "linked_book_note_ids": "ch8-n76"
     },
     {
-      "reference_id": "R268",
+      "reference_id": "R272",
       "bibliography_key": "Wengrow 2010a",
       "full_bibliography_entry": "Wengrow, David. 2010a. What Makes Civilization? The Ancient Near East and the Future of the West. Oxford: Oxford University Press.",
       "linked_book_note_ids": "ch10-n122"
     },
     {
-      "reference_id": "R269",
+      "reference_id": "R273",
       "bibliography_key": "Wengrow 2010b",
       "full_bibliography_entry": "Wengrow, David. 2010b. ‘The voyages of Europa: ritual and trade in the Eastern Mediterranean, c.2300–1850 bc.’ In William A. Parkinson and Michael L. Galaty (eds), Archaic State Interaction: The Eastern Mediterranean in the Bronze Age. Santa Fe: School for Advanced Research Press, pp. 141–60.",
       "linked_book_note_ids": "ch10-n149 | ch10-n92 | ch10-n93 | ch10-n94"
     },
     {
-      "reference_id": "R270",
+      "reference_id": "R274",
       "bibliography_key": "Wengrow 2011",
       "full_bibliography_entry": "Wengrow, David. 2011. ‘Archival and sacrificial economies in Bronze Age Eurasia: an interactionist approach to the hoarding of metals.’ In T. Wilkinson, D. J. Bennet and S. Sherratt (eds), Interweaving Worlds. Oxford: Oxbow Books, pp. 135–44.",
       "linked_book_note_ids": "ch8-n82"
     },
     {
-      "reference_id": "R271",
+      "reference_id": "R275",
       "bibliography_key": "White 1985",
       "full_bibliography_entry": "White, Randall. 1985. Upper Palaeolithic Land Use in the Périgord: A Topographical Approach to Subsistence and Settlement. Oxford: British Archaeological Reports.",
       "linked_book_note_ids": "ch3-n38"
     },
     {
-      "reference_id": "R272",
+      "reference_id": "R276",
       "bibliography_key": "White 1999",
       "full_bibliography_entry": "White, Randall. 1999. ‘Intégrer la complexité sociale et opérationnelle: la construction matérielle de l’identité sociale à Sungir.’ In M. Julien et al. (eds), Préhistoire d’os: recueil d’études sur l’industrie osseuse préhistorique offert à Henriette Camps-Faber. Aix-en-Provence: L’Université de Provence, pp. 319–31.",
       "linked_book_note_ids": "ch3-n24"
     },
     {
-      "reference_id": "R273",
+      "reference_id": "R277",
       "bibliography_key": "White 2008",
       "full_bibliography_entry": "White, Christine D. et al. 2008. ‘The Teotihuacan dream: an isotopic study of economic organization and immigration.’ Ontario Archaeology 85–8: 279–97.",
       "linked_book_note_ids": "ch8-n13"
     },
     {
-      "reference_id": "R274",
+      "reference_id": "R278",
       "bibliography_key": "Wild 2004",
       "full_bibliography_entry": "Wild, Eva. M. et al. 2004. ‘Neolithic massacres: local skirmishes or general warfare in Europe?’ Radiocarbon 46: 377–85.",
       "linked_book_note_ids": "ch7-n20"
     },
     {
-      "reference_id": "R275",
+      "reference_id": "R279",
       "bibliography_key": "Wilkinson 2014",
       "full_bibliography_entry": "Wilkinson, Toby. 2014. ‘The Early Transcaucasian phenomenon in structural-systemic perspective: cuisine, craft and economy.’ Paléorient 40 (2): 203–29.",
       "linked_book_note_ids": "ch8-n82"
     },
     {
-      "reference_id": "R276",
+      "reference_id": "R280",
       "bibliography_key": "Williams 1990",
       "full_bibliography_entry": "Williams, Stephen. 1990. ‘The Vacant Quarter and other late events in the Lower Valley.’ In D. H. Dye (ed.), Towns and Temples Along the Mississippi. Tuscaloosa: University of Alabama Press, pp. 170–80.",
       "linked_book_note_ids": "ch11-n10 | ch11-n9"
     },
     {
-      "reference_id": "R277",
+      "reference_id": "R281",
       "bibliography_key": "Wills 1970",
       "full_bibliography_entry": "Wills, John H. 1970. ‘Speaking arenas of ancient Mesopotamia.’ Quarterly Journal of Speech 56 (4): 398–405.",
       "linked_book_note_ids": "ch8-n52 | ch8-n53 | ch8-n54"
     },
     {
-      "reference_id": "R278",
+      "reference_id": "R282",
       "bibliography_key": "Wood 1992",
       "full_bibliography_entry": "Wood, Andrée. R. 1992. ‘The detection, removal, storage, and species identification of prehistoric blood residues from Çayönü.’ American Journal of Archaeology 96 (2): 374.",
       "linked_book_note_ids": "ch6-n58 | ch6-n59"
     },
     {
-      "reference_id": "R279",
+      "reference_id": "R283",
       "bibliography_key": "Woods 2004",
       "full_bibliography_entry": "Woods, William I. 2004. ‘Population nucleation, intensive agriculture, and environmental degradation: the Cahokia example.’ Agriculture and Human Values 21: 255–61.",
       "linked_book_note_ids": "ch11-n34"
     },
     {
-      "reference_id": "R280",
+      "reference_id": "R284",
       "bibliography_key": "Wright 2007",
       "full_bibliography_entry": "Wright, Katherine I. 2007. ‘Women and the emergence of urban society in Mesopotamia.’ In S. Hamilton and R. D. Whitehouse (eds), Archaeology and Women: Ancient and Modern Issues. Walnut Creek, CA: Left Coast Press, pp. 199–245.",
       "linked_book_note_ids": "ch8-n49"
     },
     {
-      "reference_id": "R281",
+      "reference_id": "R285",
       "bibliography_key": "Wright 2008",
       "full_bibliography_entry": "Wright, Katherine I. et al. 2008. ‘Stone bead technologies and early craft specialization: insights from two Neolithic Sites in eastern Jordan.’ Levant 40 (2): 131–65.",
       "linked_book_note_ids": "ch6-n25"
     },
     {
-      "reference_id": "R282",
+      "reference_id": "R286",
       "bibliography_key": "Wright 2010",
       "full_bibliography_entry": "Wright, Rita P. 2010. The Ancient Indus: Urbanism, Economy, and Society. New York: Cambridge University Press.",
       "linked_book_note_ids": "ch8-n86"
     },
     {
-      "reference_id": "R283",
+      "reference_id": "R287",
       "bibliography_key": "Wright 2014",
       "full_bibliography_entry": "Wright, Emily et al. 2014. ‘Age and season of pig slaughter at Late Neolithic Durrington Walls (Wiltshire, UK) as detected through a new system for recording tooth wear.’ Journal of Archaeological Science 52: 497–514.",
       "linked_book_note_ids": "ch3-n41"
     },
     {
-      "reference_id": "R284",
+      "reference_id": "R288",
       "bibliography_key": "Yen 1995",
       "full_bibliography_entry": "Yen, Douglas. E. 1995. ‘The development of Sahul agriculture with Australia as bystander.’ Antiquity 69 (265): 831–47.",
       "linked_book_note_ids": "ch7-n32 | ch7-n33"
     },
     {
-      "reference_id": "R285",
+      "reference_id": "R289",
       "bibliography_key": "Yoffee 1995",
       "full_bibliography_entry": "Yoffee, Norman. 1995. ‘The political economy of early Mesopotamian states.’ Annual Review of Anthropology 24: 281–311.",
       "linked_book_note_ids": "ch8-n74"
     },
     {
-      "reference_id": "R286",
+      "reference_id": "R290",
       "bibliography_key": "Younger 2016",
       "full_bibliography_entry": "Younger, John. 2016. ‘Minoan women.’ In S. L. Budin and J. M. Turfa (eds), Women in Antiquity: Real Women Across the Ancient World. London and New York: Routledge, pp. 573–94.",
       "linked_book_note_ids": "ch10-n145 | ch10-n146 | ch10-n147"
     },
     {
-      "reference_id": "R287",
+      "reference_id": "R291",
       "bibliography_key": "Zagarell 1986",
       "full_bibliography_entry": "Zagarell, Allen. 1986. ‘Trade, women, class, and society in Ancient Western Asia.’ Current Anthropology 27 (5): 415–30.",
       "linked_book_note_ids": "ch8-n49"
     },
     {
-      "reference_id": "R288",
+      "reference_id": "R292",
       "bibliography_key": "Zheltova 2015",
       "full_bibliography_entry": "Zheltova, Maria N. 2015. ‘Kostenki 4: Gravettian of the east – not Eastern Gravettian.’ Quaternary International 359–60: 362–71.",
       "linked_book_note_ids": "ch3-n28"
     },
     {
-      "reference_id": "R289",
+      "reference_id": "R293",
       "bibliography_key": "Zhilin 2018",
       "full_bibliography_entry": "Zhilin, Mikhail et al. 2018. ‘Early art in the Urals: new research on the wooden sculpture from Shigir.’ Antiquity 92 (362): 334–50.",
       "linked_book_note_ids": "ch4-n34"
+    },
+    {
+      "reference_id": "R294",
+      "bibliography_key": "Özbek 1988",
+      "full_bibliography_entry": "Özbek Metin. 1988. ‘Culte des cranes humains a Çayönü.’ Anatolica 15: 127–37.",
+      "linked_book_note_ids": "ch6-n58 | ch6-n59"
     }
   ],
   "qa": [
     {
       "check": "canonical settlements",
-      "value": 137,
+      "value": 138,
       "status": "info"
     },
     {
       "check": "settlement-paragraph mentions",
-      "value": 603,
+      "value": 606,
       "status": "info"
     },
     {
@@ -15585,7 +15692,7 @@
     },
     {
       "check": "linked bibliography references",
-      "value": 289,
+      "value": 294,
       "status": "info"
     }
   ]

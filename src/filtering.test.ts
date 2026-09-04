@@ -27,6 +27,15 @@ describe('dataset normalization and dates', () => {
     expect(formatYear(550)).toBe('550 CE')
     expect(formatDuration(settlement('Teotihuacan'))).toBe('649 years')
   })
+
+  it('includes Dholavira with all substantive book and note mentions', () => {
+    const dholavira = settlement('Dholavira')
+    expect(dholavira.settlement_id).toBe('S138')
+    expect(dholavira.mentions.map((mention) => mention.paragraph_id)).toEqual(['L2909', 'L2911', 'L5510'])
+    expect(dholavira.mentions.at(-1)?.bibliography_keys).toContain('Subramanian 2010')
+    expect(dholavira.latitudeNumber).toBeCloseTo(23.888408)
+    expect(dholavira.longitudeNumber).toBeCloseTo(70.213303)
+  })
 })
 
 describe('search ranking and filters', () => {

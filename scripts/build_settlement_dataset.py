@@ -28,6 +28,7 @@ MANUAL_COORDINATES = {
     "Grimaldi Caves": (43.784162, 7.53336, "Balzi Rossi cave complex centroid", "https://fr.wikipedia.org/wiki/Balzi_Rossi", "site centroid"),
     "Saint-Germain-de-la-Rivière": (44.949951, -0.331018, "Palaeolithic burial location", "https://vici.org/vici/22744/", "site centroid"),
     "Sannai Maruyama": (40.811467, 140.696872, "archaeological site centroid", "https://en.wikipedia.org/wiki/Sannai-Maruyama_Site", "site centroid"),
+    "Dholavira": (23.888408, 70.213303, "UNESCO World Heritage property reference point", "https://whc.unesco.org/en/list/1645/", "site centroid"),
     "Liangchengzhen": (35.571, 119.572, "archaeological sampling/site location", "https://academic.oup.com/gji/article-abstract/232/2/1159/6747130", "site centroid"),
     "Yaowangcheng": (35.302171, 119.350127, "archaeological park/site location", "https://www.amap.com/place/B0KGTHETEK", "site centroid"),
     "Wangchenggang": (34.40084, 113.12496, "archaeological ruins location", "https://mapcarta.com/W1263470603", "site centroid"),
@@ -63,6 +64,7 @@ MANUAL_COORDINATES = {
 INTENTIONALLY_UNLOCATED = {"Aztlán", "Onondaga town", "Hor-mer"}
 
 MANUAL_ENTITY_OVERRIDES = {
+    "Dholavira": {"wikidata_id": "Q9468", "wikidata_url": "https://www.wikidata.org/wiki/Q9468", "wikipedia_url": "https://en.wikipedia.org/wiki/Dholavira", "description": "archaeological site in Kutch, Gujarat in western India"},
     "Zhengzhou Shang City": {"wikidata_id": "Q203132", "wikidata_url": "https://www.wikidata.org/wiki/Q203132", "wikipedia_url": "https://en.wikipedia.org/wiki/Zhengzhou_Shang_City", "description": "Bronze Age archaeological city in Zhengzhou, China"},
     "Yaxchilán": {"wikidata_id": "Q662263", "wikidata_url": "https://www.wikidata.org/wiki/Q662263", "wikipedia_url": "https://en.wikipedia.org/wiki/Yaxchilan", "description": "pre-Columbian Maya city in Chiapas, Mexico"},
 }
@@ -200,9 +202,14 @@ def parse_bibliography(source_lines: list[str]) -> tuple[dict[str, str], list[di
             else:
                 expanded_text = f"{previous_authors} {text[1:].lstrip()}"
         else:
-            surname = text.split(",", 1)[0].split(" and ", 1)[0].strip().split()[-1]
+            author_text = text[:year_match.start()].rstrip().rstrip("(").rstrip(". ")
+            surname = (
+                author_text.split(",", 1)[0].split(" and ", 1)[0].strip().split()[-1]
+                if "," in author_text
+                else author_text.split()[0]
+            )
             previous_surname = surname
-            previous_authors = text[:year_match.start()].rstrip().rstrip("(").rstrip()
+            previous_authors = author_text
             if not previous_authors.endswith("."):
                 previous_authors += "."
             expanded_text = text

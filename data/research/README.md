@@ -66,6 +66,6 @@ python3 scripts/build_settlement_area_research.py
 ```
 
 The generator starts from `data/derived/settlements.csv`, so every canonical
-settlement receives coverage. QA checks should confirm 137 unique settlement IDs,
+settlement receives coverage. QA checks should confirm 138 unique settlement IDs,
 exact hectare-to-km² conversion, a source or book locator for every known value,
 and a comparator citation for every known value.

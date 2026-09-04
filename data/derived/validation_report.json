@@ -1,8 +1,8 @@
 {
   "summary": {
-    "settlements": 137,
-    "mentions": 603,
-    "references": 289,
+    "settlements": 138,
+    "mentions": 606,
+    "references": 294,
     "checks": 22,
     "passed": 22,
     "failed": 0,
@@ -16,29 +16,29 @@
     {
       "check": "Settlement IDs are unique",
       "status": "PASS",
-      "observed": 137,
-      "expected": 137,
+      "observed": 138,
+      "expected": 138,
       "detail": ""
     },
     {
       "check": "Canonical settlement names are unique",
       "status": "PASS",
-      "observed": 137,
-      "expected": 137,
+      "observed": 138,
+      "expected": 138,
       "detail": ""
     },
     {
       "check": "Mention IDs are unique",
       "status": "PASS",
-      "observed": 603,
-      "expected": 603,
+      "observed": 606,
+      "expected": 606,
       "detail": ""
     },
     {
       "check": "Settlement-paragraph grain is unique",
       "status": "PASS",
-      "observed": 603,
-      "expected": 603,
+      "observed": 606,
+      "expected": 606,
       "detail": ""
     },
     {
@@ -149,21 +149,21 @@
     {
       "check": "Dataset contains substantive settlement coverage",
       "status": "PASS",
-      "observed": 137,
+      "observed": 138,
       "expected": ">= 130",
       "detail": ""
     },
     {
       "check": "Dataset contains source-context coverage",
       "status": "PASS",
-      "observed": 603,
+      "observed": 606,
       "expected": ">= 600",
       "detail": ""
     },
     {
       "check": "Dataset contains linked bibliography coverage",
       "status": "PASS",
-      "observed": 289,
+      "observed": 294,
       "expected": ">= 250",
       "detail": ""
     }

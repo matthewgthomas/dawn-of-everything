@@ -1,6 +1,6 @@
 # The Dawn Atlas
 
-An interactive atlas of 137 curated human settlements mentioned in David Graeber and David Wengrow's [*The Dawn of Everything*](https://dawnofeverything.industries/). The atlas connects each included place to its passages in the book and lets readers explore the collection by geography, occupation period, settlement type, and chapter.
+An interactive atlas of 138 curated human settlements mentioned in David Graeber and David Wengrow's [*The Dawn of Everything*](https://dawnofeverything.industries/). The atlas connects each included place to its passages in the book and lets readers explore the collection by geography, occupation period, settlement type, and chapter.
 
 [Open the atlas](https://matthewgthomas.github.io/dawn-of-everything/)
 
@@ -8,7 +8,7 @@ An interactive atlas of 137 curated human settlements mentioned in David Graeber
 
 ## The data
 
-The dataset is a curated paragraph-level catalogue of places where people lived together, as described in the book's substantive text and notes. It contains 137 settlements, 603 settlement–paragraph mentions, and 289 bibliography entries linked through the book's notes.
+The dataset is a curated paragraph-level catalogue of places where people lived together, as described in the book's substantive text and notes. It contains 138 settlements, 606 settlement–paragraph mentions, and 294 bibliography entries linked through the book's notes.
 
 The extraction process combined automated discovery with manual curation:
 
@@ -19,7 +19,7 @@ The extraction process combined automated discovery with manual curation:
 5. The build script matched every curated settlement and alias back to the source paragraphs, linked note citations to full bibliography entries, and generated the CSV and JSON files in [`data/derived`](data/derived).
 6. A separate validator checked IDs, joins, coordinates, date ranges, citation links, intentional exclusions, source line ranges, and paragraph fidelity. The current dataset passes all 22 checks.
 
-The app also includes [`data/research/settlement_areas.csv`](data/research/settlement_areas.csv), a source-backed companion dataset with 167 observations covering all 137 settlements. It records period-specific footprint estimates, explicit unknown results, uncertainty and area-basis metadata, citations, and contemporary scale comparators. Sixty-five settlements currently have a defensible estimate; multi-phase sites retain their changes through time instead of being reduced to one timeless measurement.
+The app also includes [`data/research/settlement_areas.csv`](data/research/settlement_areas.csv), a source-backed companion dataset with 168 observations covering all 138 settlements. It records period-specific footprint estimates, explicit unknown results, uncertainty and area-basis metadata, citations, and contemporary scale comparators. Sixty-six settlements currently have a defensible estimate; multi-phase sites retain their changes through time instead of being reduced to one timeless measurement.
 
 Occupation dates are a reference synthesis for the dataset, not necessarily claims made in the passage where a place appears. Coordinates are representative points rather than settlement boundaries. For the full scope definition, table schemas, date conventions, provenance notes, and rebuild commands, see the [data methodology](data/README.md).
 

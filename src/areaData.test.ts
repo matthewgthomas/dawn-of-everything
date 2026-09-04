@@ -15,10 +15,10 @@ const settlement = (name: string) => settlementByName.get(name)!
 
 describe('settlement-area data', () => {
   it('covers every canonical settlement and normalizes the CSV fields', () => {
-    expect(areaObservations).toHaveLength(167)
-    expect(new Set(areaObservations.map((observation) => observation.settlement_id))).toHaveLength(137)
+    expect(areaObservations).toHaveLength(168)
+    expect(new Set(areaObservations.map((observation) => observation.settlement_id))).toHaveLength(138)
     expect(settlements.every((settlement) => settlement.areaObservations.length > 0)).toBe(true)
-    expect(new Set(areaObservations.filter((observation) => observation.research_status === 'known').map((observation) => observation.settlement_id))).toHaveLength(65)
+    expect(new Set(areaObservations.filter((observation) => observation.research_status === 'known').map((observation) => observation.settlement_id))).toHaveLength(66)
 
     const unknown = settlement('Quebec City').areaObservations[0]
     expect(unknown.area_hectares_min).toBeNull()
@@ -34,6 +34,10 @@ describe('settlement-area data', () => {
     const harappa = getPeakAreaObservation(settlement('Harappa').areaObservations)
     expect(harappa?.area_hectares_display).toBe('150 ha')
     expect(harappa?.is_preferred).toBe(true)
+
+    const dholavira = getPeakAreaObservation(settlement('Dholavira').areaObservations)
+    expect(dholavira?.area_hectares_display).toBe('47.6 ha')
+    expect(dholavira?.area_basis).toBe('outer fortification footprint')
 
     const taljanky = getPeakAreaObservation(settlement('Taljanky').areaObservations)
     expect(taljanky?.area_hectares_display).toBe('320 ha')

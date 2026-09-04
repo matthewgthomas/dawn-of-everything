@@ -1,6 +1,6 @@
 # Settlements in *The Dawn of Everything*
 
-This dataset is a curated, paragraph-level catalogue of named human settlements in the substantive text and notes of `book/The_Dawn_of_Everything.txt`. It contains 137 canonical settlements, 603 distinct settlement–paragraph mentions, and 289 bibliography entries linked through the book's note apparatus.
+This dataset is a curated, paragraph-level catalogue of named human settlements in the substantive text and notes of `book/The_Dawn_of_Everything.txt`. It contains 138 canonical settlements, 606 distinct settlement–paragraph mentions, and 294 bibliography entries linked through the book's note apparatus.
 
 ## Scope
 
