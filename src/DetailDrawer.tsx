@@ -292,8 +292,7 @@ export default function DetailDrawer({
         {view === 'references' && hasReferences && (
           <section className="detail-view references-view" aria-labelledby="references-title">
             <div className="detail-section-title"><h3 id="references-title">References</h3><span>{references.length + notes.length} entries</span></div>
-            {notes.length > 0 && <div className="reference-group"><h4>Book notes</h4>{notes.map((note) => <p key={note}>{note}</p>)}</div>}
-            {references.length > 0 && <div className="reference-group"><h4>Bibliography</h4>{references.map((reference) => <BibliographyEntry item={reference} key={reference.key} />)}</div>}
+            {references.length > 0 && <div className="reference-group">{references.map((reference) => <BibliographyEntry item={reference} key={reference.key} />)}</div>}
           </section>
         )}
       </div>
