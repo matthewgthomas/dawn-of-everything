@@ -327,4 +327,41 @@ describe('DetailDrawer', () => {
     expect(screen.getByText(/Passages from the book/)).toBeInTheDocument()
     expect(screen.getAllByText(/Chapter/).length).toBeGreaterThan(0)
   })
+
+  it('splits pipe-delimited book notes and bibliography citations into individual entries', async () => {
+    const user = userEvent.setup()
+    const anyang = settlement('Anyang (Yinxu)')
+    const multiItemMention = anyang.mentions.find((mention) => mention.full_bibliography_entries.includes('Shaughnessy, Edward'))!
+    const settlementWithMultiItemMention = { ...anyang, mentions: [multiItemMention] }
+
+    render(<DetailDrawer settlement={settlementWithMultiItemMention} query="" initialView="passages" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+    await user.click(screen.getByText('Notes & bibliography'))
+
+    const passageDetails = screen.getByText('Notes & bibliography').closest('details')!
+    const passageNotes = within(passageDetails).getByText('Book notes').parentElement!
+    const passageReferences = within(passageDetails).getByText('Bibliography').parentElement!
+    expect(passageNotes.querySelectorAll('p')).toHaveLength(3)
+    expect(passageReferences.querySelectorAll('p')).toHaveLength(3)
+    expect(passageDetails).not.toHaveTextContent('|')
+
+    await user.click(screen.getByRole('button', { name: 'References' }))
+
+    expect(screen.getByText('6 entries')).toBeInTheDocument()
+    const referenceView = screen.getByRole('heading', { name: 'References' }).closest('section')!
+    expect(within(referenceView).getByText('Book notes').parentElement!.querySelectorAll('p')).toHaveLength(3)
+    expect(within(referenceView).getByText('Bibliography').parentElement!.querySelectorAll('p')).toHaveLength(3)
+    expect(referenceView).not.toHaveTextContent('|')
+    expect(within(referenceView).getByText(/^Bagley, Robert\. 1999\./)).toBeInTheDocument()
+    expect(within(referenceView).getByText(/^Shaughnessy, Edward\. L\. 1989\./)).toBeInTheDocument()
+    expect(within(referenceView).getByText(/^Gose, Peter\. 1996\./)).toBeInTheDocument()
+  })
+
+  it('deduplicates split items and counts the consolidated reference entries', () => {
+    render(<DetailDrawer settlement={settlement('Anyang (Yinxu)')} query="" initialView="references" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    const referenceView = screen.getByRole('heading', { name: 'References' }).closest('section')!
+    expect(within(referenceView).getByText('12 entries')).toBeInTheDocument()
+    expect(within(referenceView).getAllByText(/^Bagley, Robert\. 1999\./)).toHaveLength(1)
+    expect(referenceView).not.toHaveTextContent('|')
+  })
 })

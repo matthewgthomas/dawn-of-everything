@@ -40,6 +40,7 @@ const formatSourceLocator = (locator: string) => {
 }
 
 const splitSourceUrls = (value: string) => value.split(/;\s*/u).filter(Boolean)
+const splitDelimitedItems = (value: string) => value.split('|').map((item) => item.trim()).filter(Boolean)
 
 export default function DetailDrawer({
   settlement,
@@ -66,8 +67,8 @@ export default function DetailDrawer({
     .filter(isSubstantive)
     .sort((a, b) => Number(b.complete_paragraph_text.length > 120) - Number(a.complete_paragraph_text.length > 120) || a.source_line_start - b.source_line_start)[0]
     ?? settlement.mentions[0], [settlement.mentions])
-  const references = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => mention.full_bibliography_entries ? [mention.full_bibliography_entries] : []))], [settlement.mentions])
-  const notes = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => mention.book_note_texts ? [mention.book_note_texts] : []))], [settlement.mentions])
+  const references = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => splitDelimitedItems(mention.full_bibliography_entries)))], [settlement.mentions])
+  const notes = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => splitDelimitedItems(mention.book_note_texts)))], [settlement.mentions])
   const hasReferences = references.length > 0 || notes.length > 0
   const areaSummary = useMemo(() => getPeakAreaObservation(settlement.areaObservations), [settlement.areaObservations])
   const unknownAreaObservation = settlement.areaObservations.find((observation) => observation.research_status === 'unknown')
@@ -242,8 +243,8 @@ export default function DetailDrawer({
                         {(mention.book_note_texts || mention.full_bibliography_entries) && (
                           <details>
                             <summary>Notes & bibliography</summary>
-                            {mention.book_note_texts && <div><b>Book notes</b><p>{mention.book_note_texts}</p></div>}
-                            {mention.full_bibliography_entries && <div><b>Bibliography</b><p>{mention.full_bibliography_entries}</p></div>}
+                            {mention.book_note_texts && <div><b>Book notes</b>{splitDelimitedItems(mention.book_note_texts).map((note, index) => <p key={`${index}:${note}`}>{note}</p>)}</div>}
+                            {mention.full_bibliography_entries && <div><b>Bibliography</b>{splitDelimitedItems(mention.full_bibliography_entries).map((reference, index) => <p key={`${index}:${reference}`}>{reference}</p>)}</div>}
                           </details>
                         )}
                       </article>
