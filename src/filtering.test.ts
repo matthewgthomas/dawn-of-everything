@@ -36,6 +36,27 @@ describe('dataset normalization and dates', () => {
     expect(dholavira.latitudeNumber).toBeCloseTo(23.888408)
     expect(dholavira.longitudeNumber).toBeCloseTo(70.213303)
   })
+
+  it('includes the six settlements found by the book-to-dataset audit', () => {
+    const additions = [
+      ['Panga ya Saidi', 'S139', ['L0995']],
+      ['Başur Höyük', 'S140', ['L2890', 'L5498']],
+      ['Ounotisaston', 'S141', ['L4220']],
+      ['Kienuka', 'S142', ['L4238']],
+      ['Fort Frontenac', 'S143', ['L4240']],
+      ['Crow Creek', 'S144', ['L6208']],
+    ] as const
+
+    additions.forEach(([name, id, paragraphIds]) => {
+      const added = settlement(name)
+      expect(added.settlement_id).toBe(id)
+      expect(added.mentions.map((mention) => mention.paragraph_id)).toEqual(paragraphIds)
+    })
+
+    expect(settlement('Ounotisaston').latitudeNumber).toBeNull()
+    expect(settlement('Kienuka').coordinate_precision).toBe('approximate site')
+    expect(settlement('Crow Creek').mentions[0].bibliography_keys).toContain('Milner 2013')
+  })
 })
 
 describe('search ranking and filters', () => {

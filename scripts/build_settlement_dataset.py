@@ -29,6 +29,11 @@ MANUAL_COORDINATES = {
     "Saint-Germain-de-la-Rivière": (44.949951, -0.331018, "Palaeolithic burial location", "https://vici.org/vici/22744/", "site centroid"),
     "Sannai Maruyama": (40.811467, 140.696872, "archaeological site centroid", "https://en.wikipedia.org/wiki/Sannai-Maruyama_Site", "site centroid"),
     "Dholavira": (23.888408, 70.213303, "UNESCO World Heritage property reference point", "https://whc.unesco.org/en/list/1645/", "site centroid"),
+    "Panga ya Saidi": (-3.678333, 39.736016, "archaeological cave site reference point", "https://doi.org/10.1073/pnas.1522714113", "site centroid"),
+    "Başur Höyük": (37.98, 41.779, "archaeological mound reference point", "https://www.wikidata.org/wiki/Q6100419", "approximate site"),
+    "Kienuka": (43.164, -78.96, "approximate position on the Niagara Escarpment within the Tuscarora Nation Reservation", "https://museum.dmna.ny.gov/forts/kienuka", "approximate site"),
+    "Fort Frontenac": (44.233333333, -76.478611111, "historic fort and trading-settlement site", "https://www.pc.gc.ca/apps/dfhd/page_nhs_eng.aspx?id=392", "site centroid"),
+    "Crow Creek": (43.98, -99.331667, "Crow Creek archaeological village site", "https://en.wikipedia.org/wiki/Crow_Creek_massacre", "site centroid"),
     "Liangchengzhen": (35.571, 119.572, "archaeological sampling/site location", "https://academic.oup.com/gji/article-abstract/232/2/1159/6747130", "site centroid"),
     "Yaowangcheng": (35.302171, 119.350127, "archaeological park/site location", "https://www.amap.com/place/B0KGTHETEK", "site centroid"),
     "Wangchenggang": (34.40084, 113.12496, "archaeological ruins location", "https://mapcarta.com/W1263470603", "site centroid"),
@@ -61,10 +66,13 @@ MANUAL_COORDINATES = {
     "Hefat (El-Mo'alla)": (25.475, 32.55, "approximate ancient Hefat/modern El-Mo'alla location", "https://egyptology.yale.edu/expeditions/past-and-joint-projects/moalla-survey-project", "historical core"),
 }
 
-INTENTIONALLY_UNLOCATED = {"Aztlán", "Onondaga town", "Hor-mer"}
+INTENTIONALLY_UNLOCATED = {"Aztlán", "Onondaga town", "Hor-mer", "Ounotisaston"}
 
 MANUAL_ENTITY_OVERRIDES = {
     "Dholavira": {"wikidata_id": "Q9468", "wikidata_url": "https://www.wikidata.org/wiki/Q9468", "wikipedia_url": "https://en.wikipedia.org/wiki/Dholavira", "description": "archaeological site in Kutch, Gujarat in western India"},
+    "Panga ya Saidi": {"wikidata_id": "Q53443604", "wikidata_url": "https://www.wikidata.org/wiki/Q53443604", "wikipedia_url": "https://en.wikipedia.org/wiki/Panga_ya_Saidi", "description": "archaeological cave site in Kilifi County, Kenya"},
+    "Başur Höyük": {"wikidata_id": "Q6100419", "wikidata_url": "https://www.wikidata.org/wiki/Q6100419", "wikipedia_url": "https://en.wikipedia.org/wiki/Ba%C5%9Fur_H%C3%B6y%C3%BCk", "description": "archaeological mound in Siirt Province, Turkey"},
+    "Fort Frontenac": {"wikidata_id": "Q515965", "wikidata_url": "https://www.wikidata.org/wiki/Q515965", "wikipedia_url": "https://en.wikipedia.org/wiki/Fort_Frontenac", "description": "historic fort and trading settlement in Kingston, Ontario, Canada"},
     "Zhengzhou Shang City": {"wikidata_id": "Q203132", "wikidata_url": "https://www.wikidata.org/wiki/Q203132", "wikipedia_url": "https://en.wikipedia.org/wiki/Zhengzhou_Shang_City", "description": "Bronze Age archaeological city in Zhengzhou, China"},
     "Yaxchilán": {"wikidata_id": "Q662263", "wikidata_url": "https://www.wikidata.org/wiki/Q662263", "wikipedia_url": "https://en.wikipedia.org/wiki/Yaxchilan", "description": "pre-Columbian Maya city in Chiapas, Mexico"},
 }

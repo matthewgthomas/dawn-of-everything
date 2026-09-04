@@ -40,7 +40,8 @@ export const PLACE_CATEGORIES = {
     types: [
       'aggregation and monument site', 'aggregation and mound site', 'ancient settlement and necropolis',
       'burial and habitation locality', 'cave habitation and burial site', 'ceremonial and aggregation centre',
-      'ceremonial and residential centre', 'seasonal aggregation and monument complex', 'settlement and cemetery',
+      'ceremonial and residential centre', 'fortified village and burial site',
+      'seasonal aggregation and monument complex', 'settlement and cemetery',
       'settlement and ceremonial centre', 'settlement and monument site', 'shell-mound capital',
     ],
   },
@@ -54,7 +55,8 @@ export const PLACE_CATEGORIES = {
   centres: {
     label: 'Fortified, capital, and trading centres',
     types: [
-      'Shang capital', 'capital settlement', 'capital village', 'city-state', 'fortified trading settlement',
+      'Shang capital', 'capital settlement', 'capital village', 'city-state', 'fortified historical settlement',
+      'fortified trading settlement', 'fortified village and burial site', 'historical capital settlement',
       'modern and historic capital', 'regional centre', 'royal village', 'settlement and capital',
       'shell-mound capital', 'trading settlement', 'walled city', 'walled settlement', 'walled town',
     ],

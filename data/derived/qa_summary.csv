@@ -1,8 +1,8 @@
 check,value,status
-canonical settlements,138,info
-settlement-paragraph mentions,606,info
+canonical settlements,144,info
+settlement-paragraph mentions,613,info
 settlements without matched paragraphs,0,pass
-settlements without coordinates,3,review
+settlements without coordinates,4,review
 duplicate canonical names,0,pass
 duplicate mention grain,0,pass
-linked bibliography references,294,info
+linked bibliography references,296,info

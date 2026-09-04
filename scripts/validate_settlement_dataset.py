@@ -101,7 +101,7 @@ def main() -> None:
             except ValueError:
                 coordinate_errors.append(f"{row['canonical_name']}: nonnumeric")
     checks.append(check("Coordinates are paired, numeric, and in bounds", not coordinate_errors, len(coordinate_errors), 0, " | ".join(coordinate_errors[:10])))
-    intended_unlocated = {"Aztlán", "Onondaga town", "Hor-mer"}
+    intended_unlocated = {"Aztlán", "Onondaga town", "Hor-mer", "Ounotisaston"}
     checks.append(check("Only intentionally unlocated settlements lack coordinates", set(unlocated) == intended_unlocated, " | ".join(sorted(unlocated)), " | ".join(sorted(intended_unlocated))))
 
     year_errors = []

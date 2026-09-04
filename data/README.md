@@ -1,6 +1,6 @@
 # Settlements in *The Dawn of Everything*
 
-This dataset is a curated, paragraph-level catalogue of named human settlements in the substantive text and notes of `book/The_Dawn_of_Everything.txt`. It contains 138 canonical settlements, 606 distinct settlement–paragraph mentions, and 294 bibliography entries linked through the book's note apparatus.
+This dataset is a curated, paragraph-level catalogue of named human settlements in the substantive text and notes of `book/The_Dawn_of_Everything.txt`. It contains 144 canonical settlements, 613 distinct settlement–paragraph mentions, and 296 bibliography entries linked through the book's note apparatus.
 
 ## Scope
 
@@ -32,11 +32,12 @@ The occupation dates are a reference synthesis prepared for this dataset; they a
 
 Coordinates are representative points, not settlement polygons. Most are resolved to Wikidata entities; `coordinate_source_url` records that entity or a documented manual override. `coordinate_precision` distinguishes city centroids, archaeological-site centroids, historical cores, nearby localities, representative components, and approximate locations.
 
-Three rows intentionally have blank coordinates:
+Four rows intentionally have blank coordinates:
 
 - Aztlán is a legendary homeland without a securely identified physical location.
 - Hor-mer is insufficiently located in the book and available reference data.
 - Onondaga town refers to a historically mobile/ambiguous capital name rather than one uniquely resolved site.
+- Ounotisaston is historically attested, but its proposed archaeological identification with the Walker Site remains uncertain.
 
 ## References and text fidelity
 

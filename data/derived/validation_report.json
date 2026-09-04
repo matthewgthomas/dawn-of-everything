@@ -1,44 +1,45 @@
 {
   "summary": {
-    "settlements": 138,
-    "mentions": 606,
-    "references": 294,
+    "settlements": 144,
+    "mentions": 613,
+    "references": 296,
     "checks": 22,
     "passed": 22,
     "failed": 0,
     "unlocated_settlements": [
       "Aztlán",
       "Hor-mer",
-      "Onondaga town"
+      "Onondaga town",
+      "Ounotisaston"
     ]
   },
   "checks": [
     {
       "check": "Settlement IDs are unique",
       "status": "PASS",
-      "observed": 138,
-      "expected": 138,
+      "observed": 144,
+      "expected": 144,
       "detail": ""
     },
     {
       "check": "Canonical settlement names are unique",
       "status": "PASS",
-      "observed": 138,
-      "expected": 138,
+      "observed": 144,
+      "expected": 144,
       "detail": ""
     },
     {
       "check": "Mention IDs are unique",
       "status": "PASS",
-      "observed": 606,
-      "expected": 606,
+      "observed": 613,
+      "expected": 613,
       "detail": ""
     },
     {
       "check": "Settlement-paragraph grain is unique",
       "status": "PASS",
-      "observed": 606,
-      "expected": 606,
+      "observed": 613,
+      "expected": 613,
       "detail": ""
     },
     {
@@ -86,8 +87,8 @@
     {
       "check": "Only intentionally unlocated settlements lack coordinates",
       "status": "PASS",
-      "observed": "Aztlán | Hor-mer | Onondaga town",
-      "expected": "Aztlán | Hor-mer | Onondaga town",
+      "observed": "Aztlán | Hor-mer | Onondaga town | Ounotisaston",
+      "expected": "Aztlán | Hor-mer | Onondaga town | Ounotisaston",
       "detail": ""
     },
     {
@@ -149,21 +150,21 @@
     {
       "check": "Dataset contains substantive settlement coverage",
       "status": "PASS",
-      "observed": 138,
+      "observed": 144,
       "expected": ">= 130",
       "detail": ""
     },
     {
       "check": "Dataset contains source-context coverage",
       "status": "PASS",
-      "observed": 606,
+      "observed": 613,
       "expected": ">= 600",
       "detail": ""
     },
     {
       "check": "Dataset contains linked bibliography coverage",
       "status": "PASS",
-      "observed": 294,
+      "observed": 296,
       "expected": ">= 250",
       "detail": ""
     }
