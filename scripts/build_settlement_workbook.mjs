@@ -107,7 +107,7 @@ const mentionWidths = {
 };
 const referenceWidths = {
   reference_id: 13, bibliography_key: 28, full_bibliography_entry: 100,
-  linked_book_note_ids: 38,
+  reference_url: 52, reference_url_kind: 18, linked_book_note_ids: 38,
 };
 
 const settlementRegion = writeObjectTable(
@@ -315,6 +315,8 @@ const descriptions = {
   reference_id: "Stable identifier for a linked bibliography entry.",
   bibliography_key: "Author–year key used to join a note citation to the bibliography.",
   full_bibliography_entry: "Complete bibliography entry; repeated-author em dashes are expanded.",
+  reference_url: "Curated canonical record URL or generated Google Scholar fallback.",
+  reference_url_kind: "Link provenance class: DOI, canonical page, repository, catalogue, or Scholar search.",
   linked_book_note_ids: "All settlement-linked book notes that cite the entry.",
 };
 

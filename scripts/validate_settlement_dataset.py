@@ -8,6 +8,7 @@ import csv
 import json
 from collections import Counter
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -45,12 +46,14 @@ def main() -> None:
     settlement_ids = [row["settlement_id"] for row in settlements]
     settlement_names = [row["canonical_name"] for row in settlements]
     mention_ids = [row["mention_id"] for row in mentions]
-    reference_keys = {row["bibliography_key"] for row in references}
+    reference_key_list = [row["bibliography_key"] for row in references]
+    reference_keys = set(reference_key_list)
     settlement_lookup = {row["settlement_id"]: row for row in settlements}
 
     checks.append(check("Settlement IDs are unique", len(set(settlement_ids)) == len(settlement_ids), len(set(settlement_ids)), len(settlement_ids)))
     checks.append(check("Canonical settlement names are unique", len(set(settlement_names)) == len(settlement_names), len(set(settlement_names)), len(settlement_names)))
     checks.append(check("Mention IDs are unique", len(set(mention_ids)) == len(mention_ids), len(set(mention_ids)), len(mention_ids)))
+    checks.append(check("Reference keys are unique", len(reference_keys) == len(reference_key_list), len(reference_keys), len(reference_key_list)))
 
     mention_grain = [(row["settlement_id"], row["paragraph_id"]) for row in mentions]
     checks.append(check("Settlement-paragraph grain is unique", len(set(mention_grain)) == len(mention_grain), len(set(mention_grain)), len(mention_grain)))
@@ -134,6 +137,29 @@ def main() -> None:
             empty_full_entries.append(row["mention_id"])
     checks.append(check("Every cited bibliography key links to the references table", not unresolved_reference_keys, len(unresolved_reference_keys), 0, " | ".join(sorted(set(unresolved_reference_keys))[:10])))
     checks.append(check("Every cited key has a full bibliography entry", not empty_full_entries, len(empty_full_entries), 0, " | ".join(empty_full_entries[:10])))
+
+    allowed_reference_url_kinds = {"doi", "canonical", "repository", "catalog", "scholar_search"}
+    invalid_reference_urls = []
+    invalid_reference_url_kinds = []
+    invalid_scholar_fallbacks = []
+    for row in references:
+        key = row["bibliography_key"]
+        url = row.get("reference_url", "")
+        kind = row.get("reference_url_kind", "")
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or not parsed.netloc:
+            invalid_reference_urls.append(key)
+        if kind not in allowed_reference_url_kinds:
+            invalid_reference_url_kinds.append(key)
+        if kind == "scholar_search" and (
+            parsed.netloc != "scholar.google.com"
+            or parsed.path != "/scholar"
+            or not parse_qs(parsed.query).get("q")
+        ):
+            invalid_scholar_fallbacks.append(key)
+    checks.append(check("Every reference has a valid HTTPS link", not invalid_reference_urls, len(invalid_reference_urls), 0, " | ".join(invalid_reference_urls[:10])))
+    checks.append(check("Every reference link has a supported kind", not invalid_reference_url_kinds, len(invalid_reference_url_kinds), 0, " | ".join(invalid_reference_url_kinds[:10])))
+    checks.append(check("Scholar fallbacks contain a citation query", not invalid_scholar_fallbacks, len(invalid_scholar_fallbacks), 0, " | ".join(invalid_scholar_fallbacks[:10])))
 
     forbidden_names = {"Sacramento", "Trypillia", "Omelas"}
     present_forbidden = sorted(forbidden_names & set(settlement_names))

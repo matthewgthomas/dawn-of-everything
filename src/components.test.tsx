@@ -343,6 +343,12 @@ describe('DetailDrawer', () => {
     expect(passageNotes.querySelectorAll('p')).toHaveLength(3)
     expect(passageReferences.querySelectorAll('p')).toHaveLength(3)
     expect(passageDetails).not.toHaveTextContent('|')
+    const passageLinks = within(passageReferences).getAllByRole('link')
+    expect(passageLinks).toHaveLength(3)
+    passageLinks.forEach((link) => {
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    })
 
     await user.click(screen.getByRole('button', { name: 'References' }))
 
@@ -351,9 +357,14 @@ describe('DetailDrawer', () => {
     expect(within(referenceView).getByText('Book notes').parentElement!.querySelectorAll('p')).toHaveLength(3)
     expect(within(referenceView).getByText('Bibliography').parentElement!.querySelectorAll('p')).toHaveLength(3)
     expect(referenceView).not.toHaveTextContent('|')
-    expect(within(referenceView).getByText(/^Bagley, Robert\. 1999\./)).toBeInTheDocument()
-    expect(within(referenceView).getByText(/^Shaughnessy, Edward\. L\. 1989\./)).toBeInTheDocument()
-    expect(within(referenceView).getByText(/^Gose, Peter\. 1996\./)).toBeInTheDocument()
+    const bagleyLink = within(referenceView).getByRole('link', { name: /^Bagley, Robert\. 1999\./ })
+    expect(bagleyLink).toHaveAttribute('target', '_blank')
+    expect(bagleyLink).toHaveAttribute('rel', 'noopener noreferrer')
+    const shaughnessyLink = within(referenceView).getByRole('link', { name: /^Shaughnessy, Edward\. L\. 1989\./ })
+    const shaughnessyUrl = new URL(shaughnessyLink.getAttribute('href')!)
+    expect(shaughnessyUrl.hostname).toBe('scholar.google.com')
+    expect(shaughnessyUrl.searchParams.get('q')).toMatch(/^Shaughnessy, Edward\. L\. 1989\./)
+    expect(within(referenceView).getByRole('link', { name: /^Gose, Peter\. 1996\./ })).toBeInTheDocument()
   })
 
   it('deduplicates split items and counts the consolidated reference entries', () => {
@@ -363,5 +374,32 @@ describe('DetailDrawer', () => {
     expect(within(referenceView).getByText('12 entries')).toBeInTheDocument()
     expect(within(referenceView).getAllByText(/^Bagley, Robert\. 1999\./)).toHaveLength(1)
     expect(referenceView).not.toHaveTextContent('|')
+  })
+
+  it('uses a curated DOI link when the bibliography provides one', () => {
+    render(<DetailDrawer settlement={settlement('Uruk')} query="" initialView="references" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    const greenLink = screen.getByRole('link', { name: /Killing the priest-king/i })
+    expect(greenLink).toHaveAttribute('href', 'https://doi.org/10.1007/s10814-020-09147-9')
+  })
+
+  it('renders a plain bibliography entry when reference lookup data is missing', () => {
+    const anyang = settlement('Anyang (Yinxu)')
+    const sourceMention = anyang.mentions[0]
+    const missingReferenceText = 'Missing, Example. 2000. A reference without lookup data.'
+    const settlementWithMissingReference = {
+      ...anyang,
+      mentions: [{
+        ...sourceMention,
+        book_note_texts: '',
+        bibliography_keys: 'Missing 2000',
+        full_bibliography_entries: missingReferenceText,
+      }],
+    }
+
+    render(<DetailDrawer settlement={settlementWithMissingReference} query="" initialView="references" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    expect(screen.getByText(missingReferenceText)).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: missingReferenceText })).not.toBeInTheDocument()
   })
 })

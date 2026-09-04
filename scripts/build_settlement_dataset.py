@@ -8,6 +8,7 @@ import csv
 import json
 import math
 import re
+import urllib.parse
 from collections import defaultdict
 from pathlib import Path
 
@@ -67,6 +68,8 @@ MANUAL_COORDINATES = {
 }
 
 INTENTIONALLY_UNLOCATED = {"Aztlán", "Onondaga town", "Hor-mer", "Ounotisaston"}
+
+REFERENCE_LINK_KINDS = {"doi", "canonical", "repository", "catalog", "scholar_search"}
 
 MANUAL_ENTITY_OVERRIDES = {
     "Dholavira": {"wikidata_id": "Q9468", "wikidata_url": "https://www.wikidata.org/wiki/Q9468", "wikipedia_url": "https://en.wikipedia.org/wiki/Dholavira", "description": "archaeological site in Kutch, Gujarat in western India"},
@@ -190,6 +193,41 @@ def extract_citation_keys(text: str, bibliography: dict[str, str]) -> list[str]:
     return keys
 
 
+def load_reference_links(path: Path) -> dict[str, dict[str, str]]:
+    with path.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    links: dict[str, dict[str, str]] = {}
+    for row in rows:
+        key = row.get("bibliography_key", "").strip()
+        kind = row.get("reference_url_kind", "").strip()
+        url = row.get("reference_url", "").strip()
+        if not key:
+            raise ValueError(f"Reference-link curation row has no bibliography_key: {row}")
+        if key in links:
+            raise ValueError(f"Duplicate reference-link curation key: {key}")
+        if kind not in REFERENCE_LINK_KINDS:
+            raise ValueError(f"Unsupported reference_url_kind for {key}: {kind}")
+        if kind != "scholar_search" and not url.startswith("https://"):
+            raise ValueError(f"Direct reference URL must use HTTPS for {key}: {url}")
+        if kind == "scholar_search" and url:
+            raise ValueError(f"Scholar fallback URL must be generated, not stored, for {key}")
+        links[key] = {"reference_url": url, "reference_url_kind": kind}
+    return links
+
+
+def resolved_reference_link(key: str, entry: str, links: dict[str, dict[str, str]]) -> dict[str, str]:
+    if key not in links:
+        raise ValueError(f"Missing reference-link curation for {key}")
+    link = links[key]
+    if link["reference_url_kind"] != "scholar_search":
+        return link
+    query = urllib.parse.urlencode({"q": entry})
+    return {
+        "reference_url": f"https://scholar.google.com/scholar?{query}",
+        "reference_url_kind": "scholar_search",
+    }
+
+
 def parse_bibliography(source_lines: list[str]) -> tuple[dict[str, str], list[dict[str, str]]]:
     index: dict[str, str] = {}
     rows: list[dict[str, str]] = []
@@ -239,6 +277,7 @@ def main() -> None:
     parser.add_argument("curation_csv", type=Path)
     parser.add_argument("paragraphs_json", type=Path)
     parser.add_argument("source_txt", type=Path)
+    parser.add_argument("reference_links_csv", type=Path)
     parser.add_argument("output_dir", type=Path)
     parser.add_argument("wikidata_csv", nargs="+", type=Path)
     args = parser.parse_args()
@@ -249,6 +288,7 @@ def main() -> None:
     paragraphs = json.loads(args.paragraphs_json.read_text(encoding="utf-8"))
     source_lines = args.source_txt.read_text(encoding="utf-8").splitlines()
     bibliography, bibliography_rows = parse_bibliography(source_lines)
+    reference_links = load_reference_links(args.reference_links_csv)
     wikidata = load_wikidata(args.wikidata_csv)
 
     settlement_rows: list[dict[str, object]] = []
@@ -367,14 +407,21 @@ def main() -> None:
     # Only references actually linked to a settlement mention are part of the normalized table.
     reference_rows = []
     for key in sorted(reference_usage):
+        link = resolved_reference_link(key, bibliography[key], reference_links)
         reference_rows.append(
             {
                 "reference_id": f"R{len(reference_rows) + 1:03d}",
                 "bibliography_key": key,
                 "full_bibliography_entry": bibliography[key],
+                "reference_url": link["reference_url"],
+                "reference_url_kind": link["reference_url_kind"],
                 "linked_book_note_ids": " | ".join(sorted(reference_usage[key])),
             }
         )
+
+    unused_reference_links = sorted(set(reference_links) - set(reference_usage))
+    if unused_reference_links:
+        raise ValueError(f"Reference-link curation contains unused keys: {' | '.join(unused_reference_links)}")
 
     qa_rows = [
         {"check": "canonical settlements", "value": len(settlement_rows), "status": "info"},

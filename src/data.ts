@@ -51,6 +51,8 @@ export interface Reference {
   reference_id: string
   bibliography_key: string
   full_bibliography_entry: string
+  reference_url: string
+  reference_url_kind: 'doi' | 'canonical' | 'repository' | 'catalog' | 'scholar_search'
   linked_book_note_ids: string
 }
 
@@ -105,6 +107,7 @@ export interface NormalizedSettlement extends Settlement {
 }
 
 export const dataset = rawDataset as Dataset
+export const referenceByBibliographyKey = new Map(dataset.references.map((reference) => [reference.bibliography_key, reference]))
 
 const parseOptionalNumber = (value: string | undefined) => {
   if (!value) return null

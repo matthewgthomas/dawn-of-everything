@@ -3,8 +3,8 @@
     "settlements": 144,
     "mentions": 613,
     "references": 296,
-    "checks": 22,
-    "passed": 22,
+    "checks": 26,
+    "passed": 26,
     "failed": 0,
     "unlocated_settlements": [
       "Aztlán",
@@ -33,6 +33,13 @@
       "status": "PASS",
       "observed": 613,
       "expected": 613,
+      "detail": ""
+    },
+    {
+      "check": "Reference keys are unique",
+      "status": "PASS",
+      "observed": 296,
+      "expected": 296,
       "detail": ""
     },
     {
@@ -121,6 +128,27 @@
     },
     {
       "check": "Every cited key has a full bibliography entry",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Every reference has a valid HTTPS link",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Every reference link has a supported kind",
+      "status": "PASS",
+      "observed": 0,
+      "expected": 0,
+      "detail": ""
+    },
+    {
+      "check": "Scholar fallbacks contain a citation query",
       "status": "PASS",
       "observed": 0,
       "expected": 0,

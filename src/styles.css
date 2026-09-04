@@ -1149,6 +1149,8 @@ mark { padding: 0 2px; background: var(--orange-bright); color: inherit; border-
 .mention-card summary { color: var(--red); font-family: var(--font-ui); font-weight: 600; text-transform: uppercase; cursor: pointer; }
 .mention-card details div { margin-top: 10px; }
 .mention-card details p { line-height: 1.5; white-space: pre-line; }
+.bibliography-entry a { color: var(--red); text-decoration-thickness: 1px; text-underline-offset: 0.14em; }
+.bibliography-entry svg { width: 13px; height: 13px; margin-left: 4px; vertical-align: -2px; }
 .reference-group { margin-top: 18px; }
 .reference-group h4 { color: var(--red); }
 .reference-group p { padding: 12px 0; margin: 0; border-bottom: 1px solid var(--line); line-height: 1.55; white-space: pre-line; }

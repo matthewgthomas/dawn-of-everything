@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, BookOpen, MapPinOff, Star, X } from 'lucide-react'
 import BookTitleLink from './BookTitleLink'
-import { formatAreaEstimate, getPeakAreaObservation, type Mention, type NormalizedSettlement } from './data'
+import { formatAreaEstimate, getPeakAreaObservation, referenceByBibliographyKey, type Mention, type NormalizedSettlement } from './data'
 import HighlightedText from './HighlightedText'
 import SettlementLocationMap from './SettlementLocationMap'
 import { useDialogFocus } from './useDialogFocus'
@@ -42,6 +42,33 @@ const formatSourceLocator = (locator: string) => {
 const splitSourceUrls = (value: string) => value.split(/;\s*/u).filter(Boolean)
 const splitDelimitedItems = (value: string) => value.split('|').map((item) => item.trim()).filter(Boolean)
 
+interface BibliographyItem {
+  key: string
+  text: string
+  url: string
+}
+
+const getMentionBibliography = (mention: Mention): BibliographyItem[] => {
+  const keys = splitDelimitedItems(mention.bibliography_keys)
+  return splitDelimitedItems(mention.full_bibliography_entries).map((text, index) => {
+    const key = keys[index] ?? ''
+    const reference = referenceByBibliographyKey.get(key)
+    return {
+      key: key || `unresolved:${text}`,
+      text: reference?.full_bibliography_entry ?? text,
+      url: reference?.reference_url ?? '',
+    }
+  })
+}
+
+const BibliographyEntry = ({ item }: { item: BibliographyItem }) => (
+  <p className="bibliography-entry">
+    {item.url
+      ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.text}<ArrowUpRight aria-hidden="true" /></a>
+      : item.text}
+  </p>
+)
+
 export default function DetailDrawer({
   settlement,
   query,
@@ -67,7 +94,13 @@ export default function DetailDrawer({
     .filter(isSubstantive)
     .sort((a, b) => Number(b.complete_paragraph_text.length > 120) - Number(a.complete_paragraph_text.length > 120) || a.source_line_start - b.source_line_start)[0]
     ?? settlement.mentions[0], [settlement.mentions])
-  const references = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => splitDelimitedItems(mention.full_bibliography_entries)))], [settlement.mentions])
+  const references = useMemo(() => {
+    const entries = new Map<string, BibliographyItem>()
+    settlement.mentions.flatMap(getMentionBibliography).forEach((reference) => {
+      if (!entries.has(reference.key)) entries.set(reference.key, reference)
+    })
+    return [...entries.values()]
+  }, [settlement.mentions])
   const notes = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => splitDelimitedItems(mention.book_note_texts)))], [settlement.mentions])
   const hasReferences = references.length > 0 || notes.length > 0
   const areaSummary = useMemo(() => getPeakAreaObservation(settlement.areaObservations), [settlement.areaObservations])
@@ -244,7 +277,7 @@ export default function DetailDrawer({
                           <details>
                             <summary>Notes & bibliography</summary>
                             {mention.book_note_texts && <div><b>Book notes</b>{splitDelimitedItems(mention.book_note_texts).map((note, index) => <p key={`${index}:${note}`}>{note}</p>)}</div>}
-                            {mention.full_bibliography_entries && <div><b>Bibliography</b>{splitDelimitedItems(mention.full_bibliography_entries).map((reference, index) => <p key={`${index}:${reference}`}>{reference}</p>)}</div>}
+                            {mention.full_bibliography_entries && <div><b>Bibliography</b>{getMentionBibliography(mention).map((reference) => <BibliographyEntry item={reference} key={reference.key} />)}</div>}
                           </details>
                         )}
                       </article>
@@ -260,7 +293,7 @@ export default function DetailDrawer({
           <section className="detail-view references-view" aria-labelledby="references-title">
             <div className="detail-section-title"><h3 id="references-title">References</h3><span>{references.length + notes.length} entries</span></div>
             {notes.length > 0 && <div className="reference-group"><h4>Book notes</h4>{notes.map((note) => <p key={note}>{note}</p>)}</div>}
-            {references.length > 0 && <div className="reference-group"><h4>Bibliography</h4>{references.map((reference) => <p key={reference}>{reference}</p>)}</div>}
+            {references.length > 0 && <div className="reference-group"><h4>Bibliography</h4>{references.map((reference) => <BibliographyEntry item={reference} key={reference.key} />)}</div>}
           </section>
         )}
       </div>

@@ -15,6 +15,7 @@ Every exported mention is tied to an included canonical settlement and retains t
 - `settlements.csv`: one row per canonical settlement. It holds aliases found in the book, settlement type, coordinates, entity-resolution metadata, the occupation interval, and provenance/curation notes.
 - `settlement_mentions.csv`: one row per settlement–source-paragraph pair. `complete_paragraph_text` is the full extracted paragraph without truncation. The row includes exact line bounds, note IDs and note text, bibliography keys, and complete bibliography entries. A paragraph that names multiple settlements appears once for each settlement.
 - `references.csv`: one row per bibliography entry actually linked from at least one settlement mention.
+- `reference_links.csv`: one curation row per linked bibliography key, recording a verified direct destination or an explicit Scholar fallback.
 - `qa_summary.csv`: compact build-level metrics.
 - `validation_checks.csv` and `validation_report.json`: the independent relational, range, citation-link, and source-fidelity audit.
 - `dataset.json`: the three main tables and build QA in a single machine-readable file.
@@ -43,7 +44,9 @@ Four rows intentionally have blank coordinates:
 
 The `book_note_ids` and `book_note_texts` fields link a mention paragraph to the book's chapter notes. Author–year keys recognized in those notes are resolved against the book's bibliography and expanded into `full_bibliography_entries`. Repeated-author em dashes in the printed bibliography are expanded to the preceding author string so that each exported reference is self-contained. Blank reference fields mean that the relevant paragraph has no linked book note or the note has no resolvable author–year bibliography entry; they do not imply that the settlement has no scholarly literature.
 
-The validator compares every stored paragraph byte-for-byte (after the source parser's whitespace normalization) with the indexed source paragraph and checks the original line range. The current release passes all 22 validation checks.
+`reference_links.csv` supplies the outbound link for every linked bibliography key. Link curation prefers a DOI, then a canonical publisher, journal or institutional page, an institutional repository, or a durable catalogue record. Entries without a confidently verified direct record are explicitly marked `scholar_search`; the offline dataset build generates their Google Scholar query URLs from the complete bibliography text. Generated reference rows expose both `reference_url` and `reference_url_kind`.
+
+The validator compares every stored paragraph byte-for-byte (after the source parser's whitespace normalization) with the indexed source paragraph and checks the original line range. The current release passes all validation checks.
 
 ## Physical basemap
 
@@ -55,7 +58,7 @@ The core build is reproducible from the checked-in curation and source text:
 
 ```sh
 python3 scripts/extract_settlement_candidates.py book/The_Dawn_of_Everything.txt .tmp/extraction
-python3 scripts/build_settlement_dataset.py data/settlement_curation.csv .tmp/extraction/paragraphs.json book/The_Dawn_of_Everything.txt data/derived .tmp/wikidata_all_matches.csv .tmp/wikidata_curation_matches.csv
+python3 scripts/build_settlement_dataset.py data/settlement_curation.csv .tmp/extraction/paragraphs.json book/The_Dawn_of_Everything.txt data/reference_links.csv data/derived .tmp/wikidata_all_matches.csv .tmp/wikidata_curation_matches.csv
 python3 scripts/validate_settlement_dataset.py data/derived .tmp/extraction/paragraphs.json data/derived/validation_report.json data/derived/validation_checks.csv
 npm run build:map-geography
 ```
