@@ -316,16 +316,73 @@ describe('DetailDrawer', () => {
     expect(evidence).toHaveAttribute('target', '_blank')
   })
 
-  it('keeps an unlocated settlement browseable with full grouped passages', async () => {
+  it('keeps an unlocated settlement browseable with its chapter passages', async () => {
     const user = userEvent.setup()
     const aztlan = settlement('Aztlán')
     render(<DetailDrawer settlement={aztlan} query="homeland" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
     expect(screen.getByRole('heading', { name: 'Aztlán' })).toBeInTheDocument()
     expect(screen.getByText('Location unresolved')).toBeInTheDocument()
     expect(screen.queryByRole('img', { name: /world map/i })).not.toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: /Passages \(2\)/ }))
+    await user.click(screen.getByRole('button', { name: /Passages \(1\)/ }))
     expect(screen.getByText(/Passages from the book/)).toBeInTheDocument()
     expect(screen.getAllByText(/Chapter/).length).toBeGreaterThan(0)
+  })
+
+  it('shows only chapter passages when a settlement also has notes and front matter mentions', () => {
+    const teotihuacan = settlement('Teotihuacan')
+    const chapterMentions = teotihuacan.mentions.filter((mention) => mention.section_kind === 'chapter')
+
+    render(<DetailDrawer settlement={teotihuacan} query="" initialView="passages" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    expect(screen.getByRole('button', { name: `Passages (${chapterMentions.length})` })).toBeInTheDocument()
+    expect(screen.getByText(`${chapterMentions.length} paragraphs`)).toBeInTheDocument()
+    expect(screen.queryByText(/Front matter:/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/^Notes to Chapter/i)).not.toBeInTheDocument()
+    expect(document.querySelectorAll('.mention-card')).toHaveLength(chapterMentions.length)
+  })
+
+  it('keeps notes passages when a settlement has no chapter mentions', () => {
+    const elCastillo = settlement('El Castillo Cave')
+    const noteMentions = elCastillo.mentions.filter((mention) => mention.section_kind === 'notes')
+
+    render(<DetailDrawer settlement={elCastillo} query="" initialView="passages" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    expect(screen.getByRole('button', { name: `Passages (${noteMentions.length})` })).toBeInTheDocument()
+    expect(screen.getByText(`${noteMentions.length} paragraphs`)).toBeInTheDocument()
+    expect(screen.getAllByText(/^Notes to Chapter/i)).toHaveLength(noteMentions.length)
+    expect(document.querySelectorAll('.mention-card')).toHaveLength(noteMentions.length)
+    expect(screen.getAllByText('Bibliography')).toHaveLength(noteMentions.length * 2)
+    expect(screen.queryByText('Notes & bibliography')).not.toBeInTheDocument()
+    expect(screen.queryByText('Book notes')).not.toBeInTheDocument()
+  })
+
+  it('omits empty passage details for notes-only settlements without bibliography entries', () => {
+    render(<DetailDrawer settlement={settlement('Wangchenggang')} query="" initialView="passages" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    expect(document.querySelectorAll('.mention-card')).toHaveLength(1)
+    expect(document.querySelector('.mention-card details')).not.toBeInTheDocument()
+  })
+
+  it('ignores hidden note matches when summarizing and focusing mixed passage results', async () => {
+    const teotihuacan = settlement('Teotihuacan')
+    const hiddenNote = teotihuacan.mentions.find((mention) => mention.section_kind === 'notes')!
+    const visibleChapter = teotihuacan.mentions.find((mention) => mention.section_kind === 'chapter')!
+
+    render(<DetailDrawer
+      settlement={teotihuacan}
+      query="Teotihuacan"
+      initialView="passages"
+      matchingMentionIds={[hiddenNote.mention_id, visibleChapter.mention_id]}
+      bestMentionId={hiddenNote.mention_id}
+      pinned={false}
+      canPin
+      onPin={() => undefined}
+      onClose={() => undefined}
+    />)
+
+    expect(screen.getByText('1 matching passage')).toBeInTheDocument()
+    expect(document.getElementById(`mention-${hiddenNote.mention_id}`)).not.toBeInTheDocument()
+    await waitFor(() => expect(document.getElementById(`mention-${visibleChapter.mention_id}`)).toHaveFocus())
   })
 
   it('splits pipe-delimited book notes and bibliography citations into individual entries', async () => {

@@ -98,8 +98,20 @@ export default function DetailDrawer({
 }: DetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null)
   const [view, setView] = useState<DetailView>(initialView)
-  const matchingIds = useMemo(() => new Set(matchingMentionIds), [matchingMentionIds])
-  const mentionGroups = useMemo(() => groupMentions(settlement.mentions, matchingIds), [matchingIds, settlement.mentions])
+  const visibleMentions = useMemo(() => {
+    const chapterMentions = settlement.mentions.filter(isSubstantive)
+    return chapterMentions.length > 0
+      ? chapterMentions
+      : settlement.mentions.filter((mention) => mention.section_kind === 'notes')
+  }, [settlement.mentions])
+  const showingNoteMentions = visibleMentions.some((mention) => mention.section_kind === 'notes')
+  const visibleMentionIds = useMemo(() => new Set(visibleMentions.map((mention) => mention.mention_id)), [visibleMentions])
+  const matchingIds = useMemo(() => new Set(matchingMentionIds.filter((id) => visibleMentionIds.has(id))), [matchingMentionIds, visibleMentionIds])
+  const bestVisibleMentionId = useMemo(() => {
+    if (bestMentionId && visibleMentionIds.has(bestMentionId)) return bestMentionId
+    return matchingMentionIds.find((id) => visibleMentionIds.has(id)) ?? null
+  }, [bestMentionId, matchingMentionIds, visibleMentionIds])
+  const mentionGroups = useMemo(() => groupMentions(visibleMentions, matchingIds), [matchingIds, visibleMentions])
   const firstSubstantiveGroup = mentionGroups.find(([, mentions]) => mentions.some(isSubstantive))?.[0] ?? mentionGroups[0]?.[0]
   const [openGroups, setOpenGroups] = useState(() => new Set([
     ...(firstSubstantiveGroup ? [firstSubstantiveGroup] : []),
@@ -124,15 +136,15 @@ export default function DetailDrawer({
   useDialogFocus(drawerRef)
 
   useEffect(() => {
-    if (view !== 'passages' || !bestMentionId) return
+    if (view !== 'passages' || !bestVisibleMentionId) return
     const timer = window.setTimeout(() => {
-      const target = document.getElementById(`mention-${bestMentionId}`)
+      const target = document.getElementById(`mention-${bestVisibleMentionId}`)
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       target?.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' })
       target?.focus({ preventScroll: true })
     }, 80)
     return () => window.clearTimeout(timer)
-  }, [bestMentionId, view])
+  }, [bestVisibleMentionId, view])
 
   const setGroupOpen = (section: string, open: boolean) => setOpenGroups((current) => {
     const next = new Set(current)
@@ -161,7 +173,7 @@ export default function DetailDrawer({
       <nav className="detail-nav" aria-label={`${settlement.canonical_name} details`}>
         <button className={view === 'overview' ? 'is-active' : ''} aria-current={view === 'overview' ? 'page' : undefined} onClick={() => setView('overview')}>Overview</button>
         <button className={view === 'area' ? 'is-active' : ''} aria-current={view === 'area' ? 'page' : undefined} onClick={() => setView('area')}>Area</button>
-        <button className={view === 'passages' ? 'is-active' : ''} aria-current={view === 'passages' ? 'page' : undefined} onClick={() => setView('passages')}>Passages ({settlement.mentions.length})</button>
+        <button className={view === 'passages' ? 'is-active' : ''} aria-current={view === 'passages' ? 'page' : undefined} onClick={() => setView('passages')}>Passages ({visibleMentions.length})</button>
         {hasReferences && <button className={view === 'references' ? 'is-active' : ''} aria-current={view === 'references' ? 'page' : undefined} onClick={() => setView('references')}>References</button>}
       </nav>
 
@@ -275,7 +287,7 @@ export default function DetailDrawer({
 
         {view === 'passages' && (
           <section className="detail-view passages-section" aria-labelledby="passages-title">
-            <div className="detail-section-title"><h3 id="passages-title">Passages from the book</h3><span>{settlement.mentions.length} paragraphs</span></div>
+            <div className="detail-section-title"><h3 id="passages-title">Passages from the book</h3><span>{visibleMentions.length} paragraphs</span></div>
             {matchingIds.size > 0 && <p className="matching-passages-summary" role="status"><strong>{matchingIds.size} matching passage{matchingIds.size === 1 ? '' : 's'}</strong> shown first within the matching sections.</p>}
             {mentionGroups.map(([section, mentions]) => {
               const matchesInGroup = mentions.filter((mention) => matchingIds.has(mention.mention_id)).length
@@ -288,10 +300,10 @@ export default function DetailDrawer({
                       <article className={matchingIds.has(mention.mention_id) ? 'mention-card is-match' : 'mention-card'} id={`mention-${mention.mention_id}`} tabIndex={-1} key={mention.mention_id}>
                         {matchingIds.has(mention.mention_id) && <span className="match-label">Search match</span>}
                         <p><HighlightedText text={mention.complete_paragraph_text} query={query} /></p>
-                        {(mention.book_note_texts || mention.full_bibliography_entries) && (
+                        {(mention.full_bibliography_entries || (!showingNoteMentions && mention.book_note_texts)) && (
                           <details>
-                            <summary>Notes & bibliography</summary>
-                            {mention.book_note_texts && <div><b>Book notes</b>{splitDelimitedItems(mention.book_note_texts).map((note, index) => <p key={`${index}:${note}`}>{note}</p>)}</div>}
+                            <summary>{showingNoteMentions ? 'Bibliography' : 'Notes & bibliography'}</summary>
+                            {!showingNoteMentions && mention.book_note_texts && <div><b>Book notes</b>{splitDelimitedItems(mention.book_note_texts).map((note, index) => <p key={`${index}:${note}`}>{note}</p>)}</div>}
                             {mention.full_bibliography_entries && <div><b>Bibliography</b>{getMentionBibliography(mention).map((reference) => <BibliographyEntry item={reference} key={reference.key} />)}</div>}
                           </details>
                         )}
