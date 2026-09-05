@@ -345,6 +345,11 @@ describe('DetailDrawer', () => {
     expect(passageDetails).not.toHaveTextContent('|')
     const passageLinks = within(passageReferences).getAllByRole('link')
     expect(passageLinks).toHaveLength(3)
+    expect(passageLinks.map((link) => link.textContent)).toEqual([
+      expect.stringMatching(/^Bagley, Robert\. 1999\./),
+      expect.stringMatching(/^Gose, Peter\. 1996\./),
+      expect.stringMatching(/^Shaughnessy, Edward\. L\. 1989\./),
+    ])
     passageLinks.forEach((link) => {
       expect(link).toHaveAttribute('target', '_blank')
       expect(link).toHaveAttribute('rel', 'noopener noreferrer')
@@ -352,10 +357,10 @@ describe('DetailDrawer', () => {
 
     await user.click(screen.getByRole('button', { name: 'References' }))
 
-    expect(screen.getByText('6 entries')).toBeInTheDocument()
+    expect(screen.getByText('3 entries')).toBeInTheDocument()
     const referenceView = screen.getByRole('heading', { name: 'References' }).closest('section')!
-    expect(within(referenceView).getByText('Book notes').parentElement!.querySelectorAll('p')).toHaveLength(3)
-    expect(within(referenceView).getByText('Bibliography').parentElement!.querySelectorAll('p')).toHaveLength(3)
+    expect(referenceView.querySelectorAll('p')).toHaveLength(3)
+    expect(within(referenceView).queryByText('Book notes')).not.toBeInTheDocument()
     expect(referenceView).not.toHaveTextContent('|')
     const bagleyLink = within(referenceView).getByRole('link', { name: /^Bagley, Robert\. 1999\./ })
     expect(bagleyLink).toHaveAttribute('target', '_blank')
@@ -371,9 +376,22 @@ describe('DetailDrawer', () => {
     render(<DetailDrawer settlement={settlement('Anyang (Yinxu)')} query="" initialView="references" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
 
     const referenceView = screen.getByRole('heading', { name: 'References' }).closest('section')!
-    expect(within(referenceView).getByText('12 entries')).toBeInTheDocument()
+    expect(within(referenceView).getByText('5 entries')).toBeInTheDocument()
     expect(within(referenceView).getAllByText(/^Bagley, Robert\. 1999\./)).toHaveLength(1)
     expect(referenceView).not.toHaveTextContent('|')
+  })
+
+  it('sorts bibliography entries alphabetically and chronologically for matching authors', () => {
+    render(<DetailDrawer settlement={settlement('Uruk')} query="" initialView="references" pinned={false} canPin onPin={() => undefined} onClose={() => undefined} />)
+
+    const referenceView = screen.getByRole('heading', { name: 'References' }).closest('section')!
+    const citations = within(referenceView).getAllByRole('link').map((link) => link.textContent ?? '')
+    expect(citations).toEqual([...citations].sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' })))
+    expect(citations.filter((citation) => citation.startsWith('Wengrow, David.'))).toEqual([
+      expect.stringMatching(/^Wengrow, David\. 1998\./),
+      expect.stringMatching(/^Wengrow, David\. 2008\./),
+      expect.stringMatching(/^Wengrow, David\. 2011\./),
+    ])
   })
 
   it('uses a curated DOI link when the bibliography provides one', () => {

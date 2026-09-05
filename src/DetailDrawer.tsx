@@ -48,6 +48,22 @@ interface BibliographyItem {
   url: string
 }
 
+const bibliographySortParts = (text: string) => {
+  const yearMatch = text.match(/(?:\(|\.\s)(\d{4}[a-z]?)(?:\)|\.)/u)
+  return {
+    authors: (yearMatch ? text.slice(0, yearMatch.index) : text).trim(),
+    year: yearMatch?.[1] ?? '',
+  }
+}
+
+const compareBibliographyItems = (a: BibliographyItem, b: BibliographyItem) => {
+  const aParts = bibliographySortParts(a.text)
+  const bParts = bibliographySortParts(b.text)
+  return aParts.authors.localeCompare(bParts.authors, 'en', { sensitivity: 'base' })
+    || aParts.year.localeCompare(bParts.year, 'en', { numeric: true })
+    || a.text.localeCompare(b.text, 'en', { sensitivity: 'base' })
+}
+
 const getMentionBibliography = (mention: Mention): BibliographyItem[] => {
   const keys = splitDelimitedItems(mention.bibliography_keys)
   return splitDelimitedItems(mention.full_bibliography_entries).map((text, index) => {
@@ -58,7 +74,7 @@ const getMentionBibliography = (mention: Mention): BibliographyItem[] => {
       text: reference?.full_bibliography_entry ?? text,
       url: reference?.reference_url ?? '',
     }
-  })
+  }).sort(compareBibliographyItems)
 }
 
 const BibliographyEntry = ({ item }: { item: BibliographyItem }) => (
@@ -99,10 +115,9 @@ export default function DetailDrawer({
     settlement.mentions.flatMap(getMentionBibliography).forEach((reference) => {
       if (!entries.has(reference.key)) entries.set(reference.key, reference)
     })
-    return [...entries.values()]
+    return [...entries.values()].sort(compareBibliographyItems)
   }, [settlement.mentions])
-  const notes = useMemo(() => [...new Set(settlement.mentions.flatMap((mention) => splitDelimitedItems(mention.book_note_texts)))], [settlement.mentions])
-  const hasReferences = references.length > 0 || notes.length > 0
+  const hasReferences = references.length > 0
   const areaSummary = useMemo(() => getPeakAreaObservation(settlement.areaObservations), [settlement.areaObservations])
   const unknownAreaObservation = settlement.areaObservations.find((observation) => observation.research_status === 'unknown')
 
@@ -291,7 +306,7 @@ export default function DetailDrawer({
 
         {view === 'references' && hasReferences && (
           <section className="detail-view references-view" aria-labelledby="references-title">
-            <div className="detail-section-title"><h3 id="references-title">References</h3><span>{references.length + notes.length} entries</span></div>
+            <div className="detail-section-title"><h3 id="references-title">References</h3><span>{references.length} entries</span></div>
             {references.length > 0 && <div className="reference-group">{references.map((reference) => <BibliographyEntry item={reference} key={reference.key} />)}</div>}
           </section>
         )}
