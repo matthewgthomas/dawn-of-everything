@@ -208,7 +208,7 @@ export default function DetailDrawer({
               ) : (
                 <p>{unknownAreaObservation?.notes || 'No defensible settlement-footprint estimate was identified.'}</p>
               )}
-              <button className="text-button area-summary-link" onClick={() => setView('area')}>View area research</button>
+              <button className="text-button area-summary-link" onClick={() => setView('area')}>View area details</button>
             </section>
 
             <dl className="metadata-grid">
