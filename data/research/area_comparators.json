@@ -1,0 +1,80 @@
+[
+  {
+    "name": "the Eiffel Tower’s base",
+    "area_ha": 1.5625,
+    "basis": "125 × 125 m square between the four pillars",
+    "source_url": "https://www.toureiffel.paris/fr/le-monument/chiffres-cle"
+  },
+  {
+    "name": "NASA’s rocket assembly building",
+    "area_ha": 3.23748513792,
+    "basis": "Vehicle Assembly Building footprint at Kennedy Space Center; 8 acres",
+    "source_url": "https://www.nasa.gov/centers-and-facilities/kennedy/kennedy-at-60-vehicle-assembly-building-ready-for-new-era-of-launch-vehicles/"
+  },
+  {
+    "name": "the Great Pyramid’s footprint",
+    "area_ha": 5.3,
+    "basis": "Base of the Great Pyramid of Giza; excludes the surrounding pyramid complex",
+    "source_url": "https://www.pbs.org/wgbh/nova/pyramid/geometry/base.html"
+  },
+  {
+    "name": "Alcatraz Island",
+    "area_ha": 9.1054269504,
+    "basis": "Whole island, including the former prison; 22.5 acres",
+    "source_url": "https://home.nps.gov/articles/725241.htm"
+  },
+  {
+    "name": "the Taj Mahal gardens",
+    "area_ha": 17,
+    "basis": "Mughal garden containing the Taj Mahal; nearly 17 ha",
+    "source_url": "https://whc.unesco.org/en/list/252/"
+  },
+  {
+    "name": "Bangkok’s Grand Palace grounds",
+    "area_ha": 21.8,
+    "basis": "Walled palace grounds, including halls and the royal temple; 218,000 m²",
+    "source_url": "https://www.royalgrandpalace.th/en/discover/history/"
+  },
+  {
+    "name": "Vatican City",
+    "area_ha": 44,
+    "basis": "Entire city-state, including St Peter’s Square and the gardens",
+    "source_url": "https://www.vaticanstate.va/en/state-and-government/general-informations/geography.html"
+  },
+  {
+    "name": "Beijing’s Forbidden City",
+    "area_ha": 72,
+    "basis": "Palace complex; 720,000 m²",
+    "source_url": "https://intl.dpm.org.cn/visit.html?_wap=1"
+  },
+  {
+    "name": "the Temple of Heaven grounds",
+    "area_ha": 273,
+    "basis": "Historic temple grounds in Beijing, including inner and outer precincts",
+    "source_url": "https://www.tiantanpark.cn/aboutus.html"
+  },
+  {
+    "name": "the Glastonbury Festival site",
+    "area_ha": 607.02846336,
+    "basis": "Festival farmland as described in the 2025 access guide; 1,500 acres",
+    "source_url": "https://glastonburyfestivals.co.uk/wp-content/uploads/2025/01/ACCESS-INFORMATION-2025.pdf"
+  },
+  {
+    "name": "the park at Versailles",
+    "area_ha": 800,
+    "basis": "Park surrounding the palace estate; approximately 800 ha",
+    "source_url": "https://en.chateauversailles.fr/discover/estate/park"
+  },
+  {
+    "name": "Heathrow Airport",
+    "area_ha": 1227,
+    "basis": "Area within the airfield boundaries; includes runways and terminals",
+    "source_url": "https://www.heathrow.com/company/about-heathrow/company-faqs"
+  },
+  {
+    "name": "Burning Man’s Black Rock City",
+    "area_ha": 1812.9916772352,
+    "basis": "Whole event area including open playa, not just the street grid; about 7 square miles (2026 guide)",
+    "source_url": "https://survival.burningman.org/law-enforcement/specific-laws-to-be-aware-of/"
+  }
+]

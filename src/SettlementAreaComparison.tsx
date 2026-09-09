@@ -58,7 +58,10 @@ export default function SettlementAreaComparison({
                   <span className="area-bar-track" role="img" aria-label={`${settlement.canonical_name}: ${hectaresDisplay}, displayed on a logarithmic scale`}>
                     <span className="area-bar" style={{ width: `${barWidth}%` }} />
                   </span>
-                  <span className="area-row-values">{squareKilometresDisplay} <i aria-hidden="true">·</i> {observation.comparator_text}</span>
+                  <span className="area-row-values">{squareKilometresDisplay}</span>
+                  <span className="area-row-comparators">
+                    {observation.comparators.map((comparator) => <span key={comparator.sourceUrl}>{comparator.text}</span>)}
+                  </span>
                 </button>
                 <button
                   className={pinIndex >= 0 ? `area-pin is-pinned pin-${pinIndex}` : 'area-pin'}

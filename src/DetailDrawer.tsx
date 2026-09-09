@@ -203,7 +203,7 @@ export default function DetailDrawer({
                 <>
                   <div className="area-summary-values"><strong>{formatAreaEstimate(areaSummary.area_hectares_display)}</strong><span>{formatAreaEstimate(areaSummary.area_km2_display)}</span></div>
                   <p>{areaSummary.period_label}</p>
-                  <p className="area-summary-comparator">{areaSummary.comparator_text}</p>
+                  {areaSummary.comparators.map((comparator) => <p className="area-summary-comparator" key={comparator.sourceUrl}>{comparator.text}</p>)}
                 </>
               ) : (
                 <p>{unknownAreaObservation?.notes || 'No defensible settlement-footprint estimate was identified.'}</p>
@@ -234,7 +234,7 @@ export default function DetailDrawer({
         {view === 'area' && (
           <section className="detail-view area-detail-view" aria-labelledby="area-detail-title">
             <div className="detail-section-title"><h3 id="area-detail-title">Settlement area</h3><span>{settlement.areaObservations.length} observation{settlement.areaObservations.length === 1 ? '' : 's'}</span></div>
-            <p className="area-detail-intro">Area estimates describe the published footprint or extent named for each period. Contemporary comparators are orientation aids, not additional measurements.</p>
+            <p className="area-detail-intro">Area estimates describe the published footprint or extent named for each period. Landmark comparisons give a sense of scale; they compare land area, not population or building height.</p>
             <div className="area-observation-list">
               {settlement.areaObservations.map((observation) => {
                 const known = observation.research_status === 'known'
@@ -249,11 +249,15 @@ export default function DetailDrawer({
                     {known ? (
                       <>
                         <p className="area-km2-value">{formatAreaEstimate(observation.area_km2_display)}</p>
-                        <p className="area-comparator-detail">
-                          {observation.comparator_source_url
-                            ? <a href={observation.comparator_source_url} target="_blank" rel="noopener noreferrer">{observation.comparator_text}<ArrowUpRight /></a>
-                            : observation.comparator_text}
-                        </p>
+                        <div className="area-comparator-detail">
+                          <p className="eyebrow">Picture the scale</p>
+                          {observation.comparators.map((comparator) => (
+                            <div className="area-landmark" key={comparator.sourceUrl}>
+                              <a href={comparator.sourceUrl} target="_blank" rel="noopener noreferrer">{comparator.text}<ArrowUpRight /></a>
+                              <p>Reference: {formatAreaEstimate(`${comparator.referenceAreaHectares} ha`)} · {comparator.basis}</p>
+                            </div>
+                          ))}
+                        </div>
                         <dl className="area-metadata-grid">
                           <div><dt>Area basis</dt><dd>{observation.area_basis}</dd></div>
                           <div><dt>Qualifier</dt><dd>{observation.qualifier}</dd></div>

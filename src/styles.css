@@ -513,7 +513,7 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); background: #f4e5bd; colo
 .area-row-values { display: block; color: var(--muted); font-size: 0.8rem; line-height: 1.3; }
 .area-row-period { margin-top: 2px; }
 .area-row-values { margin-top: 5px; }
-.area-row-values i { font-style: normal; }
+.area-row-comparators { margin-top: 5px; display: grid; gap: 3px; color: var(--oxblood); font-family: var(--font-body); font-size: 0.94rem; line-height: 1.3; }
 .area-bar-track { height: 9px; margin-top: 8px; display: block; overflow: hidden; background: var(--paper-deep); border: 1px solid var(--line); }
 .area-bar { min-width: 3px; height: 100%; display: block; background: var(--red); }
 .area-pin {
@@ -1085,9 +1085,13 @@ kbd { padding: 3px 7px; border: 1px solid var(--line); background: #f4e5bd; colo
 .area-observation-card.is-alternate > header span { background: var(--muted); }
 .area-observation-card.is-unknown > header { background: var(--paper); }
 .area-km2-value { padding: 9px 13px 0; margin: 0; color: var(--oxblood); font-weight: 700; }
-.area-comparator-detail { padding: 0 13px 11px; margin: 4px 0 0; font-family: var(--font-body); font-size: 1rem; }
-.area-comparator-detail a { display: inline-flex; align-items: center; gap: 4px; color: var(--red); text-underline-offset: 0.15em; }
-.area-comparator-detail svg { width: 13px; }
+.area-comparator-detail { padding: 10px 13px 13px; font-family: var(--font-body); font-size: 1rem; }
+.area-comparator-detail > .eyebrow { margin: 0 0 7px; }
+.area-landmark { padding: 9px 10px; background: var(--paper); border-left: 2px solid var(--red); }
+.area-landmark + .area-landmark { margin-top: 7px; }
+.area-comparator-detail a { display: inline-flex; align-items: baseline; gap: 4px; color: var(--red); text-underline-offset: 0.15em; }
+.area-comparator-detail svg { width: 13px; height: 13px; flex: 0 0 auto; }
+.area-landmark p { margin: 5px 0 0; color: var(--muted); font-family: var(--font-ui); font-size: 0.74rem; line-height: 1.45; }
 .area-metadata-grid { margin: 0 13px 12px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
 .area-metadata-grid div { padding: 9px 8px 9px 0; border-bottom: 1px solid var(--line); }
 .area-metadata-grid dt { color: var(--muted); font-family: var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase; }

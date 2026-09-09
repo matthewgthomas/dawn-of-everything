@@ -65,6 +65,13 @@ export interface Dataset {
 
 export type AreaResearchStatus = 'known' | 'unknown'
 
+export interface AreaComparator {
+  text: string
+  referenceAreaHectares: number
+  sourceUrl: string
+  basis: string
+}
+
 export interface AreaObservation {
   observation_id: string
   settlement_id: string
@@ -82,9 +89,7 @@ export interface AreaObservation {
   qualifier: string
   area_basis: string
   is_preferred: boolean
-  comparator_text: string
-  comparator_reference_area_ha: number | null
-  comparator_source_url: string
+  comparators: AreaComparator[]
   source_tier: string
   source_type: string
   source_citation: string
@@ -141,9 +146,16 @@ export const areaObservations: AreaObservation[] = csvParse(rawSettlementAreas).
   qualifier: row.qualifier ?? '',
   area_basis: row.area_basis ?? '',
   is_preferred: row.is_preferred?.toLocaleLowerCase() === 'true',
-  comparator_text: row.comparator_text ?? '',
-  comparator_reference_area_ha: parseOptionalNumber(row.comparator_reference_area_ha),
-  comparator_source_url: row.comparator_source_url ?? '',
+  comparators: ['comparator', 'secondary_comparator'].flatMap((prefix) => {
+    const referenceAreaHectares = parseOptionalNumber(row[`${prefix}_reference_area_ha`])
+    if (!row[`${prefix}_text`] || referenceAreaHectares === null) return []
+    return [{
+      text: row[`${prefix}_text`]!,
+      referenceAreaHectares,
+      sourceUrl: row[`${prefix}_source_url`] ?? '',
+      basis: row[`${prefix}_basis`] ?? '',
+    }]
+  }),
   source_tier: row.source_tier ?? '',
   source_type: row.source_type ?? '',
   source_citation: row.source_citation ?? '',

@@ -50,12 +50,38 @@ in a separate expandable group rather than being omitted.
 
 ## Comparators
 
-Every known observation gets an automatically scaled contemporary comparator.
-The closest useful reference is selected from FIFA's recommended 105 × 68 m
-football pitch, St James's Park (about 23 ha), Vatican City (44 ha), Hyde Park
-(about 142 ha), Central Park (843 acres), and Richmond Park (about 1,000 ha).
-Comparator source URLs are stored per row. Comparators are orientation aids, not
-additional measurements of the archaeological site.
+Every known observation gets two landmark comparisons from
+[`area_comparators.json`](area_comparators.json). The 13 references span the Eiffel
+Tower's base, NASA's Vehicle Assembly Building, the Great Pyramid's footprint,
+Alcatraz Island, the Taj Mahal gardens, Bangkok's Grand Palace grounds, Vatican
+City, Beijing's Forbidden City, the Temple of Heaven grounds, the Glastonbury
+Festival site, the park at Versailles, Heathrow Airport, and Burning Man's Black
+Rock City. Sources were checked on 9 September 2026; dated event boundaries are
+identified in each reference's `basis`.
+
+The generator selects the two closest areas by absolute log ratio: a reference
+half as large is as close as one twice as large. Selection uses the midpoint for
+ranges and the populated bound for one-sided estimates. Catalogue order breaks
+ties, so equal settlement sizes always get the same comparisons.
+
+The displayed text retains both ends of ranges and distinctions between `over`,
+`at least`, `approaching`, and `no larger than`. Single estimates within 5% of a
+simple fraction or multiple use phrases such as “about half the area” or “about
+the same area”; other ratios use two significant digits. These are approximate
+land-area comparisons, not additional archaeological measurements or claims
+about population, building volume, or whether one shape fits inside another.
+
+The original `comparator_*` columns hold the first comparison; matching
+`secondary_comparator_*` columns hold the second. Both include the text,
+reference area in hectares, source URL, and boundary description (`*_basis`).
+Unknown observations leave all comparator fields empty. The app shows both
+comparisons in the area list and overview, with source links and reference
+boundaries in each phase's Area details.
+
+Conversions use 1 acre = 0.40468564224 ha and 1 square mile = 258.9988110336 ha.
+The Eiffel Tower reference is calculated from its published 125 × 125 m base
+square. Reference areas retain conversion precision for calculation, while the
+app displays no more than three significant digits.
 
 ## Rebuilding and QA
 

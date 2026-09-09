@@ -47,6 +47,31 @@ describe('settlement-area data', () => {
     expect(taljanky?.area_hectares_display).toBe('320 ha')
   })
 
+  it('gives every measured phase two sourced landmarks and leaves unknown areas without comparisons', () => {
+    for (const observation of areaObservations) {
+      expect(observation.comparators).toHaveLength(observation.research_status === 'known' ? 2 : 0)
+      expect(new Set(observation.comparators.map((reference) => reference.sourceUrl)).size).toBe(observation.comparators.length)
+      for (const reference of observation.comparators) {
+        expect(reference.referenceAreaHectares).toBeGreaterThan(0)
+        expect(reference.sourceUrl).toMatch(/^https:\/\//)
+        expect(reference.basis.length).toBeGreaterThan(0)
+        expect(reference.text).not.toMatch(/football|Richmond Park|Hyde Park/)
+      }
+    }
+  })
+
+  it('keeps ranges and one-sided qualifications in both landmark comparisons', () => {
+    expect(settlement('Sannai Maruyama').areaObservations[0].comparators[0].text).toBe('About 0.8–0.91 × the area of Vatican City')
+    for (const [name, prefix] of [
+      ['Jericho', 'Approaching '],
+      ['Arslantepe', 'No more than about '],
+      ['Poverty Point', 'More than about '],
+      ['Liangchengzhen', 'At least about '],
+    ]) {
+      expect(settlement(name).areaObservations[0].comparators.every((reference) => reference.text.startsWith(prefix))).toBe(true)
+    }
+  })
+
   it('uses the populated bound for one-sided estimates and the latest phase for tied peaks', () => {
     const arslantepe = getPeakAreaObservation(settlement('Arslantepe').areaObservations)!
     expect(arslantepe.area_hectares_min).toBeNull()

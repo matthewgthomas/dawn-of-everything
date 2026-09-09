@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Build the research-only settlement-area dataset.
+"""Build the settlement-area dataset bundled into the application.
 
-This deliberately does not feed the application.  It combines measurements found
-in The Dawn of Everything with reputable archaeological and official sources, and
+Combines measurements found in The Dawn of Everything with reputable sources and
 adds an explicit unknown row wherever no defensible settlement footprint was found.
 """
 
 from __future__ import annotations
 
 import csv
+import json
+import math
 from pathlib import Path
 
 
@@ -18,12 +19,7 @@ OUTPUT = ROOT / "data" / "research" / "settlement_areas.csv"
 
 BOOK = "Graeber, David, and David Wengrow. The Dawn of Everything (2021)."
 BOOK_PATH = "book/The_Dawn_of_Everything.txt"
-FIFA_URL = "https://publications.fifa.com/de/football-stadiums-guidelines/technical-guideline/stadium-guidelines/pitch-dimensions-and-surrounding-areas/"
-ST_JAMES_URL = "https://www.royalparks.org.uk/visit/parks/st-jamess-park/faqs"
-VATICAN_URL = "https://www.vaticanstate.va/en/state-and-government/general-informations/geography.html"
-HYDE_URL = "https://www.royalparks.org.uk/visit/parks/hyde-park/faqs"
-CENTRAL_PARK_URL = "https://www.nps.gov/places/central-park.htm"
-RICHMOND_URL = "https://www.royalparks.org.uk/visit/parks/richmond-park/faqs"
+COMPARATORS = json.loads((ROOT / "data" / "research" / "area_comparators.json").read_text(encoding="utf-8"))
 
 observations: list[dict[str, object]] = []
 
@@ -226,33 +222,51 @@ def area_display(row: dict[str, object], scale: float, unit: str) -> str:
     return f"{prefixes.get(q, '')}{display_num(value)} {unit}"
 
 
-def comparator(row: dict[str, object]) -> tuple[str, str, str]:
+def comparator_text(row: dict[str, object], reference: dict[str, object]) -> str:
+    """Use readable approximations without losing ranges or one-sided bounds."""
+    lo, hi = row["area_hectares_min"], row["area_hectares_max"]
+    ref, name = float(reference["area_ha"]), reference["name"]
+    if lo is not None and hi is not None and lo != hi:
+        return f"About {float(lo) / ref:.2g}–{float(hi) / ref:.2g} × the area of {name}"
+    ratio = float(lo if lo is not None else hi) / ref
+    if lo is None or hi is None:
+        prefix = {
+            "over": "More than about",
+            "at least": "At least about",
+            "approaching": "Approaching",
+            "no larger than": "No more than about",
+        }.get(str(row["qualifier"]), "At least about" if hi is None else "No more than about")
+        return f"{prefix} {ratio:.2g} × the area of {name}"
+    for fraction, phrase in [
+        (0.25, "a quarter of the area of"),
+        (1 / 3, "a third of the area of"),
+        (0.5, "half the area of"),
+        (2 / 3, "two-thirds of the area of"),
+        (0.75, "three-quarters of the area of"),
+        (1, "the same area as"),
+        (2, "twice the area of"),
+        (3, "three times the area of"),
+    ]:
+        if math.isclose(ratio, fraction, rel_tol=0.05):
+            return f"About {phrase} {name}"
+    return f"About {ratio:.2g} × the area of {name}"
+
+
+def comparators(row: dict[str, object]) -> list[dict[str, object]]:
     lo = row["area_hectares_min"]
     hi = row["area_hectares_max"]
     if lo is None and hi is None:
-        return "Unknown — no defensible area estimate", "", ""
+        return []
     if lo is None:
         value = float(hi)
     elif hi is None:
         value = float(lo)
     else:
         value = (float(lo) + float(hi)) / 2
-    if value < 15:
-        name, ref, url = "FIFA-recommended football pitches", 0.714, FIFA_URL
-    elif value < 35:
-        name, ref, url = "× St James's Park", 23, ST_JAMES_URL
-    elif value < 80:
-        name, ref, url = "× Vatican City", 44, VATICAN_URL
-    elif value < 230:
-        name, ref, url = "× Hyde Park", 142, HYDE_URL
-    elif value < 600:
-        name, ref, url = "× Central Park", 341.151, CENTRAL_PARK_URL
-    else:
-        name, ref, url = "× Richmond Park", 1000, RICHMOND_URL
-    ratio = value / ref
-    ratio_text = f"{ratio:.1f}" if ratio < 10 else f"{ratio:.0f}"
-    prefix = "At least " if hi is None else ("No more than " if lo is None else "About ")
-    return f"{prefix}{ratio_text} {name}", display_num(ref), url
+    # Log distance treats half-size and double-size references equally. Stable
+    # catalogue order breaks ties, so the same area always gets the same pair.
+    nearest = sorted(COMPARATORS, key=lambda ref: abs(math.log(value / float(ref["area_ha"]))))[:2]
+    return [{**reference, "text": comparator_text(row, reference)} for reference in nearest]
 
 
 def main() -> None:
@@ -334,10 +348,13 @@ def main() -> None:
             row["area_km2_min"] = None if row["area_hectares_min"] is None else float(row["area_hectares_min"]) / 100
             row["area_km2_max"] = None if row["area_hectares_max"] is None else float(row["area_hectares_max"]) / 100
             row["area_km2_display"] = area_display(row, 0.01, "km²")
-            text, ref_area, ref_url = comparator(row)
-            row["comparator_text"] = text
-            row["comparator_reference_area_ha"] = ref_area
-            row["comparator_source_url"] = ref_url
+            references = comparators(row)
+            for index, prefix in enumerate(["comparator", "secondary_comparator"]):
+                reference = references[index] if references else None
+                row[f"{prefix}_text"] = reference["text"] if reference else ""
+                row[f"{prefix}_reference_area_ha"] = display_num(float(reference["area_ha"])) if reference else ""
+                row[f"{prefix}_source_url"] = reference["source_url"] if reference else ""
+                row[f"{prefix}_basis"] = reference["basis"] if reference else ""
             rows.append(row)
 
     fields = [
@@ -346,7 +363,9 @@ def main() -> None:
         "area_hectares_min", "area_hectares_max", "area_hectares_display",
         "area_km2_min", "area_km2_max", "area_km2_display", "qualifier",
         "area_basis", "is_preferred", "comparator_text",
-        "comparator_reference_area_ha", "comparator_source_url", "source_tier",
+        "comparator_reference_area_ha", "comparator_source_url", "comparator_basis",
+        "secondary_comparator_text", "secondary_comparator_reference_area_ha",
+        "secondary_comparator_source_url", "secondary_comparator_basis", "source_tier",
         "source_type", "source_citation", "source_url", "source_locator",
         "confidence", "notes",
     ]
